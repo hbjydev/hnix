@@ -114,14 +114,22 @@
     plugins = with pkgs; [
       # lsp
       vimPlugins.nvim-lspconfig
-      vimPlugins.fidget-nvim
       vimPlugins.nvim-treesitter.withAllGrammars
       vimPlugins.rust-tools-nvim
+      vimPlugins.fidget-nvim
+
+      # completion
+      vimPlugins.nvim-cmp
+      vimPlugins.cmp-path
+      vimPlugins.cmp-buffer
+      vimPlugins.cmp-nvim-lsp
+      vimPlugins.cmp-nvim-lsp-signature-help
 
       # telescope
       vimPlugins.plenary-nvim
       vimPlugins.popup-nvim
       vimPlugins.telescope-nvim
+      vimPlugins.nvim-treesitter-context
       vimPlugins.telescope-ui-select-nvim
 
       # theme
