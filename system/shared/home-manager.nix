@@ -131,9 +131,13 @@
       vimPlugins.telescope-nvim
       vimPlugins.nvim-treesitter-context
       vimPlugins.telescope-ui-select-nvim
+      vimPlugins.todo-comments-nvim
 
       # theme
       vimPlugins.oxocarbon-nvim
+      vimPlugins.indent-blankline-nvim
+      vimPlugins.comment-nvim
+      vimPlugins.gitsigns-nvim
 
       # other
       vimPlugins.nui-nvim
