@@ -47,8 +47,27 @@ in
     LC_TIME = "en_GB.UTF-8";
   };
 
+  nix = {
+    package = pkgs.nixUnstable;
+
+    settings = {
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+      trusted-users = [ "@wheel" ];
+      warn-dirty = false;
+    };
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
+    pulseaudio = if desktop then true else false;
   };
 
   networking = {
@@ -74,6 +93,32 @@ in
       home = "/home/${username}";
       isNormalUser = true;
       packages = with pkgs; [];
+    };
+  };
+
+  virtualisation = {
+    containerd = {
+      enable = true;
+      settings =
+        let
+          fullCNIPlugins = pkgs.buildEnv {
+            name = "full-cni";
+            paths = with pkgs; [ cni-plugin-flannel cni-plugins ];
+          };
+        in
+        {
+          plugins."io.containerd.grpc.v1.cri".cni = {
+            bin_dir = "${fullCNIPlugins}/bin";
+            conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+          };
+        };
+    };
+
+    podman = {
+      defaultNetwork.settings.dns_enabled = true;
+      dockerCompat = true;
+      enable = true;
+      extraPackages = with pkgs; [ zfs ];
     };
   };
 }
