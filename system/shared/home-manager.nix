@@ -2,6 +2,9 @@
 
 { pkgs, ... }:
 
+let
+    isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
+in
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -193,6 +196,21 @@
     ];
   };
 
+  programs.nnn = {
+    enable = true;
+    plugins = {
+      mappings = {
+        K = "preview-tui";
+      };
+      src = (pkgs.fetchFromGitHub {
+        owner = "jarun";
+        repo = "nnn";
+        rev = "18b5371d08e341ddefd2d023e3f7d201cac22b89";
+        sha256 = "sha256-L6p7bd5XXOHBZWei21czHC0N0Ne1k2YMuc6QhVdSxcQ=";
+      }) + "/plugins";
+    };
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -213,6 +231,8 @@
 
     shellAliases = {
       cat = "bat --paging=never";
+
+      ll = if isDarwin then "n" else "n -P K";
 
       dc = "docker compose";
       dcu = "docker compose up";
@@ -246,6 +266,22 @@
     initExtra = ''
       license () {
         curl -L "api.github.com/licenses/$1" | jq -r .body > LICENSE
+      }
+
+      n () {
+        if [ -n $NNNLVL ] && [ "$NNNLVL" -ge 1 ]; then
+          echo "nnn is already running"
+          return
+        fi
+
+        export NNN_TMPFILE="$HOME/.config/nnn/.lastd"
+
+        nnn -adeHo "$@"
+
+        if [ -f "$NNN_TMPFILE" ]; then
+          . "$NNN_TMPFILE"
+          rm -f "$NNN_TMPFILE" > /dev/null
+        fi
       }
     '';
   };
