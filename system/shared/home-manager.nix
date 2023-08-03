@@ -191,9 +191,7 @@
     };
 
     enableAutosuggestions = true;
-
-    # Need to update to 23.11 for this
-    # syntaxHighlighting.enable = true;
+    syntaxHighlighting.enable = true;
 
     shellAliases = {
       cat = "bat --paging=never";

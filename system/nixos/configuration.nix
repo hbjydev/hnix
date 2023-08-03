@@ -28,8 +28,8 @@ in
       };
     };
 
-    fonts = [
-      inputs.nixpkgs-unstable.legacyPackages."${pkgs.system}".intel-one-mono
+    packages = [
+      inputs.nixpkgs.legacyPackages."${pkgs.system}".intel-one-mono
     ];
   };
 
