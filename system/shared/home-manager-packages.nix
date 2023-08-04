@@ -6,6 +6,7 @@ with pkgs; [
   doppler
   fd
   glab
+  httpie
   jq
   just
   k9s
