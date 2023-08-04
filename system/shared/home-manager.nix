@@ -150,6 +150,7 @@ in
       vimPlugins.gitsigns-nvim
       vimPlugins.neo-tree-nvim
       vimPlugins.nvim-web-devicons
+      vimPlugins.editorconfig-nvim
 
       # my config
       inputs.self.packages.${pkgs.system}.hbjy-nvim
