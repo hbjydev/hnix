@@ -2,6 +2,7 @@
   description = "Hayden's Nix configuration, for NixOS and Darwin";
 
   inputs = {
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
     darwin.url = "github:lnl7/nix-darwin";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

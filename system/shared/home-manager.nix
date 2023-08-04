@@ -147,14 +147,14 @@ in
 
     extraPackages = with pkgs; [
       # languages
-      #jsonnet
+      jsonnet
       nodejs
       python310Full
       rustc
 
       # LSPs
       gopls
-      #jsonnet-language-server
+      jsonnet-language-server
       lua-language-server
       nil
       nodePackages."bash-language-server"
@@ -163,7 +163,7 @@ in
       nodePackages."pyright"
       nodePackages."typescript"
       nodePackages."typescript-language-server"
-      #nodePackages."vscode-langservers-extracted"
+      nodePackages."vscode-langservers-extracted"
       nodePackages."yaml-language-server"
       rust-analyzer
       terraform-ls

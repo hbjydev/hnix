@@ -11,6 +11,7 @@ with pkgs; [
   k9s
   kind
   kubectl
+  pyenv
   ripgrep
   terraform
   viddy
