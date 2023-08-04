@@ -59,7 +59,13 @@ in
       gpg = {
         format = "ssh";
         ssh = {
-          program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
+          program = if isDarwin then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" else "${pkgs._1password-gui}/share/1password/op-ssh-sign";
+        };
+      };
+
+      credential = {
+        "https://gitlab.zoodigital.com" = {
+          helper = "!/usr/bin/env glab auth git-credential";
         };
       };
     };
@@ -126,7 +132,6 @@ in
 
       # other
       vimPlugins.nui-nvim
-      vimPlugins.nui-nvim
       vimPlugins.gitsigns-nvim
       vimPlugins.neo-tree-nvim
 
@@ -142,14 +147,14 @@ in
 
     extraPackages = with pkgs; [
       # languages
-      jsonnet
+      #jsonnet
       nodejs
       python310Full
       rustc
 
       # LSPs
       gopls
-      jsonnet-language-server
+      #jsonnet-language-server
       lua-language-server
       nil
       nodePackages."bash-language-server"
@@ -158,7 +163,7 @@ in
       nodePackages."pyright"
       nodePackages."typescript"
       nodePackages."typescript-language-server"
-      nodePackages."vscode-langservers-extracted"
+      #nodePackages."vscode-langservers-extracted"
       nodePackages."yaml-language-server"
       rust-analyzer
       terraform-ls

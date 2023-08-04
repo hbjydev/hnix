@@ -7,8 +7,8 @@
     package = pkgs.nixUnstable;
 
     settings = {
-      auto-optimise-store = true;
-      builders-use-substitutes = true;
+      auto-optimise-store = false;
+      builders-use-substitutes = false;
       experimental-features = [ "nix-command" "flakes" ];
       substituters = [
         "https://nix-community.cachix.org"

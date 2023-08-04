@@ -4,6 +4,7 @@
 
 let
   configuration = import ./configuration.nix { inherit username; };
+  work = username == "haydenyoung";
 in
 inputs.darwin.lib.darwinSystem {
   inherit system;
@@ -14,7 +15,9 @@ inputs.darwin.lib.darwinSystem {
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.${username} = import ./home-manager.nix { inherit inputs; };
+      home-manager.users.${username} = import ./home-manager.nix {
+        inherit inputs work;
+      };
     }
   ];
 }
