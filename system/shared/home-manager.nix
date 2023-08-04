@@ -25,6 +25,10 @@ in
   programs.git = {
     enable = true;
 
+    ignores = [
+        ".direnv/" ".envrc" "__pycache__/" ".env" ".ropeproject/"
+    ];
+
     userName = "Hayden Young";
     userEmail = (
       if work
@@ -134,6 +138,7 @@ in
       vimPlugins.nui-nvim
       vimPlugins.gitsigns-nvim
       vimPlugins.neo-tree-nvim
+      vimPlugins.nvim-web-devicons
 
       # my config
       inputs.self.packages.${pkgs.system}.hbjy-nvim
@@ -218,6 +223,11 @@ in
 
     shellAliases = {
       cat = "bat --paging=never";
+
+      vi = "nvim";
+      vim = "nvim";
+
+      rebuild = "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\"";
 
       ll = if isDarwin then "n" else "n -P K";
 

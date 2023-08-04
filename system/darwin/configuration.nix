@@ -25,6 +25,14 @@
     config.allowUnfree = true;
   };
 
+  fonts = {
+    fontDir.enable = true;
+    fonts = [
+      # pkgs.intel-one-mono
+      pkgs.nerdfonts
+    ];
+  };
+
   programs.zsh.enable = true;
 
   services.nix-daemon.enable = true;
