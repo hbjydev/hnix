@@ -24,12 +24,12 @@ in
       enable = true;
 
       defaultFonts = {
-        monospace = [ "IntelOne Mono" ];
+        monospace = [ "IntoneMono Nerd Font" ];
       };
     };
 
     packages = [
-      inputs.nixpkgs.legacyPackages."${pkgs.system}".intel-one-mono
+      inputs.nixpkgs-master.legacyPackages."${pkgs.system}".nerdfonts
     ];
   };
 

@@ -209,7 +209,7 @@ return {
 
     max_fps = 120,
 
-    font = wezterm.font("IntelOne Mono"),
+    font = wezterm.font("IntoneMono Nerd Font"),
     font_size = 12,
 
     audible_bell = "Disabled",
