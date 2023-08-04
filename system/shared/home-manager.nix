@@ -65,7 +65,7 @@ in
 
       credential = {
         "https://gitlab.zoodigital.com" = {
-          helper = "!/usr/bin/env glab auth git-credential";
+          helper = "${pkgs.glab}/bin/glab auth git-credential";
         };
       };
     };
