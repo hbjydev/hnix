@@ -11,11 +11,17 @@ in
     LANG = "en_GB.UTF-8";
     LC_ALL = "en_GB.UTF-8";
     LC_CTYPE = "en_GB.UTF-8";
+    PATH = "$PATH:$GOPATH/bin";
   };
 
   home.stateVersion = "23.05";
 
   programs.bat.enable = true;
+
+  programs.go = {
+    enable = true;
+    goPath = "Development/language/go";
+  };
 
   programs.gh = {
     enable = true;
@@ -105,6 +111,9 @@ in
 
   programs.neovim = {
     enable = true;
+
+    viAlias = true;
+    vimAlias = true;
 
     plugins = with pkgs; [
       # lsp
@@ -261,6 +270,28 @@ in
     };
 
     initExtra = ''
+      kindc () {
+        cat <<EOF | kind create cluster --config=-
+      kind: Cluster
+      apiVersion: kind.x-k8s.io/v1alpha4
+      nodes:
+      - role: control-plane
+        kubeadmConfigPatches:
+        - |
+          kind: InitConfiguration
+          nodeRegistration:
+            kubeletExtraArgs:
+              node-labels: "ingress-ready=true"
+        extraPortMappings:
+        - containerPort: 80
+          hostPort: 8080
+          protocol: TCP
+        - containerPort: 443
+          hostPort: 8443
+          protocol: TCP
+      EOF
+      }
+
       license () {
         curl -L "api.github.com/licenses/$1" | jq -r .body > LICENSE
       }

@@ -15,5 +15,6 @@ with pkgs; [
   pyenv
   ripgrep
   terraform
+  tilt
   viddy
 ]

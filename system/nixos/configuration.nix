@@ -92,7 +92,7 @@ in
       extraGroups = [ "wheel" ] ++ pkgs.lib.optionals desktop [ "audio" ];
       home = "/home/${username}";
       isNormalUser = true;
-      packages = with pkgs; [];
+      packages = with pkgs; [ wl-clipboard ];
     };
   };
 
