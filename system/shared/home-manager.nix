@@ -48,6 +48,8 @@ in
         verbose = false;
       };
 
+      init.defaultBranch = "main";
+
       rebase = {
         autoStash = true;
       };
