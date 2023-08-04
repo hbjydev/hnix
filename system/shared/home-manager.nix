@@ -236,7 +236,11 @@ in
       vi = "nvim";
       vim = "nvim";
 
-      rebuild = "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\"";
+      rebuild = (
+        if isDarwin
+          then "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\""
+          else "sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'"
+      );
 
       ll = if isDarwin then "n" else "n -P K";
 

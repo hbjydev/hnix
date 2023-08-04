@@ -12,6 +12,7 @@ with pkgs; [
   k9s
   kind
   kubectl
+  podman-compose
   pyenv
   ripgrep
   terraform
