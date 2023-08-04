@@ -2,6 +2,7 @@
   description = "Hayden's Nix configuration, for NixOS and Darwin";
 
   inputs = {
+    darwin.url = "github:lnl7/nix-darwin";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
@@ -11,7 +12,7 @@
       systems = import ./system { inherit inputs; };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         packages = {
           hbjy-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -22,6 +23,13 @@
       };
 
       flake = {
+        darwinConfigurations = {
+          work-darwin = systems.mkDarwin {
+            system = "aarch64-darwin";
+            username = "haydenyoung";
+          };
+        };
+
         nixosConfigurations = {
           personal-nixos = systems.mkNixOS {
             desktop = true;

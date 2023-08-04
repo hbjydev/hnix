@@ -17,16 +17,6 @@ in
 
   programs.bat.enable = true;
 
-  programs.chromium = {
-    enable = true;
-    package = pkgs.chromium;
-    extensions = [
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
-      { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
-      { id = "gphhapmejobijbbhgpjhcjognlahblep"; } # GNOME Shell Integration
-    ];
-  };
-
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
@@ -91,14 +81,6 @@ in
         };
       };
     };
-  };
-
-  programs.wezterm = {
-    enable = true;
-    extraConfig = ''
-      ${builtins.readFile ../../config/wezterm/colorutils.lua}
-      ${builtins.readFile ../../config/wezterm/wezterm.lua}
-    '';
   };
 
   programs.k9s = {
