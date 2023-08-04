@@ -5,6 +5,7 @@ with pkgs; [
   awscli2
   doppler
   fd
+  glab
   jq
   just
   k9s
