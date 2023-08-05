@@ -28,6 +28,11 @@ in
     gitCredentialHelper.enable = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    matchBlocks."*".extraOptions.IdentityAgent = "~/.1password/agent.sock";
+  };
+
   programs.git = {
     enable = true;
 
