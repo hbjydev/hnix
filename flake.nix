@@ -25,6 +25,10 @@
 
       flake = {
         darwinConfigurations = {
+          personal-darwin = systems.mkDarwin {
+            system = "aarch64-darwin";
+            username = "hayden";
+          };
           work-darwin = systems.mkDarwin {
             system = "aarch64-darwin";
             username = "haydenyoung";
