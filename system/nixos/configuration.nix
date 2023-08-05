@@ -29,7 +29,7 @@ in
     };
 
     packages = [
-      inputs.nixpkgs-master.legacyPackages."${pkgs.system}".nerdfonts
+      pkgs.nerdfonts
     ];
   };
 

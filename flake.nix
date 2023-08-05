@@ -6,7 +6,6 @@
     darwin.url = "github:lnl7/nix-darwin";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
   outputs = inputs@{ flake-parts, self, ... }:
@@ -38,7 +37,7 @@
             system = "x86_64-linux";
             username = "hayden";
           };
-	    };
+	      };
       };
     };
 }
