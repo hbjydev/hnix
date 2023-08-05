@@ -4,6 +4,15 @@
 
 let
   isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
+  vim-just = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-just";
+    src = pkgs.fetchFromGitHub {
+      owner = "NoahTheDuke";
+      repo = "vim-just";
+      rev = "927b41825b9cd07a40fc15b4c68635c4b36fa923";
+      sha256 = "sha256-BmxYWUVBzTowH68eWNrQKV1fNN9d1hRuCnXqbEagRoY=";
+    };
+  };
 in
 {
   home.sessionVariables = {
@@ -167,6 +176,7 @@ in
       vimPlugins.neo-tree-nvim
       vimPlugins.nvim-web-devicons
       vimPlugins.editorconfig-nvim
+      vim-just
 
       # my config
       inputs.self.packages.${pkgs.system}.hbjy-nvim
