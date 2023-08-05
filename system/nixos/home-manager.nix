@@ -9,6 +9,18 @@ in
 {
   imports = if desktop then [ shared-config ] else [ shared-config ];
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+    "org/gnome/desktop/wm/keybindings" = {
+      switch-applications = [];
+      switch-applications-backwards = [];
+      switch-windows = [ "<Alt>Tab" ];
+      switch-windows-backwards = [ "<Shift><Alt>Tab" ];
+    };
+  };
+
   programs.chromium = {
     enable = true;
     package = pkgs.chromium;
