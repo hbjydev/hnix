@@ -9,7 +9,12 @@ in
 {
   imports = if desktop then [ shared-config ] else [ shared-config ];
 
-  dconf.settings = {
+  dconf.settings = if desktop then {
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = [
+      ];
+    };
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
@@ -19,7 +24,7 @@ in
       switch-windows = [ "<Alt>Tab" ];
       switch-windows-backwards = [ "<Shift><Alt>Tab" ];
     };
-  };
+  } else {};
 
   programs.chromium = {
     enable = true;
@@ -42,5 +47,8 @@ in
   home.packages = shared-packages ++ pkgs.lib.optionals desktop [
     pkgs.discord
     pkgs.spotify
+
+    pkgs.gnomeExtensions.dash-to-dock
+    pkgs.gnomeExtensions.appindicator
   ];
 }
