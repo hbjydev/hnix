@@ -3,7 +3,7 @@
 { pkgs, ... }:
 
 let
-    isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
+  isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
 in
 {
   home.sessionVariables = {
@@ -36,19 +36,26 @@ in
   programs.git = {
     enable = true;
 
-    ignores = if work then [
-      ".devenv/"
-      ".direnv/" ".envrc" "__pycache__/" ".env" ".ropeproject/"
-    ] else [
-      ".devenv/"
-      ".direnv/" "__pycache__/" ".ropeproject/"
-    ];
+    ignores =
+      if work then [
+        ".devenv/"
+        ".direnv/"
+        ".envrc"
+        "__pycache__/"
+        ".env"
+        ".ropeproject/"
+      ] else [
+        ".devenv/"
+        ".direnv/"
+        "__pycache__/"
+        ".ropeproject/"
+      ];
 
     userName = "Hayden Young";
     userEmail = (
       if work
-        then "hayden.young@zoodigital.com"
-        else "22327045+hbjydev@users.noreply.github.com"
+      then "hayden.young@zoodigital.com"
+      else "22327045+hbjydev@users.noreply.github.com"
     );
 
     extraConfig = {
@@ -73,8 +80,8 @@ in
 
       user.signingKey = (
         if work
-          then "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICdUGldjr+KGTEcc1XHlpNGRSvBeuPH2fBJz27+28Klw"
-          else "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkhuhfzyg7R+O62XSktHufGmmhy6FNDi/NuPPJt7bI+"
+        then "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICdUGldjr+KGTEcc1XHlpNGRSvBeuPH2fBJz27+28Klw"
+        else "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkhuhfzyg7R+O62XSktHufGmmhy6FNDi/NuPPJt7bI+"
       );
 
       gpg = {
@@ -250,8 +257,8 @@ in
 
       rebuild = (
         if isDarwin
-          then "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\""
-          else "sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'"
+        then "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\""
+        else "sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'"
       );
 
       ll = if isDarwin then "n" else "n -P K";
