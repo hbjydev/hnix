@@ -36,8 +36,12 @@ in
   programs.git = {
     enable = true;
 
-    ignores = [
-        ".direnv/" ".envrc" "__pycache__/" ".env" ".ropeproject/"
+    ignores = if work then [
+      ".devenv/"
+      ".direnv/" ".envrc" "__pycache__/" ".env" ".ropeproject/"
+    ] else [
+      ".devenv/"
+      ".direnv/" "__pycache__/" ".ropeproject/"
     ];
 
     userName = "Hayden Young";
