@@ -35,7 +35,7 @@
 
   homebrew = {
     enable = true;
-    brews = [ ];
+    brews = [ "mas" ];
     casks = [
       "discord" "alfred" "notion"
     ] ++ (
@@ -50,6 +50,7 @@
       "1Password for Safari" = 1569813296;
       Keynote = 409183694;
       "Yubico Authenticator" = 1497506650;
+      "Dark Reader for Safari" = 1438243180;
     };
   };
 
