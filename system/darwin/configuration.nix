@@ -64,6 +64,8 @@
     };
   };
 
+  environment.pathsToLink = ["/share/qemu"];
+
   programs.zsh.enable = true;
 
   services.nix-daemon.enable = true;

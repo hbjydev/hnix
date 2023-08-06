@@ -21,6 +21,11 @@ in
     LC_ALL = "en_GB.UTF-8";
     LC_CTYPE = "en_GB.UTF-8";
     PATH = "$PATH:$GOPATH/bin";
+    DOCKER_HOST = (
+      if isDarwin
+        then "unix:///Users/hayden/.local/share/containers/podman/machine/qemu/podman.sock"
+        else "$DOCKER_HOST"
+    );
   };
 
   home.stateVersion = "23.05";
