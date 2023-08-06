@@ -40,7 +40,11 @@
 
     casks = [
       "iterm2"
-      "discord" "alfred" "notion" "dbeaver-community"
+      "spotify"
+      "discord"
+      "alfred"
+      "notion"
+      "dbeaver-community"
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
