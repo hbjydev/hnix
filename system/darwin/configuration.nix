@@ -37,10 +37,19 @@
     enable = true;
     brews = [ ];
     casks = [
-      "discord"
-    ] ++ (if username == "haydenyoung" then [ "slack" ] else []);
+      "discord" "alfred" "notion"
+    ] ++ (
+      # Handle work environment desktop packages
+      if username == "haydenyoung"
+        then [
+          "microsoft-teams" "slack" # Comms
+        ]
+        else []
+    );
     masApps = {
       "1Password for Safari" = 1569813296;
+      Keynote = 409183694;
+      "Yubico Authenticator" = 1497506650;
     };
   };
 
