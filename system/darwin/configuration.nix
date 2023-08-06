@@ -44,7 +44,7 @@
       # Handle work environment desktop packages
       if username == "haydenyoung"
         then [
-          "microsoft-teams" "slack" # Comms
+          "microsoft-teams" "slack" "amazon-chime" # Comms
         ]
         else [
           "linear"
