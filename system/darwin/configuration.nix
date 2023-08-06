@@ -33,6 +33,15 @@
     ];
   };
 
+  homebrew = {
+    enable = true;
+    brews = [ ];
+    casks = [ ];
+    masApps = {
+      "1Password for Safari" = 1569813296;
+    };
+  };
+
   programs.zsh.enable = true;
 
   services.nix-daemon.enable = true;
