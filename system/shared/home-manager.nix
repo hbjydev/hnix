@@ -269,6 +269,8 @@ in
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      s = ''doppler run --config "nix" --project "$(whoami)"'';
+
       cat = "bat --paging=never";
 
       vi = "nvim";
