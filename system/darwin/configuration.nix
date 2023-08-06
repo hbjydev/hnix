@@ -39,6 +39,7 @@
     brews = [ "mas" ];
 
     casks = [
+      "iterm2"
       "discord" "alfred" "notion" "dbeaver-community"
     ] ++ (
       # Handle work environment desktop packages
