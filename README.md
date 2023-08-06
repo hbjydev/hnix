@@ -12,7 +12,7 @@ On NixOS, simply clone the repo to `/etc/nixos` and run:
 sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'
 ```
 
-### macOS
+### macOS
 
 On macOS, first install nix-darwin:
 
