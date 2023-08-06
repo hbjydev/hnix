@@ -35,9 +35,11 @@
 
   homebrew = {
     enable = true;
+
     brews = [ "mas" ];
+
     casks = [
-      "discord" "alfred" "notion"
+      "discord" "alfred" "notion" "linear"
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
@@ -46,6 +48,7 @@
         ]
         else []
     );
+
     masApps = {
       # Safari Extentions
       "1Password for Safari" = 1569813296;
