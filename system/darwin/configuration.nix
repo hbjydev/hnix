@@ -39,14 +39,16 @@
     brews = [ "mas" ];
 
     casks = [
-      "discord" "alfred" "notion" "linear"
+      "discord" "alfred" "notion"
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
         then [
           "microsoft-teams" "slack" # Comms
         ]
-        else []
+        else [
+          "linear"
+        ]
     );
 
     masApps = {
