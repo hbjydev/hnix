@@ -39,7 +39,7 @@
     brews = [ "mas" ];
 
     casks = [
-      "discord" "alfred" "notion"
+      "discord" "alfred" "notion" "dbeaver-community"
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
