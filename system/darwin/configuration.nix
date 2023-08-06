@@ -36,7 +36,9 @@
   homebrew = {
     enable = true;
     brews = [ ];
-    casks = [ ];
+    casks = [
+      "discord"
+    ] ++ (if username == "haydenyoung" then [ "slack" ] else []);
     masApps = {
       "1Password for Safari" = 1569813296;
     };
