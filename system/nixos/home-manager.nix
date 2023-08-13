@@ -47,6 +47,7 @@ in
   home.packages = shared-packages ++ pkgs.lib.optionals desktop [
     pkgs.discord
     pkgs.spotify
+    pkgs.slack
 
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.appindicator
