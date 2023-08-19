@@ -309,6 +309,8 @@ in
     };
 
     initExtra = ''
+      eval "$(k9s completion zsh)"
+
       kindc () {
         cat <<EOF | kind create cluster --config=-
       kind: Cluster
