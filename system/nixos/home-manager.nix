@@ -24,6 +24,9 @@ in
       switch-windows = [ "<Alt>Tab" ];
       switch-windows-backwards = [ "<Shift><Alt>Tab" ];
     };
+    "org/gnome/desktop/peripherals/mouse" = {
+      natural-scroll = true;
+    };
   } else {};
 
   programs.chromium = {
