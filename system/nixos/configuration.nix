@@ -20,6 +20,10 @@ in
   programs._1password-gui.polkitPolicyOwners = [username];
   programs._1password-gui.enable = true;
 
+  programs.steam = {
+    enable = true;
+  };
+
   fonts = {
     fontconfig = {
       enable = true;
