@@ -2,10 +2,18 @@
   description = "Hayden's Nix configuration, for NixOS and Darwin";
 
   inputs = {
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    darwin.url = "github:lnl7/nix-darwin";
-    home-manager.url = "github:nix-community/home-manager";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Use latest unstable 23.05 Nixpkgs
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2305.*.tar.gz";
+
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ flake-parts, self, ... }:
