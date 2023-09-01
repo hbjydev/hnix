@@ -28,7 +28,6 @@
   fonts = {
     fontDir.enable = true;
     fonts = [
-      # pkgs.intel-one-mono
       pkgs.nerdfonts
     ];
   };
