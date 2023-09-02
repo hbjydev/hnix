@@ -4,7 +4,7 @@
 
 let
   shared-config = import ../shared/home-manager.nix { inherit inputs work; };
-  shared-packages = import ../shared/home-manager-packages.nix { inherit pkgs; };
+  shared-packages = import ../shared/home-manager-packages.nix { inherit pkgs inputs; };
 in
 {
   imports = if desktop then [ shared-config ] else [ shared-config ];

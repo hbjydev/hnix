@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 with pkgs; [
   _1password
@@ -19,4 +19,6 @@ with pkgs; [
   terraform
   tilt
   viddy
+
+  inputs.fh.packages.${pkgs.system}.default # flakehub cli
 ]
