@@ -3,7 +3,7 @@
 
   inputs = {
     # Use latest unstable 23.05 Nixpkgs
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2305.*.tar.gz";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     darwin = {
       url = "github:lnl7/nix-darwin";

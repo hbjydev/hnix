@@ -96,7 +96,7 @@ in
     defaultUserShell = pkgs.zsh;
 
     users."${username}" = {
-      extraGroups = [ "wheel" ] ++ pkgs.lib.optionals desktop [ "audio" ];
+      extraGroups = [ "wheel" "docker" ] ++ pkgs.lib.optionals desktop [ "audio" ];
       home = "/home/${username}";
       isNormalUser = true;
       packages = with pkgs; [ wl-clipboard ];
@@ -121,11 +121,6 @@ in
         };
     };
 
-    podman = {
-      defaultNetwork.settings.dns_enabled = true;
-      dockerCompat = true;
-      enable = true;
-      extraPackages = with pkgs; [ zfs ];
-    };
+    docker.enable = true;
   };
 }
