@@ -216,11 +216,28 @@ in
       nodePackages."bash-language-server"
       nodePackages."diagnostic-languageserver"
       nodePackages."dockerfile-language-server-nodejs"
-      nodePackages."pyright"
+      #nodePackages."pyright"
       nodePackages."typescript"
       nodePackages."typescript-language-server"
       nodePackages."vscode-langservers-extracted"
       nodePackages."yaml-language-server"
+
+      python311Packages."python-lsp-server"
+
+      python311Packages."pyls-flake8"
+      python311Packages."flake8"
+
+      python311Packages."python-lsp-black"
+      python311Packages."black"
+
+      python311Packages."pyls-isort"
+      python311Packages."isort"
+
+      python311Packages."pylsp-mypy"
+      python311Packages."mypy"
+
+      python311Packages."pylsp-rope"
+
       rust-analyzer
       terraform-ls
 

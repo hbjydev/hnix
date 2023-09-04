@@ -79,17 +79,30 @@ local function init()
         },
       },
     },
-    pyright = {
+    pylsp = {
       settings = {
-        python = {
-          analysis = {
-            autoSearchPaths = true,
-            diagnosticMode = "workspace",
-            useLibraryCodeForTypes = true,
+        pylsp = {
+          plugins = {
+            flake8 = { enabled = true },
+            pycodestyle = { enabled = false },
+
+            pylsp_mypy = { report_progress = true },
+            black = { enabled = true },
           },
         },
       },
     },
+    -- pyright = {
+    --   settings = {
+    --     python = {
+    --       analysis = {
+    --         autoSearchPaths = true,
+    --         diagnosticMode = "workspace",
+    --         useLibraryCodeForTypes = true,
+    --       },
+    --     },
+    --   },
+    -- },
     terraformls = {},
     tsserver = {},
     yamlls = {
