@@ -39,11 +39,18 @@ in
 
   programs.ssh = {
     enable = true;
-    matchBlocks."*".extraOptions.IdentityAgent = (
-      if isDarwin
-        then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
-        else "~/.1password/agent.sock"
-    );
+    matchBlocks."*".extraOptions = {
+      IdentityAgent = (
+        if isDarwin
+          then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
+          else "~/.1password/agent.sock"
+      );
+      ControlMaster = "auto";
+      ControlPath = "/tmp/%r@%h:%p";
+      ControlPersist = "10m";
+      Compression = "yes";
+      User = if work then "hyoung" else "";
+    };
   };
 
   programs.git = {
@@ -57,6 +64,8 @@ in
         "__pycache__/"
         ".env"
         ".ropeproject/"
+        "flake.nix"
+        "flake.lock"
       ] else [
         ".devenv/"
         ".direnv/"
@@ -306,6 +315,8 @@ in
       gl = "git log --pretty=oneline --abbrev-commit";
 
       ssh = "TERM=xterm-256color ssh";
+
+      watch = "viddy";
     };
 
     initExtra = ''
