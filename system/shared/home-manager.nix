@@ -339,6 +339,10 @@ in
           rm -f "$NNN_TMPFILE" > /dev/null
         fi
       }
+
+      export PYENV_ROOT="$HOME/.pyenv"
+      command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+      eval "$(pyenv init -)"
     '';
   };
 }
