@@ -13,6 +13,8 @@ let
       sha256 = "sha256-BmxYWUVBzTowH68eWNrQKV1fNN9d1hRuCnXqbEagRoY=";
     };
   };
+
+  aliases = (import ./aliases.nix) isDarwin;
 in
 {
   home.sessionVariables = {
@@ -55,6 +57,8 @@ in
 
   programs.git = {
     enable = true;
+
+    aliases = aliases.git;
 
     ignores =
       if work then [
@@ -289,52 +293,7 @@ in
     enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
 
-    shellAliases = {
-      s = ''doppler run --config "nix" --project "$(whoami)"'';
-
-      cat = "bat --paging=never";
-
-      vi = "nvim";
-      vim = "nvim";
-
-      rebuild = (
-        if isDarwin
-        then "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\""
-        else "sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'"
-      );
-
-      ll = if isDarwin then "n" else "n -P K";
-
-      dc = "docker compose";
-      dcu = "docker compose up";
-      dcd = "docker compose down";
-      dcl = "docker compose logs";
-      dclf = "docker compose logs -f";
-      dcc = "docker compose cp";
-      dci = "docker compose inspect";
-      dce = "docker compose exec";
-      dcr = "docker compose restart";
-
-      k = "kubectl";
-      kw = "kubectl -o wide";
-      ky = "kubectl -o yaml";
-      kj = "kubectl -o json";
-
-      tf = "terraform";
-
-      gs = "git status -s";
-      ga = "git add";
-      gc = "git commit";
-      gch = "git checkout";
-      gb = "git branch";
-      gp = "git pull";
-      gpp = "git push";
-      gl = "git log --pretty=oneline --abbrev-commit";
-
-      ssh = "TERM=xterm-256color ssh";
-
-      watch = "viddy";
-    };
+    shellAliases = aliases.zsh;
 
     initExtra = ''
       eval "$(k9s completion zsh)"
