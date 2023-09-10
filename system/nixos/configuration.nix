@@ -1,12 +1,16 @@
 { inputs, desktop, username }:
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   configuration-desktop = import ./configuration-desktop.nix { inherit username; };
 in
 {
-  imports = if desktop then [ configuration-desktop ] else [ ];
+  imports = if desktop then [
+    configuration-desktop
+  ] else [
+
+  ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -15,6 +19,12 @@ in
       systemd-boot.enable = true;
     };
   };
+
+  services.sabnzbd.enable = true;
+  services.prowlarr.enable = true;
+  services.radarr.enable = true;
+  services.sonarr.enable = true;
+  services.plex.enable = true;
 
   programs._1password.enable = true;
   programs._1password-gui.polkitPolicyOwners = [username];
