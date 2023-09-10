@@ -51,6 +51,7 @@ in
     pkgs.discord
     pkgs.spotify
     pkgs.slack
+    pkgs.handbrake
 
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.appindicator
