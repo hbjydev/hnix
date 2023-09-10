@@ -17,6 +17,9 @@ isDarwin:
 
     l = "log --pretty=oneline --abbrev-commit";
 
+    d = "diff";
+    ds = "diff --staged";
+
     wt = "worktree";
   };
 
