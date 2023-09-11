@@ -215,7 +215,7 @@ return {
     audible_bell = "Disabled",
 
     enable_tab_bar = true,
-    enable_wayland = true,
+    enable_wayland = false,
 
     window_background_opacity = 1,
     window_close_confirmation = "NeverPrompt",
