@@ -281,6 +281,13 @@ in
     nix-direnv.enable = true;
   };
 
+  programs.eza = {
+    enable = true;
+    enableAliases = true;
+    icons = true;
+    git = true;
+  };
+
   programs.zsh = {
     enable = true;
 

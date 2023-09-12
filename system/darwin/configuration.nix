@@ -28,7 +28,9 @@
   fonts = {
     fontDir.enable = true;
     fonts = [
-      pkgs.nerdfonts
+      (pkgs.nerdfonts.override {
+        fonts = [ "IntelOneMono" ];
+      })
     ];
   };
 

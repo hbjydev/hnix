@@ -37,8 +37,6 @@ isDarwin:
       else "sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'"
     );
 
-    ll = if isDarwin then "n" else "n -P K";
-
     dc = "docker compose";
     dcu = "docker compose up";
     dcd = "docker compose down";
