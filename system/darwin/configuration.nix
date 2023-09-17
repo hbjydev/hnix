@@ -46,6 +46,7 @@
       "alfred"
       "notion"
       "dbeaver-community"
+      "arc"
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
