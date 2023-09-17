@@ -5,6 +5,10 @@
     # Use latest unstable 23.05 Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    # Include `nxs` (nixpkgs-stable) and `nxt` (nixpkgs-trunk)
+    stable.url = "https://flakehub.com/f/NixOS/nixpkgs/*.tar.gz";
+    trunk.url = "github:nixos/nixpkgs";
+
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";

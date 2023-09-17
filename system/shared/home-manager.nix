@@ -304,4 +304,10 @@ in
 
     initExtra = builtins.readFile ../../config/zsh/extraInit.zsh;
   };
+
+  nix.registry = {
+    nx.flake = inputs.nixpkgs;
+    nxs.flake = inputs.stable;
+    nxt.flake = inputs.trunk;
+  };
 }
