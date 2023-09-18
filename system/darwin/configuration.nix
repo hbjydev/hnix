@@ -40,13 +40,14 @@
     brews = [ "mas" ];
 
     casks = [
-      "iterm2"
-      "spotify"
-      "discord"
       "alfred"
-      "notion"
-      "dbeaver-community"
       "arc"
+      "dbeaver-community"
+      "discord"
+      "iterm2"
+      "notion"
+      "obsidian"
+      "spotify"
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
