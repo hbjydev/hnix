@@ -1,9 +1,5 @@
 local function init()
   vim.g.mapleader = " "
-  -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) -- replaced by nvimtree module
-
-  --vim.keymap.set("n", "J", ":m '>+1<CR>gv=gv")
-  --vim.keymap.set("n", "K", ":m '<-2<CR>gv=gv")
 
   vim.keymap.set("n", "Y", "yg$")
   vim.keymap.set("n", "J", "mzJ`z")
@@ -40,9 +36,13 @@ local function init()
 
   vim.keymap.set("n", "<leader>pv", ":Neotree toggle<CR>")
 
+  vim.keymap.set("n", "<leader>nsw", "<cmd>Telescope neorg switch_workspace<CR>")
+  vim.keymap.set("n", "<leader>nf", "<cmd>Telescope neorg find_norg_files<CR>")
+
   vim.keymap.set("n", "<leader><space>", ":Telescope buffers<CR>")
   vim.keymap.set("n", "<leader>pf", ":Telescope find_files<CR>")
   vim.keymap.set("n", "<C-p>", ":Telescope git_files<CR>")
+
   vim.keymap.set("n", "<leader>ps", function()
     require('telescope.builtin').grep_string({
       search = vim.fn.input { prompt = "Grep > " },
