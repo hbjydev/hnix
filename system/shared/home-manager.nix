@@ -193,6 +193,7 @@ in
       vimPlugins.neo-tree-nvim
       vimPlugins.nvim-web-devicons
       vimPlugins.editorconfig-nvim
+      vimPlugins.neorg
       vim-just
 
       # my config
