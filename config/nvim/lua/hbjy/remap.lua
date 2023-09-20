@@ -36,8 +36,10 @@ local function init()
 
   vim.keymap.set("n", "<leader>pv", ":Neotree toggle<CR>")
 
-  vim.keymap.set("n", "<leader>nsw", "<cmd>Telescope neorg switch_workspace<CR>")
+  vim.keymap.set("n", "<leader>nws", "<cmd>Telescope neorg switch_workspace<CR>")
   vim.keymap.set("n", "<leader>nf", "<cmd>Telescope neorg find_norg_files<CR>")
+  vim.keymap.set("n", "<leader>nt", "<cmd>Neorg journal today<CR>")
+  vim.keymap.set("n", "<leader>ny", "<cmd>Neorg journal yesterday<CR>")
 
   vim.keymap.set("n", "<leader><space>", ":Telescope buffers<CR>")
   vim.keymap.set("n", "<leader>pf", ":Telescope find_files<CR>")
