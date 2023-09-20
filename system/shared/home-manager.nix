@@ -194,6 +194,8 @@ in
       vimPlugins.nvim-web-devicons
       vimPlugins.editorconfig-nvim
       vimPlugins.neorg
+      vimPlugins.neorg-telescope
+      vimPlugins.zen-mode-nvim
       vim-just
 
       # my config
