@@ -44,6 +44,7 @@
       "arc"
       "dbeaver-community"
       "discord"
+      "httpie"
       "iterm2"
       "notion"
       "obsidian"
