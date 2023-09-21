@@ -20,11 +20,15 @@ in
     };
   };
 
+  services.xserver.displayManager.gdm.autoSuspend = false;
+
   services.sabnzbd.enable = true;
   services.prowlarr.enable = true;
   services.radarr.enable = true;
   services.sonarr.enable = true;
   services.plex.enable = true;
+
+  services.openssh.enable = true;
 
   programs._1password.enable = true;
   programs._1password-gui.polkitPolicyOwners = [username];
