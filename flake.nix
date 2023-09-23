@@ -62,6 +62,15 @@
             desktop = true;
             system = "x86_64-linux";
             username = "hayden";
+            hostname = "hayden-pc";
+            options = [ "docker" "downloads" "ssh" "x" ];
+          };
+          nixnuc-nixos = systems.mkNixOS {
+            desktop = true;
+            system = "x86_64-linux";
+            username = "hayden";
+            hostname = "nixnuc";
+            options = [ "docker" "downloads" "ssh" "x" ];
           };
 	      };
       };

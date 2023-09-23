@@ -1,10 +1,12 @@
 { inputs }:
 
-{ desktop, system, username }:
+{ desktop, system, username, hostname, options }:
 
 let
-  hardware-configuration = import ./hardware/${system}.nix;
-  configuration = import ./configuration.nix { inherit inputs desktop username; };
+  hardware-configuration = import ./hardware/${hostname}.nix;
+  configuration = import ./configuration.nix {
+    inherit inputs desktop username hostname options;
+  };
   work = username == "haydenyoung";
 in
 inputs.nixpkgs.lib.nixosSystem {
