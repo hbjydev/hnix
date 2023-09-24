@@ -20,7 +20,7 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users."${username}" = import ./home-manager.nix {
-        inherit desktop inputs work;
+        inherit desktop inputs work username;
       };
     }
   ];
