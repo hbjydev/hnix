@@ -9,8 +9,6 @@ in
 {
   imports = if desktop then [ shared-config ] else [ shared-config ];
 
-  home.file.".background-img".source = ../../img/lain.jpg;
-
   dconf.settings = if desktop then {
     "org/gnome/desktop/background" = {
       "picture-uri" = "/home/${username}/.background-img";
