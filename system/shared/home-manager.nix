@@ -1,14 +1,18 @@
 { inputs, work }:
 
 { pkgs, ... }:
-
 let
   isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
   aliases = (import ./aliases.nix) isDarwin;
-  neovim = (import ./modules/neovim.nix { inherit inputs; });
 in
 {
-  imports = [ neovim ];
+  imports = [
+    (import ./modules/ssh.nix { inherit work isDarwin; })
+    (import ./modules/neovim.nix { inherit inputs; })
+    (import ./modules/git.nix { inherit work isDarwin aliases; })
+    (import ./modules/zsh.nix { inherit aliases; })
+    ./modules/dev.nix
+  ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -21,177 +25,6 @@ in
   home.file.".background-img".source = ../../img/lain.jpg;
 
   home.stateVersion = "23.05";
-
-  programs.bat.enable = true;
-
-  programs.go = {
-    enable = true;
-    goPath = "Development/language/go";
-  };
-
-  programs.gh = {
-    enable = true;
-    gitCredentialHelper.enable = true;
-  };
-
-  programs.ssh = {
-    enable = true;
-    matchBlocks."*".extraOptions = {
-      IdentityAgent = (
-        if isDarwin
-        then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
-        else "~/.1password/agent.sock"
-      );
-      ControlMaster = "auto";
-      ControlPath = "/tmp/%r@%h:%p";
-      ControlPersist = "10m";
-      Compression = "yes";
-      User = if work then "hyoung" else "";
-    };
-  };
-
-  programs.git = {
-    enable = true;
-
-    aliases = aliases.git;
-
-    ignores =
-      if work then [
-        ".devenv/"
-        ".direnv/"
-        ".envrc"
-        "__pycache__/"
-        ".env"
-        ".ropeproject/"
-        "flake.nix"
-        "flake.lock"
-      ] else [
-        ".devenv/"
-        ".direnv/"
-        "__pycache__/"
-        ".ropeproject/"
-      ];
-
-    userName = "Hayden Young";
-    userEmail = (
-      if work
-      then "hayden.young@zoodigital.com"
-      else "22327045+hbjydev@users.noreply.github.com"
-    );
-
-    extraConfig = {
-      commit = {
-        gpgsign = true;
-        verbose = false;
-      };
-
-      init.defaultBranch = "main";
-
-      rebase = {
-        autoStash = true;
-      };
-
-      push = {
-        autoSetupRemote = true;
-        default = "simple";
-      };
-      pull = {
-        rebase = true;
-      };
-
-      user.signingKey = (
-        if work
-        then "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICdUGldjr+KGTEcc1XHlpNGRSvBeuPH2fBJz27+28Klw"
-        else "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkhuhfzyg7R+O62XSktHufGmmhy6FNDi/NuPPJt7bI+"
-      );
-
-      gpg = {
-        format = "ssh";
-        ssh = {
-          program = if isDarwin then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" else "${pkgs._1password-gui}/share/1password/op-ssh-sign";
-        };
-      };
-
-      credential = {
-        "https://gitlab.zoodigital.com" = {
-          helper = "${pkgs.glab}/bin/glab auth git-credential";
-        };
-      };
-    };
-
-    delta = {
-      enable = true;
-      options = {
-        interactive = {
-          keep-plus-minus-markers = false;
-        };
-        decorations = {
-          commit-decoration-style = "blue ol";
-          commit-style = "raw";
-          file-style = "omit";
-          hunk-header-decoration-style = "blue box";
-          hunk-header-file-style = "red";
-          hunk-header-line-number-style = "#067a00";
-          hunk-header-style = "file line-number syntax";
-        };
-      };
-    };
-  };
-
-  programs.k9s = {
-    enable = true;
-    settings = {
-      k9s = {
-        logoless = true;
-      };
-    };
-    skin = (builtins.readFile ../../config/k9s/skin.yml);
-  };
-
-  programs.nnn = {
-    enable = true;
-    plugins = {
-      mappings = {
-        K = "preview-tui";
-      };
-      src = (pkgs.fetchFromGitHub {
-        owner = "jarun";
-        repo = "nnn";
-        rev = "18b5371d08e341ddefd2d023e3f7d201cac22b89";
-        sha256 = "sha256-L6p7bd5XXOHBZWei21czHC0N0Ne1k2YMuc6QhVdSxcQ=";
-      }) + "/plugins";
-    };
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.eza = {
-    enable = true;
-    enableAliases = true;
-    icons = true;
-    git = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "robbyrussell";
-    };
-
-    enableAutosuggestions = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = aliases.zsh;
-
-    initExtra = builtins.readFile ../../config/zsh/extraInit.zsh;
-  };
 
   nix.registry = {
     nx.flake = inputs.nixpkgs;
