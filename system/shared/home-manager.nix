@@ -11,6 +11,7 @@ in
     (import ./modules/neovim.nix { inherit inputs; })
     (import ./modules/git.nix { inherit work isDarwin aliases; })
     (import ./modules/zsh.nix { inherit aliases; })
+    (import ./modules/nix.nix { inherit inputs; })
     ./modules/dev.nix
   ];
 
@@ -25,10 +26,4 @@ in
   home.file.".background-img".source = ../../img/lain.jpg;
 
   home.stateVersion = "23.05";
-
-  nix.registry = {
-    nx.flake = inputs.nixpkgs;
-    nxs.flake = inputs.stable;
-    nxt.flake = inputs.trunk;
-  };
 }
