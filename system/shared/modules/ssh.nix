@@ -13,7 +13,7 @@
       ControlPath = "/tmp/%r@%h:%p";
       ControlPersist = "10m";
       Compression = "yes";
-      User = if work then "hyoung" else "";
+      User = if work then "hyoung" else "hayden";
     };
   };
 }

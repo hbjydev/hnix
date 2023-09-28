@@ -14,6 +14,7 @@
   boot.extraModulePackages = [ ];
 
   services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+  services.rpcbind.enable = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/f8948e68-b255-4173-b824-6d7f10d21c39";
@@ -25,9 +26,21 @@
       fsType = "vfat";
     };
 
-  fileSystems."/storage" =
+  fileSystems."/local" =
     { device = "/dev/disk/by-uuid/20cbe703-a000-4b7d-98f0-eae0ca6571e3";
       fsType = "ext4";
+    };
+
+  fileSystems."/storage" =
+    { device = "192.168.0.2:/volume1/media";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" ];
+    };
+
+  fileSystems."/downloads" =
+    { device = "192.168.0.2:/volume1/downloads";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" ];
     };
 
   swapDevices =
