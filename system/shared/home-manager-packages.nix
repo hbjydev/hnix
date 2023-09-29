@@ -22,5 +22,4 @@ with pkgs; [
   viddy
 
   inputs.fh.packages.${pkgs.system}.default # flakehub cli
-  inputs.nix-index.packages.${pkgs.system}.default
 ]

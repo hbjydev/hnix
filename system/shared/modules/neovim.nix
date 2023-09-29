@@ -20,6 +20,7 @@ in
 
     viAlias = true;
     vimAlias = true;
+    vimdiffAlias = true;
 
     plugins = with pkgs; [
       # lsp
