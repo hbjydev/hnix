@@ -119,17 +119,5 @@
 
   virtualisation.oci-containers = {
     backend = "docker";
-    containers = {
-      twingate-connector = {
-        autoStart = true;
-        image = "twingate/connector:1";
-        environment = {
-          TWINGATE_NETWORK = "kuraudo";
-          TWINGATE_ACCESS_TOKEN = "eyJhbGciOiJFUzI1NiIsImtpZCI6IjZmd1FHNV81TGRnQVBxcGM0UW1GNWprWk84X1dWSXpOVXIxZkZlNEkxNkUiLCJ0eXAiOiJEQVQifQ.eyJudCI6IkFOIiwiYWlkIjoiMTU3Mjk1IiwiZGlkIjoiOTQ2MTAwIiwianRpIjoiMTNmOGVhNDEtZWViYy00ZTViLWE3NzYtOWRjYWY2ZTRmMGI3IiwiaXNzIjoidHdpbmdhdGUiLCJhdWQiOiJrdXJhdWRvIiwiZXhwIjoxNjk1NDA5MTMwLCJpYXQiOjE2OTU0MDU1MzAsInZlciI6IjQiLCJ0aWQiOiI1Mzc1NyIsInJudyI6MTY5NTQwNTgzMCwicm5ldGlkIjoiNjY4MzUifQ.0bYn4vQFrdIssKx2GGFPQmup_Z_PuasEFXvI9WoMbqDpDZ8zASFyTCYBdMOIBgOk5ofh0s3bg-nUcAmiqYsJ3w";
-          TWINGATE_REFRESH_TOKEN = "vsWtWy1z0envHdz8nJ7ot3E5ow_gLf7Z5Emc20IsGQxY3Fx2PWB4KV-y0sQDlOJT5LnPBryTogiXgGGjsW3jY4WdwfsU3NTC54ZUwpg7hjABeX0qfuGjPIxKZxdZeX1ZQcIvjA";
-          TWINGATE_LABEL_HOSTNAME = "nixnuc-nixos";
-        };
-      };
-    };
   };
 }
