@@ -16,14 +16,18 @@
     nix-direnv.enable = true;
   };
 
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    enableTransience = true;
+
+    settings = {
+      directory.home_symbol = "🏠";
+    };
+  };
+
   programs.zsh = {
     enable = true;
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "robbyrussell";
-    };
 
     enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
