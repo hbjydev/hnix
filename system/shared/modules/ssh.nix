@@ -1,5 +1,4 @@
-{ work, isDarwin }:
-{ ... }:
+{ work, isDarwin, ... }:
 {
   programs.ssh = {
     enable = true;

@@ -1,6 +1,4 @@
-{ inputs }:
-
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let
   vim-just = pkgs.vimUtils.buildVimPlugin {

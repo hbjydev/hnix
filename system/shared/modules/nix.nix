@@ -1,5 +1,4 @@
-{ inputs }:
-{ ... }:
+{ inputs, ... }:
 {
   programs.nix-index.enable = true;
 

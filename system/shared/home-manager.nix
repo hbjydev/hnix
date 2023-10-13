@@ -6,12 +6,14 @@ let
   aliases = (import ./aliases.nix) isDarwin;
 in
 {
+  _module.args = { inherit inputs work isDarwin aliases; };
+
   imports = [
-    (import ./modules/ssh.nix { inherit work isDarwin; })
-    (import ./modules/neovim.nix { inherit inputs; })
-    (import ./modules/git.nix { inherit work isDarwin aliases; })
-    (import ./modules/zsh.nix { inherit aliases; })
-    (import ./modules/nix.nix { inherit inputs; })
+    ./modules/ssh.nix
+    ./modules/neovim.nix
+    ./modules/git.nix
+    ./modules/zsh.nix
+    ./modules/nix.nix
     ./modules/dev.nix
   ];
 

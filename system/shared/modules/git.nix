@@ -1,5 +1,4 @@
-{ work, isDarwin, aliases }:
-{ pkgs, ... }:
+{ work, isDarwin, aliases, pkgs, ... }:
 {
   programs.gh = {
     enable = true;

@@ -1,5 +1,4 @@
-{ aliases }:
-{ ... }:
+{ aliases, ... }:
 {
   programs.bat.enable = true;
 
