@@ -21,6 +21,13 @@
     desktopManager.gnome.enable = true;
   };
 
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "/run/current-system/sw/bin/gnome-session";
+  };
+
+  environment.systemPackages = with pkgs; [ gnome.gnome-session ];
+
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour

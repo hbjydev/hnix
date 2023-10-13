@@ -3,3 +3,6 @@ nixos profile command:
 
 darwin profile command:
   darwin-rebuild {{ command }} --flake ".#{{ profile }}-darwin"
+
+update:
+  nix flake update

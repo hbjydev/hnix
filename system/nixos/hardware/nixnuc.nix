@@ -13,7 +13,7 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+  services.xserver.videoDrivers = [ "modesetting" ];
   services.rpcbind.enable = true;
 
   fileSystems."/" =
@@ -32,13 +32,13 @@
     };
 
   fileSystems."/storage" =
-    { device = "192.168.0.2:/volume1/media";
+    { device = "192.168.4.2:/volume1/media";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
 
   fileSystems."/downloads" =
-    { device = "192.168.0.2:/volume1/downloads";
+    { device = "192.168.4.2:/volume1/downloads";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
@@ -64,16 +64,24 @@
   services.home-assistant = {
     enable = true;
     extraComponents = [
-      "tuya"
       "apple_tv"
-      "met"
-      "radarr"
-      "sonarr"
-      "sabnzbd"
+      "bluetooth"
       "cast"
-      "plex"
+      "dlna_dmr"
+      "github"
+      "google_translate"
       "homekit"
       "homekit_controller"
+      "matter"
+      "met"
+      "plex"
+      "radarr"
+      "sabnzbd"
+      "sonarr"
+      "synology_dsm"
+      "thread"
+      "tuya"
+      "upnp"
     ];
     config = {
       default_config = {};
@@ -82,6 +90,13 @@
         unit_system = "metric";
         time_zone = "Europe/London";
         temperature_unit = "C";
+
+        external_url = "https://home.hbjy.io";
+      };
+
+      http = {
+        use_x_forwarded_for = true;
+        trusted_proxies = [ "127.0.0.1" ];
       };
     };
   };

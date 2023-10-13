@@ -4,16 +4,11 @@ local function init()
   vim.api.nvim_set_hl(0, "IndentBlanklineIndent", { fg = oxocarbon.oxocarbon.base01 })
   vim.api.nvim_set_hl(0, "IndentBlanklineIndentActive", { fg = oxocarbon.oxocarbon.base03 })
 
-  require('indent_blankline').setup {
-    show_current_context = true,
-
-    char_highlight_list = {
-      "IndentBlanklineIndent",
+  require('ibl').setup {
+    indent = {
+      highlight = "IndentBlanklineIndent",
+      smart_indent_cap = true,
     },
-
-    context_highlight_list = {
-      "IndentBlanklineIndentActive",
-    }
   }
 end
 

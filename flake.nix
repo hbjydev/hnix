@@ -70,7 +70,7 @@
             system = "x86_64-linux";
             username = "hayden";
             hostname = "nixnuc";
-            options = [ "docker" "downloads" "ssh" "x" ];
+            options = [ "docker" "nginx" "downloads" "ssh" "x" ];
           };
 	      };
       };

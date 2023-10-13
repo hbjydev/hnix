@@ -11,6 +11,12 @@ let
 in
 inputs.nixpkgs.lib.nixosSystem {
   inherit system;
+  specialArgs = {
+    trunk = (import inputs.trunk) {
+      inherit system;
+      config = { allowUnfree = true; };
+    };
+  };
   modules = [
     hardware-configuration
     configuration

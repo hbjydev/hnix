@@ -14,10 +14,10 @@ with pkgs; [
   k9s
   kind
   kubectl
+  nmap
   podman-compose
   pyenv
   ripgrep
-  terraform
   tilt
   viddy
 
