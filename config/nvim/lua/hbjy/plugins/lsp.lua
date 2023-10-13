@@ -30,7 +30,9 @@ local function init()
 
   local language_servers = {
     bashls = {},
+
     cssls = {},
+
     diagnosticls = {
       filetypes = { "python" },
       init_options = {
@@ -49,7 +51,9 @@ local function init()
         },
       },
     },
+
     dockerls = {},
+
     gopls = {
       settings = {
         gopls = {
@@ -57,9 +61,13 @@ local function init()
         },
       },
     },
+
     html = {},
+
     jsonls = {},
+
     jsonnet_ls = {},
+
     lua_ls = {
       settings = {
         Lua = {
@@ -72,6 +80,7 @@ local function init()
         },
       },
     },
+
     nil_ls = {
       settings = {
         ["nil"] = {
@@ -79,19 +88,22 @@ local function init()
         },
       },
     },
+
     pylsp = {
       settings = {
         pylsp = {
           plugins = {
             flake8 = { enabled = true },
             pycodestyle = { enabled = false },
-
             pylsp_mypy = { report_progress = true },
             black = { enabled = true },
           },
         },
       },
     },
+
+    sourcekit = {},
+
     -- pyright = {
     --   settings = {
     --     python = {
@@ -104,7 +116,9 @@ local function init()
     --   },
     -- },
     terraformls = {},
+
     tsserver = {},
+
     yamlls = {
       settings = {
         yaml = {

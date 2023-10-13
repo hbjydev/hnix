@@ -111,6 +111,7 @@ in
 
       rust-analyzer
       terraform-ls
+      sourcekit-lsp
 
       # formatters
       gofumpt
