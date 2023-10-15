@@ -1,4 +1,4 @@
-{ trunk, ... }:
+{ trunk, pkgs, ... }:
 let
   mkMediaService = (attrs:
     {
@@ -10,6 +10,8 @@ in
 {
   # Shared group to deal with permissions
   users.groups.media = { };
+
+  environment.systemPackages = with pkgs; [ xteve ];
 
   # Downloads
   services.sabnzbd = mkMediaService {

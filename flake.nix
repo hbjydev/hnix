@@ -63,7 +63,7 @@
             system = "x86_64-linux";
             username = "hayden";
             hostname = "hayden-pc";
-            options = [ "docker" "gaming" "downloads" "ssh" "x" ];
+            options = [ "docker" "gaming" "ssh" "x" ];
           };
           nixnuc-nixos = systems.mkNixOS {
             desktop = true;
