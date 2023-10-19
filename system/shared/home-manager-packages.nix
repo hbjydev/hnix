@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, work, ... }:
 
 with pkgs; [
   _1password
@@ -22,4 +22,6 @@ with pkgs; [
   viddy
 
   inputs.fh.packages.${pkgs.system}.default # flakehub cli
+] ++ pkgs.lib.lists.optionals work [
+  bitwarden-cli
 ]
