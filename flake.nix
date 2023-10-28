@@ -58,12 +58,12 @@
         };
 
         nixosConfigurations = {
-          personal-nixos = systems.mkNixOS {
+          vm-nixos = systems.mkNixOS {
             desktop = true;
             system = "x86_64-linux";
             username = "hayden";
-            hostname = "hayden-pc";
-            options = [ "docker" "gaming" "ssh" "x" ];
+            hostname = "nixos-vm";
+            options = [ "docker" "x" ];
           };
           nixnuc-nixos = systems.mkNixOS {
             desktop = true;

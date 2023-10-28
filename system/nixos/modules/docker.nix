@@ -23,4 +23,6 @@
 
     docker.enable = true;
   };
+
+  users.users.hayden.extraGroups = [ "docker" ];
 }
