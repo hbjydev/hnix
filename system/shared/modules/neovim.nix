@@ -10,6 +10,16 @@ let
       sha256 = "sha256-BmxYWUVBzTowH68eWNrQKV1fNN9d1hRuCnXqbEagRoY=";
     };
   };
+
+  rest-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "rest-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "rest-nvim";
+      repo = "rest.nvim";
+      rev = "8b62563cfb19ffe939a260504944c5975796a682";
+      sha256 = "sha256-Vk8NqNQHbE3WggcKUCjIfCKeXDM5IfIcVJxcpowzxoM=";
+    };
+  };
 in
 
 {
@@ -58,6 +68,7 @@ in
       vimPlugins.neorg
       vimPlugins.neorg-telescope
       vimPlugins.zen-mode-nvim
+      rest-nvim
       vim-just
 
       # my config
@@ -123,6 +134,7 @@ in
       gcc
       lazydocker
       yarn
+      jq
     ];
   };
 }

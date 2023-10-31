@@ -50,6 +50,8 @@ local function init()
       search = vim.fn.input { prompt = "Grep > " },
     })
   end)
+
+  vim.keymap.set("n", "<leader>H", "<Plug>RestNvim<CR>")
 end
 
 return { init = init }

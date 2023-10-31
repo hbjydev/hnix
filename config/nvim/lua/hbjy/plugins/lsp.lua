@@ -147,7 +147,10 @@ local function init()
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
   treesitter.setup {
-    highlight = { enable = true },
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = true,
+    },
     indent = { enable = true },
     rainbow = { enable = true },
   }

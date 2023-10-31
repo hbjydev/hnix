@@ -39,6 +39,13 @@ local function init()
   vim.g.loaded_ruby_provider = 0
 
   vim.cmd.colorscheme("oxocarbon")
+
+  vim.api.nvim_create_autocmd({"BufNewFile","BufRead"}, {
+    pattern = { "*.http" },
+    callback = function()
+      vim.opt.filetype = "http"
+    end
+  })
 end
 
 return { init = init }
