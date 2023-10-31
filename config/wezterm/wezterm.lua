@@ -203,117 +203,118 @@ wezterm.on("update-right-status", function(window)
 end)
 
 return {
-    default_cursor_style = "SteadyBar",
+  default_cursor_style = "SteadyBar",
 
-    enable_kitty_graphics = true,
+  enable_kitty_graphics = true,
+  term = "wezterm",
 
-    max_fps = 120,
+  max_fps = 120,
 
-    font = wezterm.font("IntoneMono Nerd Font"),
-    font_size = 12,
+  font = wezterm.font("IntoneMono Nerd Font"),
+  font_size = 12,
 
-    audible_bell = "Disabled",
+  audible_bell = "Disabled",
 
-    enable_tab_bar = true,
-    enable_wayland = false,
+  enable_tab_bar = true,
+  enable_wayland = false,
 
-    window_background_opacity = 1,
-    window_close_confirmation = "NeverPrompt",
-    window_decorations = "RESIZE",
-    window_padding = {
-        left = 16,
-        right = 16,
-        top = 16,
-        bottom = 16,
+  window_background_opacity = 1,
+  window_close_confirmation = "NeverPrompt",
+  window_decorations = "RESIZE",
+  window_padding = {
+      left = 16,
+      right = 16,
+      top = 16,
+      bottom = 16,
+  },
+
+  initial_cols = 110,
+  initial_rows = 25,
+
+  default_prog = { "zsh" },
+
+  enable_scroll_bar = false,
+  tab_bar_at_bottom = false,
+  use_fancy_tab_bar = false,
+  show_new_tab_button_in_tab_bar = false,
+  tab_max_width = 50,
+  hide_tab_bar_if_only_one_tab = true,
+
+  colors = {
+    tab_bar = {
+      background = colors.base00,
+
+      active_tab = {
+          bg_color = colors.base01,
+          fg_color = colors.base04,
+          intensity = 'Bold',
+      },
+
+      inactive_tab = {
+          bg_color = colors.base00,
+          fg_color = colors.base03,
+      },
     },
 
-    initial_cols = 110,
-    initial_rows = 25,
+    background = colors.base00,
 
-    default_prog = { "zsh" },
+    cursor_bg = colors.base04,
+    cursor_fg = colors.base02,
 
-    enable_scroll_bar = false,
-    tab_bar_at_bottom = false,
-    use_fancy_tab_bar = false,
-    show_new_tab_button_in_tab_bar = false,
-    tab_max_width = 50,
-    hide_tab_bar_if_only_one_tab = true,
+    selection_fg = colors.base05,
+    selection_bg = colors.base03,
 
-    colors = {
-        tab_bar = {
-            background = colors.base00,
+    scrollbar_thumb = "#222222",
 
-            active_tab = {
-                bg_color = colors.base01,
-                fg_color = colors.base04,
-                intensity = 'Bold',
-            },
+    split = "#444444",
 
-            inactive_tab = {
-                bg_color = colors.base00,
-                fg_color = colors.base03,
-            },
-        },
-
-        background = colors.base00,
-
-        cursor_bg = colors.base04,
-        cursor_fg = colors.base02,
-
-        selection_fg = colors.base05,
-        selection_bg = colors.base03,
-
-        scrollbar_thumb = "#222222",
-
-        split = "#444444",
-
-        ansi = {
-            colors.base02,
-            colors.base12,
-            colors.base13,
-            colors.base15,
-            colors.base11,
-            colors.base10,
-            colors.base08,
-            colors.base04,
-        },
-
-        brights = {
-            colors.base02,
-            colors.base12,
-            colors.base13,
-            colors.base15,
-            colors.base11,
-            colors.base10,
-            colors.base08,
-            colors.base05,
-        },
+    ansi = {
+      colors.base02,
+      colors.base12,
+      colors.base13,
+      colors.base15,
+      colors.base11,
+      colors.base10,
+      colors.base08,
+      colors.base04,
     },
 
-    hyperlink_rules = {
-		{
-			regex = "\\b\\w+://[\\w.-]+:[0-9]{2,15}\\S*\\b",
-			format = "$0",
-		},
-		{
-			regex = "\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b",
-			format = "$0",
-		},
-		{
-			regex = [[\b\w+@[\w-]+(\.[\w-]+)+\b]],
-			format = "mailto:$0",
-		},
-		{
-			regex = [[\bfile://\S*\b]],
-			format = "$0",
-		},
-		{
-			regex = [[\b\w+://(?:[\d]{1,3}\.){3}[\d]{1,3}\S*\b]],
-			format = "$0",
-		},
-		{
-			regex = [[\b[tT](\d+)\b]],
-			format = "https://example.com/tasks/?t=$1",
-		},
-	},
+    brights = {
+      colors.base02,
+      colors.base12,
+      colors.base13,
+      colors.base15,
+      colors.base11,
+      colors.base10,
+      colors.base08,
+      colors.base05,
+    },
+  },
+
+  hyperlink_rules = {
+    {
+      regex = "\\b\\w+://[\\w.-]+:[0-9]{2,15}\\S*\\b",
+      format = "$0",
+    },
+    {
+      regex = "\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b",
+      format = "$0",
+    },
+    {
+      regex = [[\b\w+@[\w-]+(\.[\w-]+)+\b]],
+      format = "mailto:$0",
+    },
+    {
+      regex = [[\bfile://\S*\b]],
+      format = "$0",
+    },
+    {
+      regex = [[\b\w+://(?:[\d]{1,3}\.){3}[\d]{1,3}\S*\b]],
+      format = "$0",
+    },
+    {
+      regex = [[\b[tT](\d+)\b]],
+      format = "https://example.com/tasks/?t=$1",
+    },
+  },
 }
