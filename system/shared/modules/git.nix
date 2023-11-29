@@ -1,4 +1,4 @@
-{ work, isDarwin, aliases, pkgs, ... }:
+{ wsl, work, isDarwin, aliases, pkgs, ... }:
 {
   programs.gh = {
     enable = true;
@@ -63,7 +63,10 @@
       gpg = {
         format = "ssh";
         ssh = {
-          program = if isDarwin then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" else "${pkgs._1password-gui}/share/1password/op-ssh-sign";
+          program = if
+            isDarwin then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+            else if wsl then "/mnt/c/Users/hbjyd/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+            else "${pkgs._1password-gui}/share/1password/op-ssh-sign";
         };
       };
 

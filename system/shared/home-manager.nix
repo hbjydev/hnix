@@ -1,4 +1,4 @@
-{ inputs, work }:
+{ inputs, work, wsl ? false }:
 
 { pkgs, ... }:
 let
@@ -6,7 +6,7 @@ let
   aliases = (import ./aliases.nix) isDarwin;
 in
 {
-  _module.args = { inherit inputs work isDarwin aliases; };
+  _module.args = { inherit inputs work isDarwin aliases wsl; };
 
   imports = [
     ./modules/ssh.nix

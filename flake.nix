@@ -46,6 +46,14 @@
       };
 
       flake = {
+        homeConfigurations = {
+          wsl = systems.mkLinux {
+            system = "x86_64-linux";
+            username = "hayden";
+            wsl = true;
+          };
+        };
+
         darwinConfigurations = {
           personal-darwin = systems.mkDarwin {
             system = "aarch64-darwin";

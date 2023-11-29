@@ -1,4 +1,4 @@
-{ aliases, ... }:
+{ aliases, wsl, ... }:
 {
   programs.bat.enable = true;
 
@@ -38,6 +38,9 @@
 
     shellAliases = aliases.zsh;
 
-    initExtra = builtins.readFile ../../../config/zsh/extraInit.zsh;
+    initExtra = ''
+      ${builtins.readFile ../../../config/zsh/extraInit.zsh}
+      ${if wsl then builtins.readFile ../../../config/zsh/wslInit.zsh else null}
+    '';
   };
 }
