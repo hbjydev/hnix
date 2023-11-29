@@ -58,6 +58,8 @@ isDarwin:
 
     ssh = "TERM=xterm-256color ssh";
 
+    nb = "nix build --json --no-link --print-build-logs";
+
     watch = "viddy";
   };
 }

@@ -56,9 +56,11 @@ newt () {
   git worktree add "${git_flags}" "${1}" "${1}"
 }
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if [[ -d "$HOME/.pyenv" ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 if [[ -d "/opt/homebrew" ]]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
