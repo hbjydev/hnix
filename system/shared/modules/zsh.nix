@@ -15,15 +15,13 @@
     nix-direnv.enable = true;
   };
 
-  #programs.starship = {
-  #  enable = true;
-  #  enableZshIntegration = true;
-  #  enableTransience = true;
-  #
-  #  settings = {
-  #    directory.home_symbol = "🏠";
-  #  };
-  #};
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      directory.home_symbol = "🏠";
+    };
+  };
 
   programs.zsh = {
     enable = true;
