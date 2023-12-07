@@ -309,6 +309,12 @@
             scrape_interval = "10s"
           }
 
+          prometheus.scrape "jellyfin" {
+            forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+            targets = [{"__address__" = "localhost:8096"}]
+            scrape_interval = "10s"
+          }
+
           ${lib.concatMapStringsSep "\n" (port: ''
             prometheus.scrape "exportarr_${toString port}" {
               forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
