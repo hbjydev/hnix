@@ -6,32 +6,10 @@ let
       group = "media";
     } // attrs
   );
-
-  mkServarrExporter = { service, url, port }: {
-    services.grafana-agent-flow.staticScrapes."exportarr-${service}" = {
-      targets = ["localhost:${toString port}"];
-    };
-
-    systemd.services."docker-exportarr-${service}".after = [ "${service}.service" ];
-
-    virtualisation.oci-containers.containers."exportarr-${service}" = {
-      image = "ghcr.io/onedr0p/exportarr:latest";
-      ports = [ "${toString port}:9707" ];
-      autoStart = true;
-      cmd = [ service ];
-      user = "1234";
-      volumes = [
-        "/run/secrets/${service}_key:/run/secrets/${service}_key"
-      ];
-      environment = {
-        PORT = "9707";
-        URL = url;
-        API_KEY_FILE = "/run/secrets/${service}_key";
-      };
-    };
-  };
 in
 {
+  imports = [];
+
   # Shared group (and user for Docker) to deal with permissions
   users.extraUsers.media = {
     isNormalUser = true;
@@ -51,6 +29,7 @@ in
 
   # Automation
   services.prowlarr.enable = true;
+
   services.radarr = mkMediaService {};
   services.sonarr = mkMediaService {};
   services.lidarr = mkMediaService {};
@@ -96,40 +75,4 @@ in
       ];
     };
   };
-
 }
-# // mkServarrExporter {
-#     service = "sabnzbd";
-#     url = "http://192.168.4.3:8080";
-#     port = 9707;
-#   }
-# 
-#   // mkServarrExporter {
-#     service = "lidarr";
-#     url = "http://192.168.4.3:8686";
-#     port = 9708;
-#   }
-# 
-#   // mkServarrExporter {
-#     service = "prowlarr";
-#     url = "http://192.168.4.3:9696";
-#     port = 9709;
-#   }
-# 
-#   // mkServarrExporter {
-#     service = "readarr";
-#     url = "http://192.168.4.3:8787";
-#     port = 9710;
-#   }
-# 
-#   // mkServarrExporter {
-#     service = "radarr";
-#     url = "http://192.168.4.3:7878";
-#     port = 9711;
-#   }
-# 
-#   // mkServarrExporter {
-#     service = "sonarr";
-#     url = "http://192.168.4.3:8989";
-#     port = 9712;
-#   }
