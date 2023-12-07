@@ -1,0 +1,15 @@
+---
+keys:
+  - &adm_hayden age1nmqyc2uapa3zd0gj90484xq56ntcuehjx626e5vqkcenqec3w46qd9xcm4
+  - &dev_nixnuc age1wgatar6rw50c5ld0f5dcfq843fgj2tgvaf5nwhzv0cnsj4ad432q7xr9lq
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *adm_hayden
+          - *dev_nixnuc
+  - path_regex: secrets/nixnuc/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *adm_hayden
+          - *dev_nixnuc

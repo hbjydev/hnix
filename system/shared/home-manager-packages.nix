@@ -4,6 +4,7 @@ with pkgs; [
   _1password
   awscli2
   bun
+  cachix
   doppler
   fd
   glab
@@ -18,6 +19,7 @@ with pkgs; [
   podman-compose
   pyenv
   ripgrep
+  sops
   tilt
   viddy
 

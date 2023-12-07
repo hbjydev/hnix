@@ -8,6 +8,51 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  sops.secrets = let
+    mkNixnucSecret =
+      filename: (
+        { ... }@args:
+        {
+          sopsFile = ../../../secrets/nixnuc/${filename};
+        } // args
+      );
+
+    mkMediaSecret = filename: args: mkNixnucSecret filename args // {
+      owner = "media";
+    };
+  in
+  {
+    # Access keys for Grafana Agent
+    "gc_token" = mkNixnucSecret "grafana-cloud.yaml" {
+      owner = "grafana-agent-flow";
+      restartUnits = [ "grafana-agent-flow.service" ];
+    };
+    "hass_token" = mkNixnucSecret "grafana-cloud.yaml" {
+      owner = "grafana-agent-flow";
+      restartUnits = [ "grafana-agent-flow.service" ];
+    };
+
+    # Download client keys for exporters
+    "sabnzbd_key" = mkMediaSecret "downloads-tokens.yaml" {
+      restartUnits = [ "docker-exportarr-sabnzbd.service" ];
+    };
+    "lidarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+      restartUnits = [ "docker-exportarr-lidarr.service" ];
+    };
+    "prowlarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+      restartUnits = [ "docker-exportarr-prowlarr.service" ];
+    };
+    "readarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+      restartUnits = [ "docker-exportarr-readarr.service" ];
+    };
+    "radarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+      restartUnits = [ "docker-exportarr-radarr.service" ];
+    };
+    "sonarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+      restartUnits = [ "docker-exportarr-sonarr.service" ];
+    };
+  };
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -15,6 +60,7 @@
 
   services.xserver.videoDrivers = [ "modesetting" ];
   services.rpcbind.enable = true;
+  programs.dconf.enable = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/f8948e68-b255-4173-b824-6d7f10d21c39";
@@ -59,10 +105,13 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = false;
+  };
 
   services.home-assistant = {
     enable = true;
+
     extraComponents = [
       "apple_tv"
       "bluetooth"
@@ -74,15 +123,19 @@
       "homekit_controller"
       "matter"
       "met"
+      "mqtt"
       "plex"
+      "prometheus"
       "radarr"
       "sabnzbd"
       "sonarr"
+      "spotify"
       "synology_dsm"
       "thread"
       "tuya"
       "upnp"
     ];
+
     config = {
       default_config = {};
       homeassistant = {
@@ -91,12 +144,30 @@
         time_zone = "Europe/London";
         temperature_unit = "C";
 
-        external_url = "https://home.hbjy.io";
+        external_url = "https://home.hayden.moe";
+      };
+
+      prometheus = { namespace = "hy_hass"; };
+
+      #waste_collection_schedule = {
+      #  sources = [ { name = "sheffield_gov_uk"; } ];
+      #};
+
+      #sensor = [
+      #  {
+      #    platform = "waste_collection_schedule";
+      #    source_index = 0;
+      #    name = "Sheffield Waste Collection";
+      #  }
+      #];
+
+      frontend = {
+        themes = "!include_dir_merge_named themes";
       };
 
       http = {
         use_x_forwarded_for = true;
-        trusted_proxies = [ "127.0.0.1" ];
+        trusted_proxies = [ "127.0.0.1" "::1" ];
       };
     };
   };
@@ -114,7 +185,145 @@
       vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
+      intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
     ];
+  };
+
+  environment.systemPackages = with pkgs; [ cloudflared ];
+
+  boot.kernel.sysctl."net.core.rmem_max" = 2500000;
+
+  services.cloudflared = {
+    enable = true;
+    tunnels.hy-8hh-nixnuc = {
+      warp-routing.enabled = false;
+      default = "http_status:404";
+      credentialsFile = "/etc/cloudflared/0162d32a-13af-4de8-886f-3d6c68167f9e.json";
+      ingress = {
+        "*.home.hbjy.io" = "http://localhost:80";
+      };
+    };
+  };
+
+  users.extraUsers.grafana-agent-flow = {
+    isSystemUser = true;
+    group = "grafana-agent-flow";
+    home = "/var/lib/grafana-agent-flow";
+    createHome = true;
+    extraGroups = [ "docker" ];
+    shell = "/run/current-system/sw/bin/nologin";
+  };
+
+  users.groups.grafana-agent-flow = {};
+
+  systemd.services.grafana-agent-flow = {
+    wantedBy = [ "multi-user.target" ];
+    environment.AGENT_MODE = "flow";
+    serviceConfig =
+      let
+        configFile = (pkgs.writeText "config.river" ''
+          local.file "gc_token" {
+            filename = "/run/secrets/gc_token"
+            is_secret = true
+          }
+
+          local.file "hass_token" {
+            filename = "/run/secrets/hass_token"
+            is_secret = true
+          }
+
+          module.git "grafana_cloud" {
+            repository = "https://github.com/grafana/agent-modules.git"
+            path = "modules/grafana-cloud/autoconfigure/module.river"
+            revision = "main"
+            pull_frequency = "0s"
+            arguments {
+              stack_name = "kuraudo"
+              token = local.file.gc_token.content
+            }
+          }
+
+          prometheus.scrape "linux_node" {
+            targets = prometheus.exporter.unix.main.targets
+            forward_to = [
+              module.git.grafana_cloud.exports.metrics_receiver,
+            ]
+          }
+
+          prometheus.exporter.unix "main" {
+          }
+
+          loki.relabel "journal" {
+            forward_to = []
+
+            rule {
+              source_labels = ["__journal__systemd_unit"]
+              target_label  = "unit"
+            }
+            rule {
+              source_labels = ["__journal__boot_id"]
+              target_label  = "boot_id"
+            }
+            rule {
+              source_labels = ["__journal__transport"]
+              target_label  = "transport"
+            }
+            rule {
+              source_labels = ["__journal_priority_keyword"]
+              target_label  = "level"
+            }
+            rule {
+              source_labels = ["__journal__hostname"]
+              target_label  = "instance"
+            }
+          }
+
+          loki.source.journal "read" {
+            forward_to = [module.git.grafana_cloud.exports.logs_receiver]
+            relabel_rules = loki.relabel.journal.rules
+            labels = {
+              "job" = "integrations/node_exporter",
+            }
+          }
+
+          prometheus.scrape "static" {
+            forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+            targets = [{"__address__" = "localhost:8123"}]
+
+            authorization {
+              type = "Bearer"
+              credentials = local.file.hass_token.content
+            }
+
+            scrape_interval = "10s"
+            metrics_path = "/api/prometheus"
+          }
+
+          prometheus.scrape "plex" {
+            forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+            targets = [{"__address__" = "localhost:9000"}]
+            scrape_interval = "10s"
+            metrics_path = "/metrics"
+          }
+
+          ${lib.concatMapStringsSep "\n" (port: ''
+            prometheus.scrape "exportarr_${toString port}" {
+              forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+              targets = [{"__address__" = "localhost:${toString port}"}]
+              scrape_interval = "10s"
+              metrics_path = "/metrics"
+            }
+          '') (lib.range 9707 9712)}
+        '');
+      in
+      {
+        ExecStart = "${lib.getExe pkgs.grafana-agent} run ${configFile} --storage.path /var/lib/grafana-agent-flow --server.http.listen-addr 0.0.0.0:12345";
+        Restart = "always";
+        User = "grafana-agent-flow";
+        RestartSec = 2;
+        StateDirectory = "grafana-agent-flow";
+        Type = "simple";
+      };
   };
 
   virtualisation.oci-containers = {

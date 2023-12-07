@@ -26,16 +26,6 @@
       };
     in {
       "home.hbjy.io" = proxy 8123;
-      "plex.hbjy.io" = proxy 32400;
-      "calibre.hbjy.io" = proxy 8083;
-      "media.hbjy.io" = proxy 5055;
-
-      "sabnzbd.hbjy.io" = proxy 8080;
-      "prowlarr.hbjy.io" = proxy 9696;
-      "radarr.hbjy.io" = proxy 7878;
-      "sonarr.hbjy.io" = proxy 8989;
-      "lidarr.hbjy.io" = proxy 8686;
-      "readarr.hbjy.io" = proxy 8787;
     };
   };
 

@@ -3,7 +3,7 @@
 
   inputs = {
     # Use latest unstable 23.05 Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Include `nxs` (nixpkgs-stable) and `nxt` (nixpkgs-trunk)
     stable.url = "https://flakehub.com/f/NixOS/nixpkgs/*.tar.gz";
@@ -26,6 +26,11 @@
 
     nix-index = {
       url = "github:nix-community/nix-index";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -78,7 +83,7 @@
             system = "x86_64-linux";
             username = "hayden";
             hostname = "nixnuc";
-            options = [ "docker" "nginx" "downloads" "ssh" "x" ];
+            options = [ "docker" "downloads" "ssh" "x" ];
           };
 	      };
       };

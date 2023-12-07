@@ -4,7 +4,10 @@
 
 {
   imports =
-    [ ./modules/boot.nix ./modules/nix.nix ] # Standard ('required') modules
+    [
+      ./modules/boot.nix
+      ./modules/nix.nix
+    ] # Standard ('required') modules
     ++ lib.lists.forEach options (opt:
       if opt == "x"
       then (import ./modules/x.nix { inherit username; })
@@ -54,6 +57,16 @@
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkhuhfzyg7R+O62XSktHufGmmhy6FNDi/NuPPJt7bI+"
       ];
+    };
+  };
+
+  sops = {
+    defaultSopsFile = ../../secrets/global.yaml;
+
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
     };
   };
 }

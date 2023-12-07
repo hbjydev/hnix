@@ -8,6 +8,7 @@ let
     inherit inputs desktop username hostname options;
   };
   work = username == "haydenyoung";
+  inherit (inputs) sops-nix;
 in
 inputs.nixpkgs.lib.nixosSystem {
   inherit system;
@@ -20,6 +21,8 @@ inputs.nixpkgs.lib.nixosSystem {
   modules = [
     hardware-configuration
     configuration
+
+    sops-nix.nixosModules.sops
 
     inputs.home-manager.nixosModules.home-manager
     {
