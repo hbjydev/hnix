@@ -205,6 +205,10 @@
     };
   };
 
+  systemd.services."cloudflared-tunnel-hy-8hh-nixnuc" = {
+    environment.TUNNEL_METRICS = "localhost:8927";
+  };
+
   users.extraUsers.grafana-agent-flow = {
     isSystemUser = true;
     group = "grafana-agent-flow";
@@ -299,11 +303,10 @@
             metrics_path = "/api/prometheus"
           }
 
-          prometheus.scrape "plex" {
+          prometheus.scrape "cloudflared" {
             forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
-            targets = [{"__address__" = "localhost:9000"}]
+            targets = [{"__address__" = "localhost:8927"}]
             scrape_interval = "10s"
-            metrics_path = "/metrics"
           }
 
           ${lib.concatMapStringsSep "\n" (port: ''
