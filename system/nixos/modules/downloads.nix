@@ -8,7 +8,13 @@ let
   );
 
   mkServarrExporter = { service, url, port }: {
-    "exportarr-${service}" = {
+    services.grafana-agent-flow.staticScrapes."exportarr-${service}" = {
+      targets = ["localhost:${toString port}"];
+    };
+
+    systemd.services."docker-exportarr-${service}".after = [ "${service}.service" ];
+
+    virtualisation.oci-containers.containers."exportarr-${service}" = {
       image = "ghcr.io/onedr0p/exportarr:latest";
       ports = [ "${toString port}:9707" ];
       autoStart = true;
@@ -89,41 +95,41 @@ in
         "/storage/homarr/data:/data"
       ];
     };
-  }
+  };
 
-    // mkServarrExporter {
-      service = "sabnzbd";
-      url = "http://192.168.4.3:8080";
-      port = 9707;
-    }
-
-    // mkServarrExporter {
-      service = "lidarr";
-      url = "http://192.168.4.3:8686";
-      port = 9708;
-    }
-
-    // mkServarrExporter {
-      service = "prowlarr";
-      url = "http://192.168.4.3:9696";
-      port = 9709;
-    }
-
-    // mkServarrExporter {
-      service = "readarr";
-      url = "http://192.168.4.3:8787";
-      port = 9710;
-    }
-
-    // mkServarrExporter {
-      service = "radarr";
-      url = "http://192.168.4.3:7878";
-      port = 9711;
-    }
-
-    // mkServarrExporter {
-      service = "sonarr";
-      url = "http://192.168.4.3:8989";
-      port = 9712;
-    };
 }
+# // mkServarrExporter {
+#     service = "sabnzbd";
+#     url = "http://192.168.4.3:8080";
+#     port = 9707;
+#   }
+# 
+#   // mkServarrExporter {
+#     service = "lidarr";
+#     url = "http://192.168.4.3:8686";
+#     port = 9708;
+#   }
+# 
+#   // mkServarrExporter {
+#     service = "prowlarr";
+#     url = "http://192.168.4.3:9696";
+#     port = 9709;
+#   }
+# 
+#   // mkServarrExporter {
+#     service = "readarr";
+#     url = "http://192.168.4.3:8787";
+#     port = 9710;
+#   }
+# 
+#   // mkServarrExporter {
+#     service = "radarr";
+#     url = "http://192.168.4.3:7878";
+#     port = 9711;
+#   }
+# 
+#   // mkServarrExporter {
+#     service = "sonarr";
+#     url = "http://192.168.4.3:8989";
+#     port = 9712;
+#   }

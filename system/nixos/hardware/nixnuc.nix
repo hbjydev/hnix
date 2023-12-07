@@ -6,6 +6,7 @@
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
+      ../../../lib/nixosModules/grafana-agent-flow.nix
     ];
 
   sops.secrets = let
@@ -209,131 +210,159 @@
     environment.TUNNEL_METRICS = "localhost:8927";
   };
 
-  users.extraUsers.grafana-agent-flow = {
-    isSystemUser = true;
-    group = "grafana-agent-flow";
-    home = "/var/lib/grafana-agent-flow";
-    createHome = true;
-    extraGroups = [ "docker" ];
-    shell = "/run/current-system/sw/bin/nologin";
-  };
+  #users.extraUsers.grafana-agent-flow = {
+  #  isSystemUser = true;
+  #  group = "grafana-agent-flow";
+  #  home = "/var/lib/grafana-agent-flow";
+  #  createHome = true;
+  #  extraGroups = [ "docker" ];
+  #  shell = "/run/current-system/sw/bin/nologin";
+  #};
 
-  users.groups.grafana-agent-flow = {};
+  #users.groups.grafana-agent-flow = {};
 
-  systemd.services.grafana-agent-flow = {
-    wantedBy = [ "multi-user.target" ];
-    environment.AGENT_MODE = "flow";
-    serviceConfig =
-      let
-        configFile = (pkgs.writeText "config.river" ''
-          local.file "gc_token" {
-            filename = "/run/secrets/gc_token"
-            is_secret = true
-          }
+  services.grafana-agent-flow = {
+    enable = true;
 
-          local.file "hass_token" {
-            filename = "/run/secrets/hass_token"
-            is_secret = true
-          }
+    enableJournaldLogging = true;
 
-          module.git "grafana_cloud" {
-            repository = "https://github.com/grafana/agent-modules.git"
-            path = "modules/grafana-cloud/autoconfigure/module.river"
-            revision = "main"
-            pull_frequency = "0s"
-            arguments {
-              stack_name = "kuraudo"
-              token = local.file.gc_token.content
-            }
-          }
+    grafanaCloud = {
+      enable = true;
+      stack = "kuraudo";
+      tokenFile = config.sops.secrets.gc_token.path;
+    };
 
-          prometheus.scrape "linux_node" {
-            targets = prometheus.exporter.unix.main.targets
-            forward_to = [
-              module.git.grafana_cloud.exports.metrics_receiver,
-            ]
-          }
-
-          prometheus.exporter.unix "main" {
-          }
-
-          loki.relabel "journal" {
-            forward_to = []
-
-            rule {
-              source_labels = ["__journal__systemd_unit"]
-              target_label  = "unit"
-            }
-            rule {
-              source_labels = ["__journal__boot_id"]
-              target_label  = "boot_id"
-            }
-            rule {
-              source_labels = ["__journal__transport"]
-              target_label  = "transport"
-            }
-            rule {
-              source_labels = ["__journal_priority_keyword"]
-              target_label  = "level"
-            }
-            rule {
-              source_labels = ["__journal__hostname"]
-              target_label  = "instance"
-            }
-          }
-
-          loki.source.journal "read" {
-            forward_to = [module.git.grafana_cloud.exports.logs_receiver]
-            relabel_rules = loki.relabel.journal.rules
-            labels = {
-              "job" = "integrations/node_exporter",
-            }
-          }
-
-          prometheus.scrape "static" {
-            forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
-            targets = [{"__address__" = "localhost:8123"}]
-
-            authorization {
-              type = "Bearer"
-              credentials = local.file.hass_token.content
-            }
-
-            scrape_interval = "10s"
-            metrics_path = "/api/prometheus"
-          }
-
-          prometheus.scrape "cloudflared" {
-            forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
-            targets = [{"__address__" = "localhost:8927"}]
-            scrape_interval = "10s"
-          }
-
-          prometheus.scrape "jellyfin" {
-            forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
-            targets = [{"__address__" = "localhost:8096"}]
-            scrape_interval = "10s"
-          }
-
-          ${lib.concatMapStringsSep "\n" (port: ''
-            prometheus.scrape "exportarr_${toString port}" {
-              forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
-              targets = [{"__address__" = "localhost:${toString port}"}]
-              scrape_interval = "10s"
-              metrics_path = "/metrics"
-            }
-          '') (lib.range 9707 9712)}
-        '');
-      in
-      {
-        ExecStart = "${lib.getExe pkgs.grafana-agent} run ${configFile} --storage.path /var/lib/grafana-agent-flow --server.http.listen-addr 0.0.0.0:12345";
-        Restart = "always";
-        User = "grafana-agent-flow";
-        RestartSec = 2;
-        StateDirectory = "grafana-agent-flow";
-        Type = "simple";
+    staticScrapes = {
+      hass = {
+        targets = [ "localhost:8123" ];
+        bearerTokenFile = config.sops.secrets.hass_token.path;
+        metricsPath = "/api/prometheus";
       };
+
+      jellyfin = {
+        targets = [ "localhost:8096" ];
+      };
+
+      cloudflared = {
+        targets = [ "localhost:8927" ];
+      };
+    };
   };
+
+  # systemd.services.grafana-agent-flow = {
+  #   wantedBy = [ "multi-user.target" ];
+  #   environment.AGENT_MODE = "flow";
+  #   serviceConfig =
+  #     let
+  #       configFile = (pkgs.writeText "config.river" ''
+  #         local.file "gc_token" {
+  #           filename = "/run/secrets/gc_token"
+  #           is_secret = true
+  #         }
+
+  #         local.file "hass_token" {
+  #           filename = "/run/secrets/hass_token"
+  #           is_secret = true
+  #         }
+
+  #         module.git "grafana_cloud" {
+  #           repository = "https://github.com/grafana/agent-modules.git"
+  #           path = "modules/grafana-cloud/autoconfigure/module.river"
+  #           revision = "main"
+  #           pull_frequency = "0s"
+  #           arguments {
+  #             stack_name = "kuraudo"
+  #             token = local.file.gc_token.content
+  #           }
+  #         }
+
+  #         prometheus.scrape "linux_node" {
+  #           targets = prometheus.exporter.unix.main.targets
+  #           forward_to = [
+  #             module.git.grafana_cloud.exports.metrics_receiver,
+  #           ]
+  #         }
+
+  #         prometheus.exporter.unix "main" {
+  #         }
+
+  #         loki.relabel "journal" {
+  #           forward_to = []
+
+  #           rule {
+  #             source_labels = ["__journal__systemd_unit"]
+  #             target_label  = "unit"
+  #           }
+  #           rule {
+  #             source_labels = ["__journal__boot_id"]
+  #             target_label  = "boot_id"
+  #           }
+  #           rule {
+  #             source_labels = ["__journal__transport"]
+  #             target_label  = "transport"
+  #           }
+  #           rule {
+  #             source_labels = ["__journal_priority_keyword"]
+  #             target_label  = "level"
+  #           }
+  #           rule {
+  #             source_labels = ["__journal__hostname"]
+  #             target_label  = "instance"
+  #           }
+  #         }
+
+  #         loki.source.journal "read" {
+  #           forward_to = [module.git.grafana_cloud.exports.logs_receiver]
+  #           relabel_rules = loki.relabel.journal.rules
+  #           labels = {
+  #             "job" = "integrations/node_exporter",
+  #           }
+  #         }
+
+  #         prometheus.scrape "static" {
+  #           forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+  #           targets = [{"__address__" = "localhost:8123"}]
+
+  #           authorization {
+  #             type = "Bearer"
+  #             credentials = local.file.hass_token.content
+  #           }
+
+  #           scrape_interval = "10s"
+  #           metrics_path = "/api/prometheus"
+  #         }
+
+  #         prometheus.scrape "cloudflared" {
+  #           forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+  #           targets = [{"__address__" = "localhost:8927"}]
+  #           scrape_interval = "10s"
+  #         }
+
+  #         prometheus.scrape "jellyfin" {
+  #           forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+  #           targets = [{"__address__" = "localhost:8096"}]
+  #           scrape_interval = "10s"
+  #         }
+
+  #         ${lib.concatMapStringsSep "\n" (port: ''
+  #           prometheus.scrape "exportarr_${toString port}" {
+  #             forward_to = [module.git.grafana_cloud.exports.metrics_receiver]
+  #             targets = [{"__address__" = "localhost:${toString port}"}]
+  #             scrape_interval = "10s"
+  #             metrics_path = "/metrics"
+  #           }
+  #         '') (lib.range 9707 9712)}
+  #       '');
+  #     in
+  #     {
+  #       ExecStart = "${lib.getExe pkgs.grafana-agent} run ${configFile} --storage.path /var/lib/grafana-agent-flow --server.http.listen-addr 0.0.0.0:12345";
+  #       Restart = "always";
+  #       User = "grafana-agent-flow";
+  #       RestartSec = 2;
+  #       StateDirectory = "grafana-agent-flow";
+  #       Type = "simple";
+  #     };
+  # };
 
   virtualisation.oci-containers = {
     backend = "docker";
