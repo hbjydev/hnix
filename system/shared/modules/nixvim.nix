@@ -194,8 +194,9 @@ in
         indent = true;
         folding = true;
       };
+
       treesitter-context.enable = true;
-      rainbow-delimiters.enable = true;
+      #rainbow-delimiters.enable = true;
       nix.enable = true;
 
       telescope = {
