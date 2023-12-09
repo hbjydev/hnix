@@ -202,5 +202,9 @@ in
 
       comment-nvim.enable = true;
     };
+
+    extraConfigLua = ''
+      ${builtins.readFile ../../../config/nvim/lua/hbjy/statusline.lua}
+    '';
   };
 }
