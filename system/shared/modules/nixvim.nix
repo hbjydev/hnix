@@ -89,7 +89,7 @@ in
       foldenable = true;
 
       # misc
-      wrap = true;
+      wrap = false;
       termguicolors = true;
       scrolloff = 8;
       colorcolumn = "80";
@@ -324,10 +324,24 @@ in
         };
       };
 
+      gitsigns.enable = true;
+      diffview.enable = true;
+
+      indent-blankline = {
+        enable = true;
+        indent = {
+          highlight = "IndentBlanklineIndent";
+          smartIndentCap = true;
+        };
+      };
+
       comment-nvim.enable = true;
     };
 
     extraConfigLua = ''
+  vim.api.nvim_set_hl(0, "IndentBlanklineIndent", { fg = oxocarbon.oxocarbon.base01 })
+  vim.api.nvim_set_hl(0, "IndentBlanklineIndentActive", { fg = oxocarbon.oxocarbon.base03 })
+
       ${builtins.readFile ../../../config/nvim/lua/hbjy/statusline.lua}
     '';
   };
