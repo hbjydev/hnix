@@ -83,7 +83,7 @@ in
       hlsearch = true;
 
       # code folding
-      foldcolumn = "1";
+      foldcolumn = "0";
       foldlevel = 99;
       foldlevelstart = 99;
       foldenable = true;
@@ -330,8 +330,11 @@ in
       indent-blankline = {
         enable = true;
         indent = {
-          highlight = "IndentBlanklineIndent";
+          highlight = "FoldColumn";
           smartIndentCap = true;
+        };
+        scope = {
+          highlight = "NvimTreeIndentMarker";
         };
       };
 
@@ -339,9 +342,6 @@ in
     };
 
     extraConfigLua = ''
-  vim.api.nvim_set_hl(0, "IndentBlanklineIndent", { fg = oxocarbon.oxocarbon.base01 })
-  vim.api.nvim_set_hl(0, "IndentBlanklineIndentActive", { fg = oxocarbon.oxocarbon.base03 })
-
       ${builtins.readFile ../../../config/nvim/lua/hbjy/statusline.lua}
     '';
   };
