@@ -1,6 +1,16 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 let
+  vim-just = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-just";
+    src = pkgs.fetchFromGitHub {
+      owner = "NoahTheDuke";
+      repo = "vim-just";
+      rev = "927b41825b9cd07a40fc15b4c68635c4b36fa923";
+      sha256 = "sha256-BmxYWUVBzTowH68eWNrQKV1fNN9d1hRuCnXqbEagRoY=";
+    };
+  };
+
   mkKeymap = mode: key: action: {
     key = key;
     action = action;
@@ -18,6 +28,7 @@ in
   programs.nixvim = {
     enable = true;
     colorschemes.oxocarbon.enable = true;
+    extraPlugins = [ vim-just ];
 
     keymaps = [
       (mkNormap "Y" "yg$")
@@ -150,7 +161,6 @@ in
 
           lspBuf = {
             "gd" = "definition";
-            #"gD" = "references";
             "gt" = "type_definition";
             "K" = "hover";
             "<leader>ca" = "code_action";
@@ -188,6 +198,7 @@ in
         };
       };
       fidget.enable = true;
+      rust-tools.enable = true;
 
       treesitter = {
         enable = true;
@@ -207,6 +218,8 @@ in
           "<leader>pg" = "git_files";
           "<C-p>" = "git_files";
           "<leader><space>" = "buffers";
+          "<leader>ds" = "lsp_document_symbols";
+          "<leader>rr" = "lsp_references";
         };
 
         defaults = {
@@ -306,6 +319,9 @@ in
 
       neo-tree = {
         enable = true;
+        window = {
+          position = "float";
+        };
       };
 
       comment-nvim.enable = true;
