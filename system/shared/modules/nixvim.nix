@@ -83,11 +83,60 @@ in
       scrolloff = 8;
       colorcolumn = "80";
       cursorline = true;
+      completeopt = "menu,menuone,noselect";
     };
 
     globals.mapleader = " ";
 
     plugins = {
+      alpha = {
+        enable = true;
+        iconsEnabled = true;
+
+        layout = let
+          centeredText = {
+            position = "center";
+            hl = "@comment";
+          };
+
+          mkPadding = size: { type = "padding"; val = size; };
+          mkText = text: { type = "text"; val = text; opts = centeredText; };
+
+          mkGroup = val: { inherit val; type = "group"; };
+          mkGroupItem = desc: shortcut: {
+            inherit shortcut desc;
+            command = "";
+          };
+        in [
+          (mkPadding 2)
+          (mkText ''
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣿⣿⣶⡄⠱⣦⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⡙⣿⣿⡄⢹⣧⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⡿⢋⣠⠾⠋⠉⢹⣿⣷⢸⣿⡆⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⠏⣠⠞⠁⠀⠀⠀⢸⣿⣿⢸⣿⡇⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⠟⢡⡾⠋⠀⠀⠀⠀⠀⢸⣿⡇⢸⣿⠃⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡿⠁⣴⡟⠁⠀⠀⠀⠀⠀⠀⣿⡿⠀⣾⡟⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠏⢠⣾⠏⠀⠀⠀⠀⠀⠀⠀⣼⠟⢁⣼⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣴⣄⠁⠰⡿⠃⠀⠀⠀⠀⠀⠀⢠⡾⠁⣴⣿⣿⡟⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⠆⠀⠀⠀⠀⠀⠀⠀⢀⡿⢀⣾⣿⣿⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⢀⣴⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⣼⡿⢃⣿⣿⠇⠀⠀⠀
+⠀⠀⠀⢠⣾⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⣼⠟⠁⣸⣿⠏⠀⠀⠀⠀
+⠀⠀⣰⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠃⠀⠀⠀⠀⠀
+⠀⣾⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠛⠛⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+          '')
+
+          (mkPadding 2)
+
+          (mkText ''
+          "Gordon doesn't need to hear all this,
+           he's a highly trained professional"
+               - Dr. Coomer PhD, 2000
+          '')
+        ];
+      };
+
       lsp = {
         enable = true;
         keymaps = {
@@ -194,6 +243,64 @@ in
 
       nvim-cmp = {
         enable = true;
+        preselect = "None";
+
+        mapping = {
+          "<C-p>" = "cmp.mapping.select_prev_item()";
+          "<C-n>" = "cmp.mapping.select_next_item()";
+
+          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+          "<C-f>" = "cmp.mapping.scroll_docs(4)";
+
+          "<C-Space>" = "cmp.mapping.complete({})";
+          "<C-e>" = "cmp.mapping.close()";
+
+          "<C-y>" = "cmp.mapping.confirm()";
+        };
+
+        formatting = {
+          fields = [ "kind" "abbr" "menu" ];
+          format = ''
+            function(_, vim_item)
+              local icons = {
+                Text = "  ",
+                Method = "  ",
+                Function = "  ",
+                Constructor = "  ",
+                Field = "  ",
+                Variable = "  ",
+                Class = "  ",
+                Interface = "  ",
+                Module = "  ",
+                Property = "  ",
+                Unit = "  ",
+                Value = "  ",
+                Enum = "  ",
+                Keyword = "  ",
+                Snippet = "  ",
+                Color = "  ",
+                File = "  ",
+                Reference = "  ",
+                Folder = "  ",
+                EnumMember = "  ",
+                Constant = "  ",
+                Struct = "  ",
+                Event = "  ",
+                Operator = "  ",
+                TypeParameter = "  ",
+              }
+
+              vim_item.menu = vim_item.kind
+              vim_item.kind = icons[vim_item.kind]
+              return vim_item
+            end
+          '';
+        };
+
+        sources = [
+          { name = "nvim_lsp"; groupIndex = 1; }
+          { name = "nvim_lsp_signature_help"; groupIndex = 1; }
+        ];
       };
 
       neo-tree = {
