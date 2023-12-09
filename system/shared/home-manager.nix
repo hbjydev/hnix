@@ -9,12 +9,14 @@ in
   _module.args = { inherit inputs work isDarwin aliases wsl; };
 
   imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+
+    ./modules/dev.nix
     ./modules/ssh.nix
-    ./modules/neovim.nix
+    ./modules/nixvim.nix
     ./modules/git.nix
     ./modules/zsh.nix
     ./modules/nix.nix
-    ./modules/dev.nix
   ];
 
   home.sessionVariables = {
