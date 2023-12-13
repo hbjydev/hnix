@@ -143,7 +143,7 @@ in
           (mkText ''
           "Gordon doesn't need to hear all this,
            he's a highly trained professional"
-               - Dr. Coomer PhD, 2000
+                - Dr. Coomer PhD, 2000
           '')
         ];
       };
