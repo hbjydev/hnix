@@ -81,7 +81,7 @@ in
 
       (mkNormap "<leader>pv" ":Neotree toggle<CR>")
 
-      (mkNormap "<leader>F" ":lua require('conform').format {}")
+      (mkNormap "<leader>F" ":lua require('conform').format {}<CR>")
     ];
 
     options = {
