@@ -8,7 +8,7 @@ let
   );
 in
 {
-  imports = [];
+  imports = [ ];
 
   # Shared group (and user for Docker) to deal with permissions
   users.extraUsers.media = {
@@ -30,13 +30,13 @@ in
   # Automation
   services.prowlarr.enable = true;
 
-  services.radarr = mkMediaService {};
-  services.sonarr = mkMediaService {};
-  services.lidarr = mkMediaService {};
-  services.readarr = mkMediaService {};
+  services.radarr = mkMediaService { };
+  services.sonarr = mkMediaService { };
+  services.lidarr = mkMediaService { };
+  services.readarr = mkMediaService { };
 
   services.jellyseerr.enable = true;
-  services.jellyfin = mkMediaService {};
+  services.jellyfin = mkMediaService { };
   systemd.services.jellyfin.after = [ "storage.mount" ];
 
   services.calibre-server = mkMediaService {

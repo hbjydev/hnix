@@ -53,6 +53,10 @@
             src = ./config/nvim;
           };
         };
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [ nixpkgs-fmt ];
+        };
       };
 
       flake = {
@@ -90,7 +94,7 @@
             hostname = "nixnuc";
             options = [ "docker" "downloads" "ssh" "x" ];
           };
-	      };
+        };
       };
     };
 }

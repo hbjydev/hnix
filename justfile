@@ -9,3 +9,9 @@ linux profile command:
 
 update:
   nix flake update
+
+lint path=".":
+  nix develop -c nixpkgs-fmt --check {{path}}
+
+format path=".":
+  nix develop -c nixpkgs-fmt {{path}}

@@ -41,7 +41,7 @@ let
       targets = mkOption {
         description = "List of targets to scrape";
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
       };
 
       forwardTo = mkOption {
@@ -88,7 +88,7 @@ in
           };
         };
 
-        default = {};
+        default = { };
       };
 
       enableJournaldLogging = mkOption {
@@ -108,7 +108,7 @@ in
       };
 
       grafanaCloud = mkOption {
-        default = {};
+        default = { };
         type = types.submodule grafanaCloudOpts;
         description = mdDoc ''
           Grafana Cloud configuration.
@@ -124,7 +124,7 @@ in
       };
 
       staticScrapes = mkOption {
-        default = {};
+        default = { };
         type = with types; attrsOf (submodule staticScrapeOpts);
         description = mdDoc ''
           List of static scrapes to configure.
@@ -142,7 +142,7 @@ in
       isNormalUser = true;
     };
 
-    users.groups.grafana-agent-flow = {};
+    users.groups.grafana-agent-flow = { };
 
     systemd.services.grafana-agent-flow = {
       description = "grafana-agent-flow";
@@ -155,65 +155,68 @@ in
 
       serviceConfig =
         let
-          tokenFile = if cfg.grafanaCloud.enable then
-            ''
-              local.file "gc_token" {
-                filename = "${cfg.grafanaCloud.tokenFile}"
-                is_secret = true
-              }
-            ''
-          else
-            "";
+          tokenFile =
+            if cfg.grafanaCloud.enable then
+              ''
+                local.file "gc_token" {
+                  filename = "${cfg.grafanaCloud.tokenFile}"
+                  is_secret = true
+                }
+              ''
+            else
+              "";
 
-          nodeExporterConfig = if cfg.nodeExporter.enable then
-            ''
-              prometheus.scrape "node" {
-                targets = prometheus.exporter.unix.node.targets
-                forward_to = [
-                  ${builtins.concatStringsSep ",\n" cfg.nodeExporter.forwardTo},
-                ]
-                scrape_interval = "10s"
-              }
-              prometheus.exporter.unix "node" {
-              }
-            ''
-          else
-            "";
+          nodeExporterConfig =
+            if cfg.nodeExporter.enable then
+              ''
+                prometheus.scrape "node" {
+                  targets = prometheus.exporter.unix.node.targets
+                  forward_to = [
+                    ${builtins.concatStringsSep ",\n" cfg.nodeExporter.forwardTo},
+                  ]
+                  scrape_interval = "10s"
+                }
+                prometheus.exporter.unix "node" {
+                }
+              ''
+            else
+              "";
 
-          journaldLoggingConfig = if cfg.enableJournaldLogging then
-            ''
-              loki.relabel "journal" {
-                forward_to = []
+          journaldLoggingConfig =
+            if cfg.enableJournaldLogging then
+              ''
+                loki.relabel "journal" {
+                  forward_to = []
 
-                rule {
-                  source_labels = ["__journal__systemd_unit"]
-                  target_label  = "unit"
+                  rule {
+                    source_labels = ["__journal__systemd_unit"]
+                    target_label  = "unit"
+                  }
+                  rule {
+                    source_labels = ["__journal__boot_id"]
+                    target_label  = "boot_id"
+                  }
+                  rule {
+                    source_labels = ["__journal__transport"]
+                    target_label  = "transport"
+                  }
+                  rule {
+                    source_labels = ["__journal_priority_keyword"]
+                    target_label  = "level"
+                  }
+                  rule {
+                    source_labels = ["__journal__hostname"]
+                    target_label  = "instance"
+                  }
                 }
-                rule {
-                  source_labels = ["__journal__boot_id"]
-                  target_label  = "boot_id"
-                }
-                rule {
-                  source_labels = ["__journal__transport"]
-                  target_label  = "transport"
-                }
-                rule {
-                  source_labels = ["__journal_priority_keyword"]
-                  target_label  = "level"
-                }
-                rule {
-                  source_labels = ["__journal__hostname"]
-                  target_label  = "instance"
-                }
-              }
 
-              loki.source.journal "read" {
-                forward_to = [module.git.grafana_cloud.exports.logs_receiver]
-                relabel_rules = loki.relabel.journal.rules
-              }
-            ''
-          else
-            "";
+                loki.source.journal "read" {
+                  forward_to = [module.git.grafana_cloud.exports.logs_receiver]
+                  relabel_rules = loki.relabel.journal.rules
+                }
+              ''
+            else
+              "";
 
           configFile = (pkgs.writeText "config.river" ''
             ${tokenFile}
@@ -236,7 +239,8 @@ in
 
             ${cfg.extraConfig}
           '');
-        in {
+        in
+        {
           ExecStart = "${lib.getExe cfg.package} run ${configFile} --storage.path /var/lib/grafana-agent-flow --server.http.listen-addr ${cfg.httpListenAddr}";
           Restart = "always";
           User = "grafana-agent-flow";

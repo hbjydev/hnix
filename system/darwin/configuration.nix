@@ -52,12 +52,14 @@
     ] ++ (
       # Handle work environment desktop packages
       if username == "haydenyoung"
-        then [
-          "microsoft-teams" "slack" "amazon-chime" # Comms
-        ]
-        else [
-          "linear"
-        ]
+      then [
+        "microsoft-teams"
+        "slack"
+        "amazon-chime" # Comms
+      ]
+      else [
+        "linear"
+      ]
     );
 
     masApps = {
@@ -71,7 +73,7 @@
     };
   };
 
-  environment.pathsToLink = ["/share/qemu"];
+  environment.pathsToLink = [ "/share/qemu" ];
 
   programs.zsh.enable = true;
 

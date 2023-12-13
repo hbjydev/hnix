@@ -7,7 +7,7 @@ let
   shared-packages = import ../shared/home-manager-packages.nix { inherit pkgs inputs work; };
 in
 {
-  imports = [ shared-config ]; 
+  imports = [ shared-config ];
 
   nix = {
     package = pkgs.nixUnstable;

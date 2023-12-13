@@ -1,11 +1,10 @@
 { inputs }:
 
-{
-  system,
-  username,
-  homeDirectory ? "/home/${username}",
-  work ? false,
-  wsl ? false
+{ system
+, username
+, homeDirectory ? "/home/${username}"
+, work ? false
+, wsl ? false
 }:
 inputs.home-manager.lib.homeManagerConfiguration {
   pkgs = inputs.nixpkgs.legacyPackages.${system};

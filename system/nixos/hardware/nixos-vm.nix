@@ -14,18 +14,19 @@
   virtualisation.vmware.guest.enable = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/7e289208-ce1b-4152-994a-e1e211955dac";
+    {
+      device = "/dev/disk/by-uuid/7e289208-ce1b-4152-994a-e1e211955dac";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F2DD-7145";
+    {
+      device = "/dev/disk/by-uuid/F2DD-7145";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/2d9e82aa-f0e6-4643-929e-5812bf1968eb"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/2d9e82aa-f0e6-4643-929e-5812bf1968eb"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

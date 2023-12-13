@@ -5,54 +5,56 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
       ../../../lib/nixosModules/grafana-agent-flow.nix
     ];
 
-  sops.secrets = let
-    mkNixnucSecret =
-      filename: (
-        { ... }@args:
-        {
-          sopsFile = ../../../secrets/nixnuc/${filename};
-        } // args
-      );
+  sops.secrets =
+    let
+      mkNixnucSecret =
+        filename: (
+          { ... }@args:
+          {
+            sopsFile = ../../../secrets/nixnuc/${filename};
+          } // args
+        );
 
-    mkMediaSecret = filename: args: mkNixnucSecret filename args // {
-      owner = "media";
-    };
-  in
-  {
-    # Access keys for Grafana Agent
-    "gc_token" = mkNixnucSecret "grafana-cloud.yaml" {
-      owner = "grafana-agent-flow";
-      restartUnits = [ "grafana-agent-flow.service" ];
-    };
-    "hass_token" = mkNixnucSecret "grafana-cloud.yaml" {
-      owner = "grafana-agent-flow";
-      restartUnits = [ "grafana-agent-flow.service" ];
-    };
+      mkMediaSecret = filename: args: mkNixnucSecret filename args // {
+        owner = "media";
+      };
+    in
+    {
+      # Access keys for Grafana Agent
+      "gc_token" = mkNixnucSecret "grafana-cloud.yaml" {
+        owner = "grafana-agent-flow";
+        restartUnits = [ "grafana-agent-flow.service" ];
+      };
+      "hass_token" = mkNixnucSecret "grafana-cloud.yaml" {
+        owner = "grafana-agent-flow";
+        restartUnits = [ "grafana-agent-flow.service" ];
+      };
 
-    # Download client keys for exporters
-    "sabnzbd_key" = mkMediaSecret "downloads-tokens.yaml" {
-      restartUnits = [ "docker-exportarr-sabnzbd.service" ];
+      # Download client keys for exporters
+      "sabnzbd_key" = mkMediaSecret "downloads-tokens.yaml" {
+        restartUnits = [ "docker-exportarr-sabnzbd.service" ];
+      };
+      "lidarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+        restartUnits = [ "docker-exportarr-lidarr.service" ];
+      };
+      "prowlarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+        restartUnits = [ "docker-exportarr-prowlarr.service" ];
+      };
+      "readarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+        restartUnits = [ "docker-exportarr-readarr.service" ];
+      };
+      "radarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+        restartUnits = [ "docker-exportarr-radarr.service" ];
+      };
+      "sonarr_key" = mkMediaSecret "downloads-tokens.yaml" {
+        restartUnits = [ "docker-exportarr-sonarr.service" ];
+      };
     };
-    "lidarr_key" = mkMediaSecret "downloads-tokens.yaml" {
-      restartUnits = [ "docker-exportarr-lidarr.service" ];
-    };
-    "prowlarr_key" = mkMediaSecret "downloads-tokens.yaml" {
-      restartUnits = [ "docker-exportarr-prowlarr.service" ];
-    };
-    "readarr_key" = mkMediaSecret "downloads-tokens.yaml" {
-      restartUnits = [ "docker-exportarr-readarr.service" ];
-    };
-    "radarr_key" = mkMediaSecret "downloads-tokens.yaml" {
-      restartUnits = [ "docker-exportarr-radarr.service" ];
-    };
-    "sonarr_key" = mkMediaSecret "downloads-tokens.yaml" {
-      restartUnits = [ "docker-exportarr-sonarr.service" ];
-    };
-  };
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
@@ -64,35 +66,39 @@
   programs.dconf.enable = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f8948e68-b255-4173-b824-6d7f10d21c39";
+    {
+      device = "/dev/disk/by-uuid/f8948e68-b255-4173-b824-6d7f10d21c39";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/D629-8B4D";
+    {
+      device = "/dev/disk/by-uuid/D629-8B4D";
       fsType = "vfat";
     };
 
   fileSystems."/local" =
-    { device = "/dev/disk/by-uuid/20cbe703-a000-4b7d-98f0-eae0ca6571e3";
+    {
+      device = "/dev/disk/by-uuid/20cbe703-a000-4b7d-98f0-eae0ca6571e3";
       fsType = "ext4";
     };
 
   fileSystems."/storage" =
-    { device = "192.168.4.2:/volume1/media";
+    {
+      device = "192.168.4.2:/volume1/media";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
 
   fileSystems."/downloads" =
-    { device = "192.168.4.2:/volume1/downloads";
+    {
+      device = "192.168.4.2:/volume1/downloads";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/99c2f4f1-420b-4435-9350-0d3b75e92b8a"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/99c2f4f1-420b-4435-9350-0d3b75e92b8a"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -138,7 +144,7 @@
     ];
 
     config = {
-      default_config = {};
+      default_config = { };
       homeassistant = {
         name = "The Hole";
         unit_system = "metric";
@@ -183,7 +189,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)

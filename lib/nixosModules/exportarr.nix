@@ -59,7 +59,7 @@ let
           (mkConfig name svcConfig.servicePort svcConfig.onPort svcConfig.tokenFile))
         configs;
     in
-      (mkMerge built).contents;
+    (mkMerge built).contents;
 
   cfg = config.exportarr;
 in
@@ -69,7 +69,7 @@ in
       enable = mkEnableOption (mdDoc "exportarr");
       services = mkOption {
         type = with types; attrsOf (submodule instanceOpts);
-        default = {};
+        default = { };
         description = "Configuration for grafana-agent-flow";
       };
     };
