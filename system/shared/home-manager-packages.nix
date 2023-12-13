@@ -23,6 +23,8 @@ with pkgs; [
   tilt
   viddy
 
+  inputs.hvim.packages.${pkgs.system}.default # my nixos config
+
   inputs.fh.packages.${pkgs.system}.default # flakehub cli
 ] ++ pkgs.lib.lists.optionals work [
   bitwarden-cli

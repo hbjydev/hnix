@@ -34,8 +34,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    hvim = {
+      url = "github:hbjydev/hvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -47,13 +47,6 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
-        packages = {
-          hbjy-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "hbjy";
-            src = ./config/nvim;
-          };
-        };
-
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [ nixpkgs-fmt ];
         };
