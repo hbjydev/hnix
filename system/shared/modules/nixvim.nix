@@ -270,7 +270,23 @@ in
 
       nvim-cmp = {
         enable = true;
-        preselect = "None";
+
+        snippet.expand = "luasnip";
+        sources = [
+          { name = "nvim_lsp"; }
+          { name = "nvim_lsp_document_symbol"; }
+          { name = "nvim_lsp_signature_help"; }
+          { name = "luasnip"; }
+          { name = "path"; }
+        ];
+
+        window = {
+          documentation.maxHeight = "math.floor(40 * (40 / vim.o.lines))";
+          completion = {
+            colOffset = -3;
+            sidePadding = 0;
+          };
+        };
 
         mapping = {
           "<C-p>" = "cmp.mapping.select_prev_item()";
@@ -355,18 +371,6 @@ in
             end
           '';
         };
-
-        snippet = {
-          expand = "luasnip";
-        };
-
-        sources = [
-          { name = "nvim_lsp"; groupIndex = 1; }
-          { name = "nvim_lsp_document_symbol"; groupIndex = 1; }
-          { name = "nvim_lsp_signature_help"; groupIndex = 1; }
-          { name = "luasnip"; groupIndex = 2; }
-          { name = "path"; groupIndex = 3; }
-        ];
       };
 
       cmp-nvim-lsp.enable = true;
