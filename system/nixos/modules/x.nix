@@ -26,7 +26,11 @@
     defaultWindowManager = "/run/current-system/sw/bin/gnome-session";
   };
 
-  environment.systemPackages = with pkgs; [ gnome.gnome-session ];
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-session
+    wl-clipboard
+    xclip
+  ];
 
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
