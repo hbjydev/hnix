@@ -34,6 +34,15 @@ in
       friendly-snippets
     ];
 
+    extraPackages = with pkgs; [
+      stylua
+      isort
+      black
+      prettierd
+      nixpkgs-fmt
+      terraform
+    ];
+
     extraConfigLuaPre = ''
       local has_words_before = function()
         unpack = unpack or table.unpack
@@ -71,6 +80,8 @@ in
       (mkNormap "<leader>k" "<cmd>lprev<CR>zz")
 
       (mkNormap "<leader>pv" ":Neotree toggle<CR>")
+
+      (mkNormap "<leader>F" ":lua require('conform').format {}")
     ];
 
     options = {
@@ -177,7 +188,6 @@ in
             "K" = "hover";
             "<leader>ca" = "code_action";
             "<leader>rn" = "rename";
-            "<leader>F" = "format";
           };
         };
 
@@ -378,6 +388,18 @@ in
       cmp-nvim-lsp-signature-help.enable = true;
       cmp-nvim-lua.enable = true;
       cmp_luasnip.enable = true;
+
+      conform-nvim = {
+        enable = true;
+        formattersByFt = {
+          lua = [ "stylua" ];
+          python = [ "isort" "black" ];
+          javascript = [ "prettierd" ];
+          nix = [ "nixpkgs_fmt" ];
+          tf = [ "terraform_fmt" ];
+          "_" = [ "trim_whitespace" ];
+        };
+      };
 
       luasnip = {
         enable = true;
