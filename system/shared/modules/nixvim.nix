@@ -28,7 +28,12 @@ in
   programs.nixvim = {
     enable = true;
     colorschemes.oxocarbon.enable = true;
-    extraPlugins = [ vim-just ];
+
+    extraPlugins = with pkgs.vimPlugins; [
+      vim-just
+    ];
+
+    extraPackages = with pkgs; [ wl-clipboard ];
 
     keymaps = [
       (mkNormap "Y" "yg$")
@@ -324,7 +329,14 @@ in
         ];
       };
 
-      luasnip.enable = true;
+      luasnip = {
+        enable = true;
+        fromVscode = [
+          {
+            paths = "${pkgs.vimPlugins.friendly-snippets}/snippets";
+          }
+        ];
+      };
 
       neo-tree = {
         enable = true;
