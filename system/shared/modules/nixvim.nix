@@ -195,6 +195,7 @@ in
           sourcekit.enable = true;
           terraformls.enable = true;
           tsserver.enable = true;
+          yamlls.enable = true;
         };
       };
       fidget.enable = true;
@@ -311,11 +312,19 @@ in
           '';
         };
 
+        snippet = {
+          expand = "luasnip";
+        };
+
         sources = [
           { name = "nvim_lsp"; groupIndex = 1; }
           { name = "nvim_lsp_signature_help"; groupIndex = 1; }
+          { name = "luasnip"; groupIndex = 2; }
+          { name = "path"; groupIndex = 3; }
         ];
       };
+
+      luasnip.enable = true;
 
       neo-tree = {
         enable = true;
