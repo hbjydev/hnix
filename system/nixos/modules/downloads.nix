@@ -30,6 +30,7 @@ in
   # Automation
   services.prowlarr.enable = true;
 
+  services.bazarr = mkMediaService { };
   services.radarr = mkMediaService { };
   services.sonarr = mkMediaService { };
   services.lidarr = mkMediaService { };
