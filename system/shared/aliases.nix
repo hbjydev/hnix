@@ -25,17 +25,12 @@ isDarwin:
 
   zsh = {
     s = ''doppler run --config "nix" --project "$(whoami)"'';
+    ops = "op run --no-masking";
 
     cat = "bat --paging=never";
 
     vi = "nvim";
     vim = "nvim";
-
-    rebuild = (
-      if isDarwin
-      then "darwin-rebuild switch --flake \"$HOME/.config/nix#work-darwin\""
-      else "sudo nixos-rebuild switch --flake '/etc/nixos#personal-nixos'"
-    );
 
     dc = "docker compose";
     dcu = "docker compose up";
@@ -59,6 +54,7 @@ isDarwin:
     ssh = "TERM=xterm-256color ssh";
 
     nb = "nix build --json --no-link --print-build-logs";
+    lg = "lazygit";
 
     watch = "viddy";
   };
