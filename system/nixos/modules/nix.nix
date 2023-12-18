@@ -6,7 +6,12 @@
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "auto-allocate-uids"
+        "configurable-impure-env"
+      ];
       substituters = [
         "https://nix-community.cachix.org"
         "https://devenv.cachix.org"
