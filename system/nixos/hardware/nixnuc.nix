@@ -113,7 +113,8 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.bluetooth = {
-    enable = false;
+    enable = true;
+    powerOnBoot = true;
   };
 
   services.home-assistant = {
