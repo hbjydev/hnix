@@ -24,7 +24,7 @@ isDarwin:
   };
 
   zsh = {
-    s = ''doppler run --config "nix" --project "$(whoami)"'';
+    s = "doppler run";
     ops = "op run --no-masking";
 
     cat = "bat --paging=never";
