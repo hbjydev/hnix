@@ -2,6 +2,32 @@
 
 eval "$(k9s completion zsh)"
 
+ctlc () {
+  cat <<EOF | ctlptl apply -f -
+apiVersion: ctlptl.dev/v1alpha1
+kind: Cluster
+product: kind
+registry: ctlptl-registry
+kindV1Alpha4Cluster:
+  name: kind
+  nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 8282
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 8383
+        protocol: TCP
+EOF
+}
+
 kindc () {
   cat <<EOF | kind create cluster --config=-
 kind: Cluster
@@ -16,7 +42,7 @@ nodes:
         node-labels: "ingress-ready=true"
   extraPortMappings:
   - containerPort: 80
-    hostPort: 8080
+    hostPort: 8282
     protocol: TCP
   - containerPort: 443
     hostPort: 8443

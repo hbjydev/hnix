@@ -5,6 +5,7 @@ with pkgs; [
   awscli2
   bun
   cachix
+  ctlptl
   doppler
   fd
   glab
