@@ -10,7 +10,6 @@
         "nix-command"
         "flakes"
         "auto-allocate-uids"
-        "configurable-impure-env"
       ];
       substituters = [
         "https://nix-community.cachix.org"
