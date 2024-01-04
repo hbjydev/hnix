@@ -19,7 +19,7 @@ in
       package = pkgs.nerdfonts.override {
         fonts = [ "IntelOneMono" ];
       };
-      size = 15;
+      size = 12;
     };
 
     settings = {
