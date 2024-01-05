@@ -11,6 +11,14 @@ in
 
   home.file."Library/Application Support/k9s/skin.yml".source = ../../config/k9s/skin.yml;
 
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      ${builtins.readFile ../../config/wezterm/colorutils.lua}
+      ${builtins.readFile ../../config/wezterm/wezterm.lua}
+    '';
+  };
+
   programs.kitty = {
     enable = true;
 
