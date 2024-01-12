@@ -218,7 +218,7 @@ return {
   enable_tab_bar = true,
   enable_wayland = false,
 
-  window_background_opacity = 1,
+  window_background_opacity = 0.85,
   window_close_confirmation = "NeverPrompt",
   window_decorations = "RESIZE",
   window_padding = {
