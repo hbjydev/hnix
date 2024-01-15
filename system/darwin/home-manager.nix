@@ -27,7 +27,7 @@ in
       package = pkgs.nerdfonts.override {
         fonts = [ "IntelOneMono" ];
       };
-      size = 12;
+      size = 14;
     };
 
     settings = {
@@ -40,12 +40,6 @@ in
       bell_border_color = "#ee5396";
       color0 = "#262626";
       color1 = "#ff7eb6";
-      color10 = "#42be65";
-      color11 = "#82cfff";
-      color12 = "#33b1ff";
-      color13 = "#ee5396";
-      color14 = "#3ddbd9";
-      color15 = "#ffffff";
       color2 = "#42be65";
       color3 = "#82cfff";
       color4 = "#33b1ff";
@@ -54,6 +48,12 @@ in
       color7 = "#dde1e6";
       color8 = "#393939";
       color9 = "#ff7eb6";
+      color10 = "#42be65";
+      color11 = "#82cfff";
+      color12 = "#33b1ff";
+      color13 = "#ee5396";
+      color14 = "#3ddbd9";
+      color15 = "#ffffff";
       cursor = "#f2f4f8";
       cursor_text_color = "#393939";
       enabled_layouts = "splits";
