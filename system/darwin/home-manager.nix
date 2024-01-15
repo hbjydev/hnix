@@ -63,7 +63,7 @@ in
       inactive_tab_background = "#393939";
       inactive_tab_foreground = "#dde1e6";
       listen_on = "unix:/tmp/kitty";
-      macos_option_as_alt = "yes";
+      macos_option_as_alt = "left";
       macos_quit_when_last_window_closed = "yes";
       macos_titlebar_color = "system";
       selection_background = "#525252";
