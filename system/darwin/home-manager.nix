@@ -41,7 +41,7 @@ in
       enabled_layouts = "splits";
       hide_window_decorations = "titlebar-and-corners";
       listen_on = "unix:/tmp/kitty";
-      macos_option_as_alt = "left";
+      macos_option_as_alt = "right";
       macos_quit_when_last_window_closed = "yes";
       macos_titlebar_color = "system";
       tab_bar_edge = "top";
