@@ -30,6 +30,11 @@ in
       size = 14;
     };
 
+    keybindings = {
+      "ctrl+shift+t" = "new_tab_with_cmd";
+      "cmd+t" = "new_tab_with_cmd";
+    };
+
     settings = {
       active_border_color = "#ee5396";
       active_tab_background = "#ee5396";
