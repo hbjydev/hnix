@@ -34,9 +34,15 @@ in
     keybindings = {
       "ctrl+shift+t" = "new_tab_with_cwd";
       "cmd+t" = "new_tab_with_cwd";
+      "cmd+enter" = "launch --cwd=current --location split";
 
       "alt+left" = "send_text all \\x1b\\x62";
       "alt+right" = "send_text all \\x1b\\x66";
+
+      "cmd+up" = "neighboring_window up";
+      "cmd+left" = "neighboring_window left";
+      "cmd+right" = "neighboring_window right";
+      "cmd+down" = "neighboring_window down";
     };
 
     settings = {
@@ -51,6 +57,9 @@ in
       tab_bar_style = "powerline";
       wayland_titlebar_color = "system";
       background_opacity = "0.9";
+      draw_minimal_borders = "yes";
+
+      tab_title_template = "{title}";
 
       # Oxocarbon
       background              = oxocarbon.base00;
