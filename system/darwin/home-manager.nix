@@ -31,8 +31,8 @@ in
     };
 
     keybindings = {
-      "ctrl+shift+t" = "new_tab_with_cmd";
-      "cmd+t" = "new_tab_with_cmd";
+      "ctrl+shift+t" = "new_tab_with_cwd";
+      "cmd+t" = "new_tab_with_cwd";
     };
 
     settings = {
