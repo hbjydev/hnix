@@ -3,6 +3,7 @@
 { pkgs, ... }:
 
 let
+  oxocarbon = (import ../shared/oxocarbon.nix).dark;
   shared-config = import ../shared/home-manager.nix { inherit inputs work; };
   shared-packages = import ../shared/home-manager-packages.nix { inherit pkgs inputs work; };
 in
@@ -46,40 +47,42 @@ in
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
       wayland_titlebar_color = "system";
-
-      active_border_color = "#ee5396";
-      active_tab_background = "#ee5396";
-      active_tab_foreground = "#161616";
-      background = "#161616";
       background_opacity = "0.9";
-      bell_border_color = "#ee5396";
-      color0 = "#262626";
-      color1 = "#ff7eb6";
-      color10 = "#42be65";
-      color11 = "#82cfff";
-      color12 = "#33b1ff";
-      color13 = "#ee5396";
-      color14 = "#3ddbd9";
-      color15 = "#ffffff";
-      color2 = "#42be65";
-      color3 = "#82cfff";
-      color4 = "#33b1ff";
-      color5 = "#ee5396";
-      color6 = "#3ddbd9";
-      color7 = "#dde1e6";
-      color8 = "#393939";
-      color9 = "#ff7eb6";
-      cursor = "#f2f4f8";
-      cursor_text_color = "#393939";
-      foreground = "#dde1e6";
-      inactive_border_color = "#ff7eb6";
-      inactive_tab_background = "#393939";
-      inactive_tab_foreground = "#dde1e6";
-      selection_background = "#525252";
-      selection_foreground = "#f2f4f8";
-      tab_bar_background = "#161616";
-      url_color = "#ee5396";
-      url_style = "single";
+
+      # Oxocarbon
+      background              = oxocarbon.base00;
+      foreground              = oxocarbon.base05;
+      selection_background    = oxocarbon.base05;
+      selection_foreground    = oxocarbon.base00;
+      url_color               = oxocarbon.base04;
+      cursor                  = oxocarbon.base05;
+      active_border_color     = oxocarbon.base03;
+      inactive_border_color   = oxocarbon.base01;
+      active_tab_background   = oxocarbon.base00;
+      active_tab_foreground   = oxocarbon.base05;
+      inactive_tab_background = oxocarbon.base01;
+      inactive_tab_foreground = oxocarbon.base04;
+      tab_bar_background      = oxocarbon.base01;
+
+      # Normal
+      color0 = oxocarbon.base00;
+      color1 = oxocarbon.base08;
+      color2 = oxocarbon.base0B;
+      color3 = oxocarbon.base0A;
+      color4 = oxocarbon.base0D;
+      color5 = oxocarbon.base0E;
+      color6 = oxocarbon.base0C;
+      color7 = oxocarbon.base05;
+
+      # Bright
+      color8 = oxocarbon.base03;
+      color9 = oxocarbon.base09;
+      color10 = oxocarbon.base01;
+      color11 = oxocarbon.base02;
+      color12 = oxocarbon.base04;
+      color13 = oxocarbon.base06;
+      color14 = oxocarbon.base0F;
+      color15 = oxocarbon.base07;
     };
   };
 

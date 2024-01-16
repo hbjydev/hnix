@@ -1,5 +1,5 @@
 {
-  dark = {
+  dark = rec {
     base00 = "#161616"; 
     base01 = "#262626"; 
     base02 = "#393939"; 
@@ -16,5 +16,12 @@
     base0D = "#42be65"; 
     base0E = "#be95ff"; 
     base0F = "#82cfff";
+
+    base10 = base0A;
+    base11 = base0B;
+    base12 = base0C;
+    base13 = base0D;
+    base14 = base0E;
+    base15 = base0F;
   };
 }
