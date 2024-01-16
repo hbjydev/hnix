@@ -34,6 +34,9 @@ in
     keybindings = {
       "ctrl+shift+t" = "new_tab_with_cwd";
       "cmd+t" = "new_tab_with_cwd";
+
+      "alt+left" = "send_text all \\x1b\\x62";
+      "alt+right" = "send_text all \\x1b\\x66";
     };
 
     settings = {
