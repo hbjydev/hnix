@@ -32,8 +32,8 @@ in
     };
 
     keybindings = {
-      "ctrl+shift+t" = "new_tab_with_cwd";
-      "cmd+t" = "new_tab_with_cwd";
+      "ctrl+shift+t" = "launch --cwd=current --type=tab";
+      "cmd+t" = "launch --cwd=current --type=tab";
       "cmd+enter" = "launch --cwd=current --location split";
 
       "alt+left" = "send_text all \\x1b\\x62";
