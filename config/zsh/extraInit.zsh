@@ -91,6 +91,3 @@ fi
 if [[ -d "/opt/homebrew" ]]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 fi
-
-# Get weather data on startup
-curl 'wttr.in/sheffield?0Q'
