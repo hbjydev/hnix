@@ -206,6 +206,10 @@
     tunnels.hy-8hh-nixnuc = {
       warp-routing.enabled = false;
       credentialsFile = "/etc/cloudflared/hy-8hh-nixnuc.json";
+      default = "http_status:404";
+      ingress = {
+        "*.hayden.moe" = "http://localhost:80";
+      };
     };
   };
 
