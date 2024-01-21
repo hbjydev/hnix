@@ -36,13 +36,13 @@
     gnome-photos
     gnome-tour
     gnome-console
+    gedit # text editor
   ] ++ (with pkgs.gnome; [
     cheese # webcam tool
     gnome-music
     gnome-terminal
     gnome-maps
     gnome-calendar
-    gedit # text editor
     epiphany # web browser
     geary # email reader
     evince # document viewer
