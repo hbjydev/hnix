@@ -47,6 +47,7 @@ in
       wayland_titlebar_color = "system";
       background_opacity = "0.9";
       draw_minimal_borders = "yes";
+      window_padding_width = "16";
 
       tab_title_template = "{title}";
 
