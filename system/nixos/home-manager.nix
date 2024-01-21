@@ -7,7 +7,10 @@ let
   shared-packages = import ../shared/home-manager-packages.nix { inherit pkgs inputs work; };
 in
 {
-  imports = if desktop then [ shared-config ] else [ shared-config ];
+  imports = if desktop then [
+    shared-config
+    (import ../shared/modules/kitty.nix)
+  ] else [ shared-config ];
 
   dconf.settings =
     if desktop then {
