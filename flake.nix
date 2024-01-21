@@ -6,7 +6,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Include `nxs` (nixpkgs-stable) and `nxt` (nixpkgs-trunk)
-    stable.url = "https://flakehub.com/f/NixOS/nixpkgs/*.tar.gz";
+    stable.url = "github:nixos/nixpkgs/nixos-23.11";
     trunk.url = "github:nixos/nixpkgs";
 
     darwin = {
@@ -15,12 +15,7 @@
     };
 
     home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    fh = {
-      url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -85,7 +80,7 @@
             system = "x86_64-linux";
             username = "hayden";
             hostname = "nixnuc";
-            options = [ "docker" "downloads" "ssh" "x" ];
+            options = [ "firefly" "docker" "downloads" "ssh" "x" ];
           };
         };
       };
