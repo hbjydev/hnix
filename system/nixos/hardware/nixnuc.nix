@@ -206,7 +206,7 @@
     tunnels.hy-8hh-nixnuc = {
       warp-routing.enabled = false;
       default = "http_status:404";
-      credentialsFile = "/etc/cloudflared/0162d32a-13af-4de8-886f-3d6c68167f9e.json";
+      credentialsFile = "/etc/cloudflared/15dcea6a-d4ff-4908-98a9-3b1e5107c6ec.json";
       ingress = {
         "*.home.hbjy.io" = "http://localhost:80";
       };
