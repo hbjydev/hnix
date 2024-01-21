@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  oxocarbon = import ../oxocarbon.nix;
+  oxocarbon = (import ../oxocarbon.nix).dark;
 in
 {
   programs.kitty = {
