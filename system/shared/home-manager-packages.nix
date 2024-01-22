@@ -11,7 +11,6 @@ with pkgs; [
   glab
   httpie
   jq
-  jsonnet
   just
   k9s
   kind
