@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [ ];
 
@@ -37,12 +37,10 @@
       ports = [ "8643:8080" ];
     };
 
-    #firefly-cron = {
-    #  autoStart = true;
-    #  image = "alpine";
-    #  environmentFiles = [
-    #    config.sops.secrets.firefly_app_env.path
-    #  ];
-    #};
+    firefly-cron = {
+      autoStart = true;
+      image = "alpine";
+      cmd = lib.strings.splitString " " "sh -c \"echo \\\"0 3 * * * wget -qO- http://192.168.4.3:8642/api/v1/cron/wRSzN2m1RrXY5bSBm2ak3NOOWX512nPxfqztBZNY5Xca\\\" | crontab - && crond -f -L /dev/stdout\"";
+    };
   };
 }

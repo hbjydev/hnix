@@ -117,6 +117,7 @@
     powerOnBoot = true;
   };
 
+  systemd.services.home-assistant.serviceConfig.LimitNOFILE = 4096;
   services.home-assistant = {
     enable = true;
 
