@@ -15,6 +15,9 @@ in
     };
 
     keybindings = {
+      "ctrl+shift+]" = "next_tab";
+      "ctrl+shift+[" = "previous_tab";
+
       "ctrl+shift+t" = "launch --cwd=current --type=tab";
       "cmd+t" = "launch --cwd=current --type=tab";
 
