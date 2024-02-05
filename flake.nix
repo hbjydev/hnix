@@ -43,7 +43,7 @@
       systems = [ "x86_64-linux" "aarch64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ nixpkgs-fmt ];
+          buildInputs = with pkgs; [ nixpkgs-fmt ssh-to-age ];
         };
       };
 
