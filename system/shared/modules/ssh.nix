@@ -1,5 +1,9 @@
-{ work, isDarwin, ... }:
+{ work, isDarwin, config, ... }:
 {
+  sops.secrets.ssh_config_work = {
+    path = "${config.home.homeDirectory}/.ssh/config.d/work";
+  };
+
   programs.ssh = {
     enable = true;
     matchBlocks."*".extraOptions = {
@@ -14,5 +18,6 @@
       Compression = "yes";
       User = if work then "hyoung" else "hayden";
     };
+    includes = ["config.d/*"];
   };
 }

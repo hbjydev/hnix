@@ -14,6 +14,7 @@ in
     ./modules/git.nix
     ./modules/zsh.nix
     ./modules/nix.nix
+    ./modules/sops.nix
   ];
 
   home.sessionVariables = {
