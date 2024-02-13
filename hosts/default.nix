@@ -3,7 +3,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
-  ];
+  ] ++ (lib.my.mapModulesRec' (toString ../modules) import);
 
   programs._1password.enable = true;
 

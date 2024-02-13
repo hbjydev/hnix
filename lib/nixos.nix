@@ -1,6 +1,6 @@
 { inputs, lib, pkgs, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib) mkDefault filterAttrs elem;
   inherit (lib.my) mapModules;
   inherit (lib.strings) removeSuffix;
 
@@ -16,6 +16,7 @@ rec {
           nixpkgs.pkgs = pkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
+        (filterAttrs (n: v: !elem n [ "system" ]) attrs)
         (import path)
       ];
     };

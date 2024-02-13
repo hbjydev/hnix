@@ -20,4 +20,16 @@ rec {
         then nameValuePair (removeSuffix ".nix" n) (fn path)
         else nameValuePair "" null)
       (readDir dir);
+
+  mapModulesRec' = dir: fn:
+    let
+      dirs =
+        mapAttrsToList
+          (k: _: "${dir}/${k}")
+          (filterAttrs
+            (n: v: v == "directory" && !(hasPrefix "_" n))
+            (readDir dir));
+      files = attrValues (mapModules dir id);
+      paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);
+    in map fn paths;
 }

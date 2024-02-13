@@ -16,7 +16,7 @@ in
       };
     };
 
-    skin = {
+    skins.skin = {
       k9s = {
         body = {
           fgColor   = oxocarbon.base04;

@@ -3,8 +3,8 @@
 {
   security.protectKernelImage = true;
 
-  boot.tmpOnTmpfs = lib.mkDefault true;
-  boot.cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
+  boot.tmp.useTmpfs = lib.mkDefault true;
+  boot.tmp.cleanOnBoot = lib.mkDefault (!config.boot.tmp.useTmpfs);
 
   boot.loader.systemd-boot.editor = false;
 
@@ -49,7 +49,7 @@
     "net.core.default_qdisc" = "cake";
   };
   boot.kernelModules = [ "tcp_bbr" ];
-  user.initialPassword = "nixos";
+  #users.users..initialPassword = "nixos";
   users.users.root.initialPassword = "nixos";
 
   security.acme.acceptTerms = true;
