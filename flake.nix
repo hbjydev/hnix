@@ -35,54 +35,45 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, self, ... }:
-    let
-      systems = import ./system { inherit inputs; };
-    in
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-darwin" ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ nixpkgs-fmt ssh-to-age ];
+  outputs = inputs@{ self, nixpkgs, ... }:
+  let
+    inherit (lib.my) mapHosts;
+
+    systems = (import ./system { inherit inputs; });
+
+    mkPkgs = pkgs: extraOverlays: system: import pkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        packageOverrides = super: {
+          vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
         };
+        permittedInsecurePackages = [
+          "openssl-1.1.1w"
+        ];
+        pulseaudio = true;
       };
+      overlays = extraOverlays ++ (lib.attrValues self.overlays);
+    };
+    pkgs = mkPkgs nixpkgs [] "x86_64-linux";
 
-      flake = {
-        homeConfigurations = {
-          wsl = systems.mkLinux {
-            system = "x86_64-linux";
-            username = "hayden";
-            wsl = true;
-          };
-        };
+    lib = nixpkgs.lib.extend
+      (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+  in
+  {
+    overlays = {};
 
-        darwinConfigurations = {
-          personal-darwin = systems.mkDarwin {
-            system = "aarch64-darwin";
-            username = "hayden";
-          };
-          work-darwin = systems.mkDarwin {
-            system = "aarch64-darwin";
-            username = "haydenyoung";
-          };
-        };
-
-        nixosConfigurations = {
-          vm-nixos = systems.mkNixOS {
-            desktop = true;
-            system = "x86_64-linux";
-            username = "hayden";
-            hostname = "nixos-vm";
-            options = [ "docker" "x" ];
-          };
-          nixnuc-nixos = systems.mkNixOS {
-            desktop = true;
-            system = "x86_64-linux";
-            username = "hayden";
-            hostname = "nixnuc";
-            options = [ "firefly" "docker" "downloads" "ssh" "x" ];
-          };
-        };
+    darwinConfigurations = {
+      personal-darwin = systems.mkDarwin {
+        system = "aarch64-darwin";
+        username = "hayden";
+      };
+      work-darwin = systems.mkDarwin {
+        system = "aarch64-darwin";
+        username = "haydenyoung";
       };
     };
+
+    nixosConfigurations = mapHosts ./hosts {};
+  };
 }

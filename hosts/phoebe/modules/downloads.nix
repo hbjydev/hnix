@@ -1,4 +1,4 @@
-{ trunk, ... }:
+{ inputs, ... }:
 let
   mkMediaService = (attrs:
     {
@@ -8,7 +8,19 @@ let
   );
 in
 {
-  imports = [ ];
+  fileSystems."/storage" =
+    {
+      device = "nas.home:/volume1/media";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" ];
+    };
+
+  fileSystems."/downloads" =
+    {
+      device = "nas.home:/volume1/downloads";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" ];
+    };
 
   # Shared group (and user for Docker) to deal with permissions
   users.extraUsers.media = {
@@ -23,9 +35,7 @@ in
   users.groups.media = { };
 
   # Downloads
-  services.sabnzbd = mkMediaService {
-    package = trunk.sabnzbd;
-  };
+  services.sabnzbd = mkMediaService { };
 
   # Automation
   services.prowlarr.enable = true;

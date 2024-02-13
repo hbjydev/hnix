@@ -1,6 +1,4 @@
-{ username }:
-
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   # Enable the X11 windowing system.
   services.xserver = {
@@ -89,10 +87,10 @@
     pulse.enable = true;
   };
 
-  programs._1password-gui.polkitPolicyOwners = [ username ];
+  programs._1password-gui.polkitPolicyOwners = [ "hayden" ];
   programs._1password-gui.enable = true;
 
-  nixpkgs.config.pulseaudio = true;
+  users.users.hayden.extraGroups = [ "audio" ];
 
-  users.users."${username}".extraGroups = [ "audio" ];
+  security.sudo.wheelNeedsPassword = false;
 }
