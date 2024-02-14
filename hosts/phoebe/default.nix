@@ -18,6 +18,7 @@
     ./modules/downloads.nix
     #./modules/grafana-agent-flow.nix
     ./modules/home-assistant.nix
+    ./modules/paperless.nix
   ];
 
   networking.networkmanager.enable = true;
