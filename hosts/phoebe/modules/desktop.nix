@@ -43,7 +43,7 @@
     gnome-terminal
     gnome-maps
     gnome-calendar
-    epiphany # web browser
+    #epiphany # web browser
     geary # email reader
     evince # document viewer
     gnome-characters
