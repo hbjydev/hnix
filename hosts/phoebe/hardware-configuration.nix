@@ -14,6 +14,10 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.kernel.sysctl = {
+    "kernel.unprivileged_userns_clone" = 1;
+  };
+
   services.xserver.videoDrivers = [ "modesetting" ];
   services.rpcbind.enable = true;
   programs.dconf.enable = true;
