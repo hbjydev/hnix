@@ -3,7 +3,7 @@
 { pkgs, ... }:
 
 let
-  shared-config = import ../home/home-manager.nix { inherit inputs work; };
+  shared-config = import ../home { inherit inputs work; };
   shared-packages = import ../home/home-manager-packages.nix { inherit pkgs inputs work; };
 in
 {
