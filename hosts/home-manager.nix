@@ -3,13 +3,13 @@
 { pkgs, ... }:
 
 let
-  shared-config = import ../system/shared/home-manager.nix { inherit inputs work; };
-  shared-packages = import ../system/shared/home-manager-packages.nix { inherit pkgs inputs work; };
+  shared-config = import ../home/home-manager.nix { inherit inputs work; };
+  shared-packages = import ../home/home-manager-packages.nix { inherit pkgs inputs work; };
 in
 {
   imports = if desktop then [
     shared-config
-    (import ../system/shared/modules/kitty.nix)
+    (import ../home/modules/kitty.nix)
   ] else [ shared-config ];
 
   dconf.settings =
