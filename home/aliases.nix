@@ -27,7 +27,7 @@ isDarwin:
     s = "doppler run";
     ops = "op run --no-masking";
 
-    cat = "bat --paging=never";
+    cat = "bat";
 
     vi = "nvim";
     vim = "nvim";
@@ -57,5 +57,7 @@ isDarwin:
     lg = "lazygit";
 
     watch = "viddy";
+
+    wt = "git worktree";
   };
 }
