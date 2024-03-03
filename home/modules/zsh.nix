@@ -39,8 +39,8 @@
     shellAliases = aliases.zsh;
 
     initExtra = ''
-      ${builtins.readFile ../../../config/zsh/extraInit.zsh}
-      ${if wsl then builtins.readFile ../../../config/zsh/wslInit.zsh else ""}
+      ${builtins.readFile ../../config/zsh/extraInit.zsh}
+      ${if wsl then builtins.readFile ../../config/zsh/wslInit.zsh else ""}
     '';
   };
 }
