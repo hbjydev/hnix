@@ -8,7 +8,7 @@
     defaultUserShell = pkgs.zsh;
 
     users.hayden = {
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "docker" ];
       home = "/home/hayden";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
