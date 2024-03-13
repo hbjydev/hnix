@@ -21,6 +21,8 @@
     ./modules/paperless.nix
   ];
 
+  environment.systemPackages = [pkgs.twingate];
+
   networking.firewall.enable = false;
   networking.networkmanager.enable = true;
 }
