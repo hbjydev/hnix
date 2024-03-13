@@ -54,6 +54,10 @@ license () {
   curl -L "api.github.com/licenses/$1" | jq -r .body > LICENSE
 }
 
+gitignore () {
+  curl -sL "toptal.com/developers/gitignore/api/$@" > .gitignore
+}
+
 n () {
   if [ -n $NNNLVL ] && [ "$NNNLVL" -ge 1 ]; then
     echo "nnn is already running"
