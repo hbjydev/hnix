@@ -23,6 +23,8 @@
 
   environment.systemPackages = [pkgs.twingate];
 
+  services.twingate.enable = true;
+
   networking.firewall.enable = false;
   networking.networkmanager.enable = true;
 }
