@@ -10,11 +10,12 @@ in
 
   imports = [
     ./modules/dev.nix
-    ./modules/ssh.nix
     ./modules/git.nix
-    ./modules/zsh.nix
     ./modules/nix.nix
+    ./modules/pyenv.nix
     ./modules/sops.nix
+    ./modules/ssh.nix
+    ./modules/zsh.nix
   ];
 
   home.sessionVariables = {
