@@ -4,7 +4,6 @@
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
     icons = true;
     git = true;
   };
@@ -32,7 +31,7 @@
       theme = "robbyrussell";
     };
 
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
 
