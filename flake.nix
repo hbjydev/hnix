@@ -55,22 +55,14 @@
       };
       overlays = extraOverlays ++ (lib.attrValues self.overlays);
     };
-    pkgsLinux = mkPkgs nixpkgs [] "x86_64-linux";
-    pkgsDarwin = mkPkgs nixpkgs [] "aarch64-darwin";
+    pkgsLinux_x86 = mkPkgs nixpkgs [] "x86_64-linux";
+    pkgsDarwin_arm = mkPkgs nixpkgs [] "aarch64-darwin";
 
     lib = nixpkgs.lib.extend
-      (self: super: { my = import ./lib { inherit inputs; pkgs = pkgsLinux; lib = self; }; });
+      (self: super: { my = import ./lib { inherit inputs; pkgs = pkgsLinux_x86; lib = self; }; });
   in
   {
     overlays = {};
-
-    devShells.aarch64-darwin.default = pkgsDarwin.mkShell {
-      buildInputs = [ pkgsDarwin.sops pkgsDarwin.just ];
-    };
-
-    devShells.x86_64-linux.default = pkgsLinux.mkShell {
-      buildInputs = [ pkgsLinux.sops pkgsLinux.just ];
-    };
 
     darwinConfigurations = {
       personal-darwin = systems.mkDarwin {
