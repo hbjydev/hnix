@@ -9,6 +9,7 @@
     compression = true;
     controlMaster = "auto";
     controlPersist = "10m";
+    controlPath = "/tmp/ssh.%r.%n.%p";
     forwardAgent = true;
 
     includes = ["config.d/*"];
