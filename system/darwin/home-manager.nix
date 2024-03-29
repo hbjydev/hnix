@@ -8,7 +8,11 @@ let
   shared-packages = import ../../home/packages.nix { inherit pkgs inputs work; };
 in
 {
-  imports = [ shared-config (import ../../home/modules/kitty.nix) ];
+  imports = [
+    shared-config
+    (import ../../home/modules/kitty.nix)
+    (import ../../home/modules/ghostty.nix)
+  ];
 
   home.file."Library/Application Support/k9s/skin.yml".source = ../../config/k9s/skin.yml;
 
