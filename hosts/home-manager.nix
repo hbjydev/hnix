@@ -10,6 +10,7 @@ in
   imports = if desktop then [
     shared-config
     (import ../home/modules/kitty.nix)
+    (import ../home/modules/ghostty.nix)
   ] else [ shared-config ];
 
   dconf.settings =
