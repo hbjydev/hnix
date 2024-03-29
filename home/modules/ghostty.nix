@@ -19,6 +19,15 @@ in
     font-size = 14
     macos-option-as-alt = true
 
+    background = ${oxocarbon.base00}
+    foreground = ${oxocarbon.base05}
+    selection-invert-fg-bg = true
+    cursor-color = ${oxocarbon.base05}
+
+    window-padding-x = 16
+    window-padding-y = 16
+    window-theme = dark
+
     # black
     palette = 0=#${oxocarbon.base00}
     palette = 8=#${oxocarbon.base03}
