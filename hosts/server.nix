@@ -4,7 +4,6 @@ let
 in
 {
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_7_hardened;
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
