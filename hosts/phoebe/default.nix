@@ -16,8 +16,8 @@
     ./modules/cloudflared.nix
     ./modules/desktop.nix
     ./modules/downloads.nix
-    #./modules/grafana-agent-flow.nix
     ./modules/home-assistant.nix
+    ./modules/localai.nix
     ./modules/paperless.nix
   ];
 
