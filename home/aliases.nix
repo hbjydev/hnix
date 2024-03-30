@@ -51,8 +51,6 @@ isDarwin:
 
     tf = "terraform";
 
-    ssh = "TERM=xterm-256color ssh";
-
     nb = "nix build --json --no-link --print-build-logs";
     lg = "lazygit";
 

@@ -13,13 +13,16 @@
     forwardAgent = true;
 
     includes = ["config.d/*"];
-    matchBlocks."*".extraOptions = {
-      IdentityAgent = (
-        if isDarwin
-        then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
-        else "~/.1password/agent.sock"
-      );
-      User = if work then "hyoung" else "hayden";
+    matchBlocks."*" = {
+      setEnv.TERM = "xterm-256color";
+      extraOptions = {
+        IdentityAgent = (
+          if isDarwin
+          then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
+          else "~/.1password/agent.sock"
+        );
+        User = if work then "hyoung" else "hayden";
+      };
     };
   };
 }
