@@ -12,6 +12,7 @@ with pkgs; [
   fd
   glab
   glow
+  gum
   httpie
   jq
   k9s
