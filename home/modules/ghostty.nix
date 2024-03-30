@@ -19,6 +19,11 @@ in
     font-size = 14
     macos-option-as-alt = true
 
+    # keybinds
+    keybind = ctrl+shift+right_bracket=next_tab
+    keybind = ctrl+shift+left_bracket=previous_tab
+
+    # theming
     background = ${oxocarbon.base00}
     foreground = ${oxocarbon.base05}
     selection-invert-fg-bg = true
