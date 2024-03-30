@@ -8,6 +8,10 @@ in
   _module.args = { inherit inputs work isDarwin wsl; };
 
   imports = [
+    # third party
+    inputs.ghostty-hm.homeModules.default
+
+    # mine
     ./modules/dev.nix
     ./modules/gh
     ./modules/git.nix

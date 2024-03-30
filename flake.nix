@@ -20,6 +20,8 @@
     stable.url = "github:nixos/nixpkgs/nixos-23.11";
     trunk.url = "github:nixos/nixpkgs";
 
+    ghostty-hm.url = "github:clo4/ghostty-hm-module";
+
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";

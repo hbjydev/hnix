@@ -7,62 +7,68 @@ in
   fonts.fontconfig.enable = true;
 
   home.packages = [
-    inputs.ghostty.packages.${pkgs.system}.default
     (pkgs.nerdfonts.override {
       fonts = [ "IntelOneMono" ];
     })
   ];
 
-  home.file.".config/ghostty/config".text = ''
-    background-opacity = 0.9
-    font-family = IntoneMono Nerd Font
-    font-size = 14
-    macos-option-as-alt = true
+  programs.ghostty = {
+    enable = true;
+    package = inputs.ghostty.packages.${pkgs.system}.default;
 
-    # keybinds
-    keybind = ctrl+shift+right_bracket=next_tab
-    keybind = ctrl+shift+left_bracket=previous_tab
+    settings = {
+      font-family = "IntoneMono Nerd Font";
+      font-size = 14;
+      macos-option-as-alt = true;
 
-    # theming
-    background = ${oxocarbon.base00}
-    foreground = ${oxocarbon.base05}
-    selection-invert-fg-bg = true
-    cursor-color = ${oxocarbon.base05}
+      window-padding-x = 16;
+      window-padding-y = 16;
+      window-theme = "dark";
 
-    window-padding-x = 16
-    window-padding-y = 16
-    window-theme = dark
+      background = oxocarbon.base00;
+      background-opacity = 0.9;
+      foreground = oxocarbon.base05;
+      selection-invert-fg-bg = true;
+      cursor-color = oxocarbon.base05;
 
-    # black
-    palette = 0=${oxocarbon.base00}
-    palette = 8=${oxocarbon.base03}
+      palette = [
+        # black
+        "0=${oxocarbon.base00}"
+        "8=${oxocarbon.base03}"
 
-    # red
-    palette = 1=${oxocarbon.base08}
-    palette = 9=${oxocarbon.base09}
+        # red
+        "1=${oxocarbon.base08}"
+        "9=${oxocarbon.base09}"
 
-    # green
-    palette = 2=${oxocarbon.base0B}
-    palette = 10=${oxocarbon.base01}
+        # green
+        "2=${oxocarbon.base0B}"
+        "10=${oxocarbon.base01}"
 
-    # yellow
-    palette = 3=${oxocarbon.base0A}
-    palette = 11=${oxocarbon.base02}
+        # yellow
+        "3=${oxocarbon.base0A}"
+        "11=${oxocarbon.base02}"
 
-    # blue
-    palette = 4=${oxocarbon.base0D}
-    palette = 12=${oxocarbon.base04}
+        # blue
+        "4=${oxocarbon.base0D}"
+        "12=${oxocarbon.base04}"
 
-    # purple
-    palette = 5=${oxocarbon.base0E}
-    palette = 13=${oxocarbon.base06}
+        # purple
+        "5=${oxocarbon.base0E}"
+        "13=${oxocarbon.base06}"
 
-    # aqua
-    palette = 6=${oxocarbon.base0C}
-    palette = 14=${oxocarbon.base0F}
+        # aqua
+        "6=${oxocarbon.base0C}"
+        "14=${oxocarbon.base0F}"
 
-    # white
-    palette = 7=${oxocarbon.base05}
-    palette = 15=${oxocarbon.base07}
-  '';
+        # white
+        "7=${oxocarbon.base05}"
+        "15=${oxocarbon.base07}"
+      ];
+    };
+
+    keybindings = {
+      "ctrl+shift+right_bracket" = "next_tab";
+      "ctrl+shift+left_bracket" = "previous_tab";
+    };
+  };
 }
