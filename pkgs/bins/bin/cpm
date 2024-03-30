@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+git diff --staged |
+  mods -m gpt-3.5-turbo --no-cache 'Generate a git commit message describing \
+  the changes using the conventional commit specification (DO NOT GENERATE A \
+  COMMAND)' |
+  git commit -F -
