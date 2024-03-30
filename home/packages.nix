@@ -1,6 +1,8 @@
 { pkgs, inputs, work, ... }:
 
 with pkgs; [
+  (pkgs.callPackage ../pkgs/bins {})
+
   _1password
   awscli2
   bun
@@ -9,11 +11,14 @@ with pkgs; [
   doppler
   fd
   glab
+  glow
   httpie
   jq
   k9s
   kind
   kubectl
+  mods
+  moreutils
   nmap
   podman-compose
   pyenv
