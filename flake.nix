@@ -1,6 +1,11 @@
 {
   description = "Hayden's Nix configuration, for NixOS and Darwin";
 
+  nixConfig = {
+    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+  };
+
   inputs = {
     # Use latest unstable 23.05 Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

@@ -9,6 +9,7 @@ in
 
   imports = [
     ./modules/dev.nix
+    ./modules/gh
     ./modules/git.nix
     ./modules/nix.nix
     ./modules/pyenv.nix

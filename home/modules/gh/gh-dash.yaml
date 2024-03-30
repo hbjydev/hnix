@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://dlvhdr.github.io/gh-dash/configuration/gh-dash/schema.json
+---
+prSections:
+  - filters: is:open author:@me
+    title: My PRs
+  - filters: is:open review-requested:@mq -author:app/dependabot
+    title: Needs My Review
+  - filters: is:open user:ALT-F4-LLC -author:app/dependabot
+    title: ALT-F4
+  - filters: is:open user:hbjydev -author:app/dependabot
+    title: hbjydev
+
+issuesSections:
+  - filters: is:open author:@me
+    title: My Issues
+  - filters: is:open assignee:@me
+    title: Assigned
+  - filters: is:open user:ALT-F4-LLC
+    title: ALT-F4
+  - filters: is:open user:hbjydev
+    title: hbjydev
+
+defaults:
+  preview:
+    open: false
+    width: 80
+  issuesLimit: 25
+  prsLimit: 25
+  view: prs
+  layout:
+    prs:
+      repo: &repo
+        grow: true
+        width: 25
+        hidden: false
+    issues:
+      repo: *repo
+
+repoPaths: 
+  ALT-F4-LLC/*: ~/Development/repos/github.com/ALT-F4-LLC/*
+  hbjydev/*: ~/Development/repos/github.com/hbjydev/*
+  mitchellh/*: ~/Development/repos/github.com/mitchellh/*
+
+pager:
+  diff: delta
