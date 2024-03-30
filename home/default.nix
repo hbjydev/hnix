@@ -3,10 +3,9 @@
 { pkgs, ... }:
 let
   isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
-  aliases = (import ./aliases.nix) isDarwin;
 in
 {
-  _module.args = { inherit inputs work isDarwin aliases wsl; };
+  _module.args = { inherit inputs work isDarwin wsl; };
 
   imports = [
     ./modules/dev.nix

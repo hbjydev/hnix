@@ -1,17 +1,39 @@
-{ wsl, work, isDarwin, aliases, pkgs, ... }:
+{ wsl, work, isDarwin, pkgs, ... }:
 {
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
     settings = {
       version = 1;
+      aliases = {
+        clone = "repo clone";
+        co = "pr checkout";
+        v = "repo view --web";
+        pv = "pr view --web";
+        pr = "pr create --web";
+      };
+      editor = "nvim";
+      git_protocol = "https";
     };
   };
 
   programs.git = {
     enable = true;
 
-    aliases = aliases.git;
+    aliases = {
+      a = "add";
+      b = "branch";
+      ch = "checkout";
+      ci = "commit";
+      cm = "commit -m";
+      d = "diff";
+      ds = "diff --staged";
+      l = "log --pretty=oneline --abbrev-commit";
+      p = "pull";
+      pp = "push";
+      s = "status -s";
+      wt = "worktree";
+    };
 
     ignores =
       if work then [
