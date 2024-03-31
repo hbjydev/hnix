@@ -70,6 +70,9 @@ in
       "ctrl+shift+right_bracket" = "next_tab";
       "ctrl+shift+left_bracket" = "previous_tab";
 
+      "alt+left" = "esc:b";
+      "alt+right" = "esc:f";
+
       "ctrl+shift+enter" = "new_split:auto";
       "ctrl+shift+up" = "goto_split:top";
       "ctrl+shift+down" = "goto_split:bottom";
