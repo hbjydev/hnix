@@ -69,6 +69,12 @@ in
     keybindings = {
       "ctrl+shift+right_bracket" = "next_tab";
       "ctrl+shift+left_bracket" = "previous_tab";
+
+      "ctrl+shift+enter" = "new_split:auto";
+      "ctrl+shift+up" = "goto_split:top";
+      "ctrl+shift+down" = "goto_split:bottom";
+      "ctrl+shift+left" = "goto_split:left";
+      "ctrl+shift+right" = "goto_split:right";
     };
   };
 }
