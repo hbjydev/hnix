@@ -24,6 +24,7 @@ in
       window-padding-x = 16;
       window-padding-y = 16;
       window-theme = "dark";
+      window-decoration = false;
 
       background = oxocarbon.base00;
       background-opacity = 0.9;
