@@ -17,7 +17,6 @@
     ./modules/desktop.nix
     ./modules/downloads.nix
     ./modules/home-assistant.nix
-    ./modules/localai.nix
     ./modules/paperless.nix
   ];
 
