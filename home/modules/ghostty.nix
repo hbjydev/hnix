@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ isDarwin, inputs, pkgs, ... }:
 let
   oxocarbonTheme = import ../oxocarbon.nix;
   oxocarbon = oxocarbonTheme.dark;
@@ -14,7 +14,7 @@ in
 
   programs.ghostty = {
     enable = true;
-    package = inputs.ghostty.packages.${pkgs.system}.default;
+    package = if isDarwin then null else inputs.ghostty.packages.${pkgs.system}.default;
 
     settings = {
       font-family = "IntoneMono Nerd Font";
