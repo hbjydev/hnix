@@ -27,6 +27,20 @@
     config.allowUnfree = true;
   };
 
+  system = {
+    defaults = {
+      NSGlobalDomain = {
+        AppleFontSmoothing = 1;
+        AppleShowAllExtensions = true;
+        AppleKeyboardUIMode = 3;
+      };
+      dock = {
+        autohide = true;
+        tilesize = 46;
+      };
+    };
+  };
+
   fonts = {
     fontDir.enable = true;
     fonts = [
