@@ -1,5 +1,8 @@
-{ isDarwin, inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 let
+  inherit (lib) mkIf;
+  inherit (pkgs) stdenv;
+
   oxocarbonTheme = import ../oxocarbon.nix;
   oxocarbon = oxocarbonTheme.dark;
 in
@@ -14,12 +17,12 @@ in
 
   programs.ghostty = {
     enable = true;
-    package = if isDarwin then null else inputs.ghostty.packages.${pkgs.system}.default;
+    package = mkIf stdenv.isLinux inputs.ghostty.packages.${pkgs.system}.ghostty;
 
     settings = {
       font-family = "IntoneMono Nerd Font";
       font-size = 14;
-      macos-option-as-alt = true;
+      macos-option-as-alt = false;
 
       window-padding-x = 16;
       window-padding-y = 16;

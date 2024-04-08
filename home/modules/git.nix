@@ -1,4 +1,7 @@
-{ wsl, work, isDarwin, pkgs, ... }:
+{ work, pkgs, ... }:
+let
+  inherit (pkgs) stdenv;
+in
 {
   programs.git = {
     enable = true;
@@ -72,9 +75,7 @@
         format = "ssh";
         ssh = {
           program =
-            if
-              isDarwin then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-            else if wsl then "/mnt/c/Users/hbjyd/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+            if stdenv.isDarwin then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
             else "${pkgs._1password-gui}/share/1password/op-ssh-sign";
         };
       };

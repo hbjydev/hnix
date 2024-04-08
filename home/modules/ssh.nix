@@ -1,4 +1,7 @@
-{ work, isDarwin, config, ... }:
+{ work, config, pkgs, ... }:
+let
+  inherit (pkgs) stdenv;
+in
 {
   sops.secrets.ssh_config_work = {
     path = "${config.home.homeDirectory}/.ssh/config.d/work";
@@ -17,7 +20,7 @@
       setEnv.TERM = "xterm-256color";
       extraOptions = {
         IdentityAgent = (
-          if isDarwin
+          if stdenv.isDarwin
           then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
           else "~/.1password/agent.sock"
         );

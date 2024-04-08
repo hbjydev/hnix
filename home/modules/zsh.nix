@@ -1,4 +1,4 @@
-{ wsl, ... }:
+{ ... }:
 {
   programs.bat.enable = true;
 
@@ -73,7 +73,6 @@
 
     initExtra = ''
       ${builtins.readFile ../../config/zsh/extraInit.zsh}
-      ${if wsl then builtins.readFile ../../config/zsh/wslInit.zsh else ""}
     '';
   };
 }

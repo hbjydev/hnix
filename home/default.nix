@@ -1,11 +1,8 @@
 { inputs, work, wsl ? false }:
 
 { pkgs, ... }:
-let
-  isDarwin = pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin";
-in
 {
-  _module.args = { inherit inputs work isDarwin wsl; };
+  _module.args = { inherit inputs work; };
 
   imports = [
     # third party
