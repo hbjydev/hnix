@@ -19,8 +19,10 @@ lint path=".":
 format path=".":
   nix develop -c nixpkgs-fmt {{path}}
 
+[confirm("This will delete the contents of {{sops_dir}}/age/keys.txt, are you sure?")]
 set-sops-admin-key *id='nsmv3qxydr2dx7pftwowrrkflm':
   #!/usr/bin/env bash
+  set -euo pipefail
   PRIVKEY=$(op item get "{{id}}" --reveal --fields 'label=private key' | sed 's/"//' | tail -n 8 | head -n 7)
   PRIVKEYFILE=$(mktemp)
   PUBKEY=$(op item get "{{id}}" --fields 'label=public key')
