@@ -50,46 +50,61 @@
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
-  let
-    inherit (lib.my) mapHosts;
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = ["x86_64-linux" "aarch64-darwin"];
 
-    systems = (import ./system { inherit inputs; });
+      flake = 
+        let
+          inherit (lib.my) mapHosts;
 
-    mkPkgs = pkgs: extraOverlays: system: import pkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        packageOverrides = super: {
-          vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
+          systems = (import ./system { inherit inputs; });
+
+          mkPkgs = pkgs: extraOverlays: system: import pkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              packageOverrides = super: {
+                vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
+              };
+              permittedInsecurePackages = [
+                "openssl-1.1.1w"
+              ];
+              pulseaudio = true;
+            };
+            overlays = extraOverlays;
+          };
+          pkgsLinux_x86 = mkPkgs inputs.nixpkgs [] "x86_64-linux";
+          pkgsDarwin_arm = mkPkgs inputs.nixpkgs [] "aarch64-darwin";
+
+          lib = inputs.nixpkgs.lib.extend
+            (self: super: { my = import ./lib { inherit inputs; pkgs = pkgsLinux_x86; lib = self; }; });
+        in
+        {
+          overlays = {};
+
+          darwinConfigurations = {
+            personal = systems.mkDarwin {
+              system = "aarch64-darwin";
+              username = "hayden";
+            };
+            work = systems.mkDarwin {
+              system = "aarch64-darwin";
+              username = "haydenyoung";
+            };
+          };
+
+          nixosConfigurations = mapHosts ./hosts {};
         };
-        permittedInsecurePackages = [
-          "openssl-1.1.1w"
-        ];
-        pulseaudio = true;
-      };
-      overlays = extraOverlays ++ (lib.attrValues self.overlays);
+
+      perSystem = { pkgs, ... }:
+        let
+          inherit (pkgs) just ssh-to-age;
+        in
+        {
+          devShells.default = pkgs.mkShell {
+            buildInputs = [ just ssh-to-age ];
+          };
+        };
     };
-    pkgsLinux_x86 = mkPkgs nixpkgs [] "x86_64-linux";
-    pkgsDarwin_arm = mkPkgs nixpkgs [] "aarch64-darwin";
-
-    lib = nixpkgs.lib.extend
-      (self: super: { my = import ./lib { inherit inputs; pkgs = pkgsLinux_x86; lib = self; }; });
-  in
-  {
-    overlays = {};
-
-    darwinConfigurations = {
-      personal-darwin = systems.mkDarwin {
-        system = "aarch64-darwin";
-        username = "hayden";
-      };
-      work-darwin = systems.mkDarwin {
-        system = "aarch64-darwin";
-        username = "haydenyoung";
-      };
-    };
-
-    nixosConfigurations = mapHosts ./hosts {};
-  };
 }

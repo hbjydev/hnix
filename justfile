@@ -2,14 +2,13 @@ set positional-arguments
 
 sops_dir := if os() == "macos" { "$HOME/Library/Application Support/sops" } else { "$HOME/.config/sops" }
 
-nixos profile *command='':
+[macos]
+rebuild profile='work' *command='switch':
+  darwin-rebuild {{ command }} --flake ".#{{ profile }}"
+
+[linux]
+rebuild profile='phoebe' *command='switch':
   sudo nixos-rebuild {{ command }} --flake ".#{{ profile }}"
-
-darwin profile *command='':
-  darwin-rebuild {{ command }} --flake ".#{{ profile }}-darwin"
-
-linux profile *command='':
-  home-manager {{ command }} --flake ".#{{ profile }}"
 
 update:
   nix flake update
