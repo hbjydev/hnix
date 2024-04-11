@@ -18,6 +18,7 @@
     ./modules/downloads.nix
     ./modules/home-assistant.nix
     ./modules/paperless.nix
+    ./modules/unifi.nix
   ];
 
   environment.systemPackages = [pkgs.twingate];
