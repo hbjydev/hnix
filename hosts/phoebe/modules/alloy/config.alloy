@@ -1,0 +1,52 @@
+import.git "gcloud" {
+  repository = "https://github.com/grafana/alloy-modules.git"
+  revision = "main"
+  path = "modules/cloud/grafana/cloud/module.alloy"
+  pull_frequency = "15m"
+}
+
+gcloud.stack "default" {
+  stack_name = "kuraudo"
+  token = env("GCLOUD_TOKEN")
+}
+
+loki.relabel "journal" {
+  forward_to = []
+
+  rule {
+    source_labels = ["__journal__systemd_unit"]
+    target_label  = "unit"
+  }
+}
+
+loki.source.journal "read"  {
+  forward_to    = [gcloud.stack.default.logs]
+  relabel_rules = loki.relabel.journal.rules
+  labels        = {component = "loki.source.journal"}
+}
+
+prometheus.relabel "instance" {
+  forward_to = [gcloud.stack.default.metrics]
+  rule {
+    target_label = "instance"
+    replacement = "phoebe"
+  }
+}
+
+prometheus.exporter.unix "host" {
+  procfs_path = "/host/proc"
+  sysfs_path = "/host/sys"
+  rootfs_path = "/rootfs"
+  udev_data_path = "/host/run/udev/data"
+
+  filesystem {
+    mount_points_exclude = "^/(sys|proc|dev|host|etc)($$|/)"
+  }
+}
+
+prometheus.scrape "host" {
+  targets    = prometheus.exporter.unix.host.targets
+  forward_to = [prometheus.relabel.instance.receiver]
+}
+
+// vim:ft=hcl

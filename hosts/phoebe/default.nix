@@ -13,6 +13,7 @@
     ../users/hayden.nix
 
     # Services
+    ./modules/alloy
     ./modules/cloudflared.nix
     ./modules/desktop.nix
     ./modules/downloads.nix
