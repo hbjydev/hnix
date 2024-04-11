@@ -10,14 +10,14 @@ in
 {
   fileSystems."/storage" =
     {
-      device = "nas.home:/volume1/media";
+      device = "192.168.1.2:/volume1/media";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
 
   fileSystems."/downloads" =
     {
-      device = "nas.home:/volume1/downloads";
+      device = "192.168.1.2:/volume1/downloads";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
