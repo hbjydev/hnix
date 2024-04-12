@@ -11,7 +11,7 @@ in
 
   home.packages = [
     (pkgs.nerdfonts.override {
-      fonts = [ "IntelOneMono" ];
+      fonts = [ "GeistMono" ];
     })
   ];
 
@@ -20,7 +20,7 @@ in
     package = mkIf stdenv.isLinux inputs.ghostty.packages.${pkgs.system}.ghostty;
 
     settings = {
-      font-family = "IntoneMono Nerd Font";
+      font-family = "GeistMono Nerd Font";
       font-size = 14;
       macos-option-as-alt = false;
 
