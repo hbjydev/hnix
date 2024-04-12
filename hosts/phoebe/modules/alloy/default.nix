@@ -24,11 +24,7 @@ in
     description = "Alloy user";
     createHome = false;
     shell = "/sbin/nologin";
-    group = "alloy";
-  };
-
-  users.extraGroups.alloy = {
-    gid = alloyGid;
+    group = "adm";
   };
 
   environment.etc."alloy/config.alloy" = {
@@ -38,16 +34,12 @@ in
     user = "root";
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/alloy 0750 ${toString alloyUid} ${toString alloyGid}"
-  ];
-
   virtualisation.oci-containers.containers = {
     alloy = {
       autoStart = true;
       image = "grafana/alloy:v1.0.0";
 
-      user = "${toString alloyUid}:${toString alloyGid}";
+      user = "root";
 
       ports = [
         "12345:12345"
