@@ -22,7 +22,11 @@
     ./modules/unifi.nix
   ];
 
-  environment.systemPackages = [pkgs.twingate];
+  environment.systemPackages = [
+    pkgs.twingate
+    pkgs.obs-studio
+    pkgs.obs-studio-plugins.wlrobs
+  ];
 
   services.twingate.enable = true;
 
