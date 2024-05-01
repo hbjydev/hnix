@@ -1,5 +1,5 @@
 # Titan - My development box & Linux streaming PC
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../.  # Base config
@@ -13,6 +13,7 @@
 
     # Services
     ./modules/desktop.nix
+    ./modules/steam.nix
   ];
 
   boot.loader = {
