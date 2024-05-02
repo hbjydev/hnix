@@ -9,6 +9,8 @@
 
   programs.zsh.enable = true;
 
+  environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
+
   nix = {
     package = pkgs.nixUnstable;
 
@@ -34,6 +36,7 @@
       trusted-users = [ "root" "hayden" ];
       allowed-users = [ "root" "hayden" ];
       warn-dirty = false;
+      nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
     };
   };
 
