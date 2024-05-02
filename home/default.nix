@@ -1,6 +1,6 @@
-{ inputs, work, wsl ? false }:
+{ inputs, work }:
 
-{ pkgs, ... }:
+{ ... }:
 {
   _module.args = { inherit inputs work; };
 
