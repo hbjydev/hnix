@@ -30,6 +30,7 @@
     gnome.gnome-session
     wl-clipboard
     xclip
+    element-desktop
   ];
 
   environment.gnome.excludePackages = (
