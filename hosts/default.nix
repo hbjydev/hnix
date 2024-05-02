@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -11,6 +11,9 @@
 
   nix = {
     package = pkgs.nixUnstable;
+
+    channel.enable = false;
+    registry.nixpkgs.flake = inputs.nixpkgs;
 
     settings = {
       auto-optimise-store = true;
