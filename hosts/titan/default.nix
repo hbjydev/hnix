@@ -16,6 +16,7 @@
     ./modules/steam.nix
   ];
 
+  boot.tmpOnTmpfsSize = "16G";
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot.enable = true;
