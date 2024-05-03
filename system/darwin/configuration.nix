@@ -45,7 +45,7 @@
     fontDir.enable = true;
     fonts = [
       (pkgs.nerdfonts.override {
-        fonts = [ "IntelOneMono" ];
+        fonts = [ "GeistMono" ];
       })
     ];
   };
@@ -56,14 +56,13 @@
     brews = [ "mas" ];
 
     casks = [
-      "alfred"
       "arc"
-      "dbeaver-community"
       "discord"
+      "element"
       "httpie"
-      "iterm2"
       "notion"
-      "obsidian"
+      "orbstack"
+      "raycast"
       "spotify"
     ] ++ (
       # Handle work environment desktop packages
