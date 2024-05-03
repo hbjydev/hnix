@@ -1,5 +1,5 @@
-# Phoebe - My development box & home server
-{ config, lib, pkgs, ... }:
+# Phoebe - My home server
+{ ... }:
 {
   imports = [
     ../.  # Base config
@@ -14,6 +14,7 @@
 
     # Services
     ./modules/alloy
+    ./modules/cgit.nix
     ./modules/cloudflared.nix
     ./modules/downloads.nix
     ./modules/home-assistant.nix
