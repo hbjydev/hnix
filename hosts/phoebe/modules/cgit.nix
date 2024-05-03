@@ -5,9 +5,25 @@ in
 {
   environment.systemPackages = [ gh-mirror ];
 
-  services.cron.systemCronJobs = [
-    "*/5 * * * * hayden ${gh-mirror}/bin/gh-mirror hbjydev"
-  ];
+  systemd.timers."gh-mirror" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "5m";
+      OnUnitActiveSec = "5m";
+      Unit = "gh-mirror.service";
+    };
+  };
+
+  systemd.services."gh-mirror" = {
+    script = ''
+      set -eu
+      ${gh-mirror}/bin/gh-mirror hbjydev
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "hayden";
+    };
+  };
 
   services.cgit.main = {
     enable = true;
