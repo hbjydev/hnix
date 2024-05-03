@@ -30,6 +30,7 @@
   pkgs.weechat
 
   inputs.hvim.packages.${pkgs.system}.default # my nixos config
+  inputs.build-configs.packages.${pkgs.system}.default
 ] ++ pkgs.lib.lists.optionals work [
   pkgs.bitwarden-cli
 ]

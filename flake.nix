@@ -48,6 +48,9 @@
     };
 
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
+
+    build-configs.url = "github:ALT-F4-LLC/build-configs";
+    build-configs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ flake-parts, ... }:
