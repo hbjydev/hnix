@@ -52,6 +52,8 @@ in
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
       { id = "gphhapmejobijbbhgpjhcjognlahblep"; } # GNOME Shell Integration
+      { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1Password
+      { id = "ammjkodgmmoknidbanneddgankgfejfh"; } # 7TV
     ];
   };
 
