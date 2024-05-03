@@ -1,21 +1,9 @@
-# Configures a Dendrite homeserver for use on Matrix.
+# Configures a Conduit homeserver for use on Matrix.
 { ... }:
 {
   services.nginx = {
     enable = true;
     clientMaxBodySize = "10m";
-    commonHttpConfig = ''
-      map $http_user_agent $limit_bots {
-        default 0;
-        ~*(AhrefsBot|PetalBot|bingbot|gptbot|ZoominfoBot|BLEXBot|Bytespider) 1;
-        ~*(DecompilationBot|Amazonbot|Barkrowler|SeznamBot|SemrushBot) 1;
-        ~*(MJ12bot|IonCrawl|webprosbot|Sogou|paloaltonetworks|CensysInspect) 1;
-        ~*(DotBot|ev-crawler|InternetMeasurement|CheckMarkNetwork|panscient) 1;
-        ~*(gdnplus|PunkMap|pdrlabs|SurdotlyBot|researchscan|serpstatbot) 1;
-        ~*(MegaIndex|DongleEmulatorBot|TinyTestBot) 1;
-      }
-    '';
-
     virtualHosts = {
       "matrix.hayden.moe" = {
         locations."/_matrix" = {
@@ -34,5 +22,24 @@
         trusted_servers = [ "matrix.org" "nixos.org" "libera.chat" ];
       };
     };
+  };
+
+  services.matrix-sliding-sync = {
+    enable = true;
+    settings = {
+      SYNCV3_SERVER = "https://hayden.moe";
+      SYNCV3_DB = "postgresql://slidingsync@127.0.0.1/slidingsync";
+      SYNCV3_BINDADDR = "0.0.0.0:8009";
+    };
+  };
+
+  services.postgresql = {
+    enable = true;
+    authentication = "host all all 127.0.0.1/32 trust";
+    ensureDatabases = [ "slidingsync" ];
+    ensureUsers = [{
+      name = "slidingsync";
+      ensurePermissions."DATABASE slidingsync" = "ALL PRIVILEGES";
+    }];
   };
 }
