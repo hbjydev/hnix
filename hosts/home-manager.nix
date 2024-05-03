@@ -9,7 +9,6 @@ in
 {
   imports = if desktop then [
     shared-config
-    # (import ../home/modules/kitty.nix)
     (import ../home/modules/ghostty.nix)
   ] else [ shared-config ];
 
@@ -47,7 +46,7 @@ in
     } else { };
 
   programs.chromium = {
-    enable = true;
+    enable = desktop;
     package = pkgs.chromium;
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
@@ -57,7 +56,7 @@ in
   };
 
   programs.wezterm = {
-    enable = true;
+    enable = desktop;
     extraConfig = ''
       ${builtins.readFile ../config/wezterm/colorutils.lua}
       ${builtins.readFile ../config/wezterm/wezterm.lua}

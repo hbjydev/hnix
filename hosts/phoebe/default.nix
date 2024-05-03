@@ -10,25 +10,17 @@
     ./hardware-configuration.nix
 
     # Users
-    ../users/hayden.nix
+    (import ../users/hayden.nix { desktop = false; })
 
     # Services
     ./modules/alloy
     ./modules/cloudflared.nix
-    ./modules/desktop.nix
     ./modules/downloads.nix
     ./modules/home-assistant.nix
+    ./modules/matrix.nix
     ./modules/paperless.nix
     ./modules/unifi.nix
   ];
-
-  environment.systemPackages = [
-    pkgs.twingate
-    pkgs.obs-studio
-    pkgs.obs-studio-plugins.wlrobs
-  ];
-
-  services.twingate.enable = true;
 
   networking.firewall.enable = false;
   networking.networkmanager.enable = true;

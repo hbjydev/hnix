@@ -9,7 +9,7 @@
     ./hardware-configuration.nix
 
     # Users
-    ../users/hayden.nix
+    (import ../users/hayden.nix { desktop = true; })
 
     # Services
     ./modules/desktop.nix
