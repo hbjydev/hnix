@@ -34,8 +34,8 @@
     enable = true;
     environmentFile = config.sops.secrets.matrix_sliding_sync_env.path;
     settings = {
-      SYNCV3_SERVER = "https://hayden.moe";
-      SYNCV3_DB = "postgresql://slidingsync@127.0.0.1/slidingsync";
+      SYNCV3_SERVER = "https://matrix.hayden.moe";
+      SYNCV3_DB = "postgresql://slidingsync@127.0.0.1/slidingsync?sslmode=disable";
       SYNCV3_BINDADDR = "0.0.0.0:8009";
     };
   };
