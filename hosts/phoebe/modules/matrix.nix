@@ -31,7 +31,7 @@
       global = {
         server_name = "hayden.moe";
         database_backend = "rocksdb";
-        trusted_servers = [ "matrix.org" "nixos.org" ];
+        trusted_servers = [ "matrix.org" "nixos.org" "libera.chat" ];
       };
     };
   };
