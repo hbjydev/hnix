@@ -1,5 +1,5 @@
 # Configures a Dendrite homeserver for use on Matrix.
-{ config, ... }:
+{ ... }:
 {
   services.nginx = {
     enable = true;
@@ -19,7 +19,7 @@
     virtualHosts = {
       "matrix.hayden.moe" = {
         locations."/_matrix" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.matrix-conduit.settings.global.port}";
+          proxyPass = "http://localhost:6167";
         };
       };
     };
