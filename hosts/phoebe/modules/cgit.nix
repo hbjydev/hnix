@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 {
   services.cgit.main = {
     enable = true;
@@ -9,7 +9,7 @@
       css = "/cgit.css";
       logo = "/cgit.png";
       favicon = "/favicon.ico";
-      readme = ":README.MD";
+      readme = ":README.md";
       about-filter = "${pkgs.cgit-pink}/lib/cgit/filters/about-formatting.sh";
       source-filter = "${pkgs.cgit-pink}/lib/cgit/filters/syntax-highlighting.py";
       clone-url = (lib.concatStringsSep " " [
