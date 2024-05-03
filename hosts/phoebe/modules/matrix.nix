@@ -1,6 +1,12 @@
 # Configures a Conduit homeserver for use on Matrix.
-{ ... }:
+{ config, ... }:
 {
+  sops.secrets.matrix_sliding_sync_env = {
+    sopsFile = ../secrets/matrix.yaml;
+    owner = "root";
+    restartUnits = [ "matrix-sliding-sync.service" ];
+  };
+
   services.nginx = {
     enable = true;
     clientMaxBodySize = "10m";
@@ -26,6 +32,7 @@
 
   services.matrix-sliding-sync = {
     enable = true;
+    environmentFile = config.sops.secrets.matrix_sliding_sync_env.path;
     settings = {
       SYNCV3_SERVER = "https://hayden.moe";
       SYNCV3_DB = "postgresql://slidingsync@127.0.0.1/slidingsync";
