@@ -1,5 +1,14 @@
 { pkgs, lib, ... }:
+let
+  gh-mirror = pkgs.callPackage ../../../pkgs/gh-mirror.nix {};
+in
 {
+  environment.systemPackages = [ gh-mirror ];
+
+  services.cron.systemCronJobs = [
+    "*/5 * * * * hayden ${gh-mirror}/bin/gh-mirror hbjydev"
+  ];
+
   services.cgit.main = {
     enable = true;
     nginx.virtualHost = "cgit.hayden.moe";
@@ -31,7 +40,7 @@
       snapshots = "tar.xz";
 
       root-title = "cgit.hayden.moe";
-      root-desc = "Hayden's Git Repositories";
+      root-desc = "Hayden's local Git mirror for personal projects";
     };
   };
 }
