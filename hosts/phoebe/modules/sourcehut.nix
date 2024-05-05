@@ -20,8 +20,8 @@
 
   services.sourcehut = {
     enable = true;
-    git.enable = true;
-    man.enable = true;
+    # git.enable = true;
+    # man.enable = true;
     meta.enable = true;
     nginx.enable = true;
     postgresql.enable = true;
@@ -36,5 +36,10 @@
       };
       webhooks.private-key = config.sops.secrets.srht_whprivkey.path;
     };
+  };
+
+  services.nginx.virtualHosts."meta.git.hayden.moe" = {
+    sslCertificate = config.sops.secrets.srht_ssl_cert.path;
+    sslCertificateKey = config.sops.secrets.srht_ssl_key.path;
   };
 }
