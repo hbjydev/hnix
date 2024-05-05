@@ -5,17 +5,22 @@
   sops.secrets.srht_netkey = {
     sopsFile = ../secrets/sourcehut.yaml;
     owner = "root";
-    restartUnits = [ "matrix-sliding-sync.service" ];
   };
   sops.secrets.srht_srvkey = {
     sopsFile = ../secrets/sourcehut.yaml;
     owner = "root";
-    restartUnits = [ "matrix-sliding-sync.service" ];
   };
   sops.secrets.srht_whprivkey = {
     sopsFile = ../secrets/sourcehut.yaml;
     owner = "root";
-    restartUnits = [ "matrix-sliding-sync.service" ];
+  };
+  sops.secrets.srht_ssl_cert = {
+    sopsFile = ../secrets/sourcehut.yaml;
+    owner = "root";
+  };
+  sops.secrets.srht_ssl_key = {
+    sopsFile = ../secrets/sourcehut.yaml;
+    owner = "root";
   };
 
   services.sourcehut = {
