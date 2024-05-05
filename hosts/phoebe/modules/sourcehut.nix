@@ -25,8 +25,8 @@
 
   services.sourcehut = {
     enable = true;
-    # git.enable = true;
-    # man.enable = true;
+    git.enable = true;
+    man.enable = true;
     meta.enable = true;
     nginx.enable = true;
     postgresql.enable = true;
@@ -34,8 +34,8 @@
     settings = {
       "sr.ht" = {
         environment = "production";
-        global-domain = "git.hayden.moe";
-        origin = "https://git.hayden.moe";
+        global-domain = "kuraudo.work";
+        origin = "https://kuraudo.work";
         network-key = config.sops.secrets.srht_netkey.path;
         service-key = config.sops.secrets.srht_srvkey.path;
       };
@@ -43,7 +43,17 @@
     };
   };
 
-  services.nginx.virtualHosts."meta.git.hayden.moe" = {
+  services.nginx.virtualHosts."git.kuraudo.work" = {
+    sslCertificate = config.sops.secrets.srht_ssl_cert.path;
+    sslCertificateKey = config.sops.secrets.srht_ssl_key.path;
+  };
+
+  services.nginx.virtualHosts."meta.kuraudo.work" = {
+    sslCertificate = config.sops.secrets.srht_ssl_cert.path;
+    sslCertificateKey = config.sops.secrets.srht_ssl_key.path;
+  };
+
+  services.nginx.virtualHosts."man.kuraudo.work" = {
     sslCertificate = config.sops.secrets.srht_ssl_cert.path;
     sslCertificateKey = config.sops.secrets.srht_ssl_key.path;
   };
