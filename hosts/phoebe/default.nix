@@ -20,6 +20,7 @@
     ./modules/home-assistant.nix
     ./modules/matrix.nix
     ./modules/paperless.nix
+    ./modules/sourcehut.nix
     ./modules/unifi.nix
   ];
 
