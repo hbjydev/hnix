@@ -39,6 +39,12 @@
         network-key = config.sops.secrets.srht_netkey.path;
         service-key = config.sops.secrets.srht_srvkey.path;
       };
+
+      "git.sr.ht" = {
+        oauth-client-id = "CHANGEME";
+        oauth-client-secret = "CHANGEME";
+      };
+
       webhooks.private-key = config.sops.secrets.srht_whprivkey.path;
     };
   };
