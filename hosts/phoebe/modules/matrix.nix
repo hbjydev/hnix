@@ -1,21 +1,17 @@
 # Configures a Conduit homeserver for use on Matrix.
 { config, ... }:
 {
+  imports = [ ./nginx.nix ];
+
   sops.secrets.matrix_sliding_sync_env = {
     sopsFile = ../secrets/matrix.yaml;
     owner = "root";
     restartUnits = [ "matrix-sliding-sync.service" ];
   };
 
-  services.nginx = {
-    enable = true;
-    clientMaxBodySize = "10m";
-    virtualHosts = {
-      "matrix.hayden.moe" = {
-        locations."/_matrix" = {
-          proxyPass = "http://localhost:6167";
-        };
-      };
+  services.nginx.virtualHosts."matrix.hayden.moe" = {
+    locations."/_matrix" = {
+      proxyPass = "http://localhost:6167";
     };
   };
 
