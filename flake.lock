@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713654470,
-        "narHash": "sha256-v80WGX1N+pzx5eGANTKi/ZqcmLCIUjH+kYhTH5fHfoM=",
+        "lastModified": 1714998376,
+        "narHash": "sha256-CuFDX+P32CMl6aJtPDqZ3Sl9jXUHS+eUPrVZc2KPlSQ=",
         "owner": "ALT-F4-LLC",
         "repo": "build-configs",
-        "rev": "508e6aa280859cfaae9a2e42a9f5c2c835ff0979",
+        "rev": "edb8cc488339d97cc151c5f2fe4c3968839e2dd1",
         "type": "github"
       },
       "original": {
