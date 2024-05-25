@@ -15,7 +15,6 @@
         "auto-allocate-uids"
         "cgroups"
         "configurable-impure-env"
-        "discard-references"
       ];
 
       substituters = [ "https://nix-community.cachix.org" ];
