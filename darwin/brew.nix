@@ -1,9 +1,37 @@
-{ ... }:
+{ pkgs, lib, ... }:
 {
+  environment = {
+    systemPackages = [
+      pkgs.coreutils
+      pkgs.findutils
+      pkgs.gawk
+      pkgs.git
+      pkgs.gnugrep
+      pkgs.gnused
+      pkgs.gnutar
+      pkgs.gnutls
+      pkgs.ncurses
+      pkgs.openssh
+    ];
+    systemPath = lib.mkBefore [
+      "/opt/homebrew/bin"
+      "/opt/homebrew/sbin"
+    ];
+    variables = {
+      SHELL = lib.getExe pkgs.zsh;
+    };
+  };
+
   homebrew = {
     enable = true;
 
-    brews = [ "mas" ];
+    onActivation = {
+      cleanup = "zap";
+      autoUpdate = true;
+      upgrade = true;
+    };
+
+    brews = [ "git" "mas" ];
 
     casks = [
       "arc"
