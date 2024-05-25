@@ -13,7 +13,7 @@
     recommendedZstdSettings = true;
 
     # Log to journal instead of /var/log
-    commonHttpConfig = "access_log syslog:server=unix:/dev/log";
+    commonHttpConfig = "access_log syslog:server=unix:/dev/log;";
   };
 
   security.acme = {
