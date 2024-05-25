@@ -72,7 +72,7 @@
     };
 
     initExtra = ''
-      ${builtins.readFile ../../../config/zsh/extraInit.zsh}
+      eval "$(k9s completion zsh)"
     '';
   };
 }

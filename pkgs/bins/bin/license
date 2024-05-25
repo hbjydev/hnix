@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+curl -SL "api.github.com/licenses/$1" > .gitignore
