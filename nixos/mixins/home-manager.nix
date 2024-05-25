@@ -1,10 +1,9 @@
 { username, work, desktop, inputs }:
-
 { pkgs, ... }:
 
 let
-  shared-config = import ../home { inherit inputs work; };
-  shared-packages = import ../home/packages.nix { inherit pkgs inputs work; };
+  shared-config = import ../../home { inherit inputs work; };
+  shared-packages = import ../../home/packages.nix { inherit pkgs inputs work; };
 in
 {
   imports = if desktop then [
@@ -55,14 +54,6 @@ in
       { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1Password
       { id = "ammjkodgmmoknidbanneddgankgfejfh"; } # 7TV
     ];
-  };
-
-  programs.wezterm = {
-    enable = desktop;
-    extraConfig = ''
-      ${builtins.readFile ../config/wezterm/colorutils.lua}
-      ${builtins.readFile ../config/wezterm/wezterm.lua}
-    '';
   };
 
   home.packages = shared-packages ++ pkgs.lib.optionals desktop [
