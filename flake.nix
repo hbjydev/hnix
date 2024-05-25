@@ -20,8 +20,6 @@
     stable.url = "github:nixos/nixpkgs/nixos-23.11";
     trunk.url = "github:nixos/nixpkgs";
 
-    ghostty-hm.url = "github:clo4/ghostty-hm-module";
-
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,8 +30,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-index = {
-      url = "github:nix-community/nix-index";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,66 +46,36 @@
     };
 
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
+    ghostty-hm.url = "github:clo4/ghostty-hm-module";
 
     build-configs.url = "github:ALT-F4-LLC/build-configs";
     build-configs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = ["x86_64-linux" "aarch64-darwin"];
+    flake-parts.lib.mkFlake { inherit inputs; }
+      (toplevel@{ withSystem, ... }: {
+        systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-      flake = 
-        let
-          inherit (lib.my) mapHosts;
+        flake = {
+          hosts = import ./nix/hosts.nix;
 
-          systems = (import ./system { inherit inputs; });
+          darwinConfigurations = import ./nix/darwin.nix toplevel;
+          nixosConfigurations = import ./nix/nixos.nix toplevel;
 
-          mkPkgs = pkgs: extraOverlays: system: import pkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-              packageOverrides = super: {
-                vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
-              };
-              permittedInsecurePackages = [
-                "openssl-1.1.1w"
-              ];
-              pulseaudio = true;
-            };
-            overlays = extraOverlays;
-          };
-          pkgsLinux_x86 = mkPkgs inputs.nixpkgs [] "x86_64-linux";
-          pkgsDarwin_arm = mkPkgs inputs.nixpkgs [] "aarch64-darwin";
+          deploy = import ./nix/deploy.nix toplevel;
 
-          lib = inputs.nixpkgs.lib.extend
-            (self: super: { my = import ./lib { inherit inputs; pkgs = pkgsLinux_x86; lib = self; }; });
-        in
-        {
-          overlays = {};
-
-          darwinConfigurations = {
-            personal = systems.mkDarwin {
-              system = "aarch64-darwin";
-              username = "hayden";
-            };
-            work = systems.mkDarwin {
-              system = "aarch64-darwin";
-              username = "haydenyoung";
-            };
-          };
-
-          nixosConfigurations = mapHosts ./hosts {};
+          overlays = import ./nix/overlay.nix toplevel;
         };
 
-      perSystem = { pkgs, ... }:
-        let
-          inherit (pkgs) just ssh-to-age;
-        in
-        {
-          devShells.default = pkgs.mkShell {
-            buildInputs = [ just ssh-to-age ];
+        perSystem = { pkgs, ... }:
+          let
+            inherit (pkgs) just ssh-to-age;
+          in
+          {
+            devShells.default = pkgs.mkShell {
+              buildInputs = [ just ssh-to-age ];
+            };
           };
-        };
-    };
+      });
 }

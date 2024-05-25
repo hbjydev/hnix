@@ -1,12 +1,12 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, nixpkgs, ... }:
 {
-  environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
+  environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
 
   nix = {
     package = pkgs.nixUnstable;
     
     channel.enable = false;
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.nixpkgs.flake = nixpkgs;
 
     settings = {
       experimental-features = [

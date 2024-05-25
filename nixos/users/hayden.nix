@@ -1,8 +1,8 @@
 { desktop ? true, work ? false }:
-{ inputs, pkgs, ... }:
+{ deploy-rs, build-configs, hvim, ghostty-hm, ghostty, home-manager, sops-nix, nixpkgs, pkgs, ... }:
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
+    home-manager.nixosModules.home-manager
   ];
 
   users = {
@@ -20,12 +20,23 @@
 
   home-manager = {
     sharedModules = [
-      inputs.sops-nix.homeManagerModules.sops
+      sops-nix.homeManagerModules.sops
     ];
     useGlobalPkgs = true;
     useUserPackages = true;
     users.hayden = import ../mixins/home-manager {
-      inherit inputs desktop work;
+      inherit desktop work;
+      inputs = {
+        inherit
+        build-configs
+        home-manager
+        sops-nix
+        ghostty-hm
+        ghostty
+        hvim
+        nixpkgs
+        deploy-rs;
+      };
       username = "hayden";
     };
   };

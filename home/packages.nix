@@ -30,6 +30,7 @@
   pkgs.viddy
   pkgs.weechat
 
+  inputs.deploy-rs.packages.${pkgs.system}.default
   inputs.hvim.packages.${pkgs.system}.default # my nixos config
   inputs.build-configs.packages.${pkgs.system}.default
 ] ++ pkgs.lib.lists.optionals work [
