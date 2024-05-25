@@ -26,8 +26,8 @@
       system-features = [ "uid-range" ];
 
       nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
-      trusted-users = [ "root" "hayden" ];
-      allowed-users = [ "root" "hayden" ];
+      trusted-users = [ "root" "@wheel" ];
+      allowed-users = [ "root" "@wheel" ];
       warn-dirty = false;
     };
   };
