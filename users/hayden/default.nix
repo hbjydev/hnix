@@ -1,4 +1,4 @@
-{ username ? "hayden", config, hostType, sops-nix, ... }:
+{ username ? "hayden", config, hostType, ... }:
 if hostType == "nixos" || hostType == "darwin" then {
   imports = [
     (

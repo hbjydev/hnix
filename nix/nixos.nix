@@ -27,6 +27,8 @@ let
             home-manager = {
               sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
               extraSpecialArgs = specialArgs address type work username;
+              useGlobalPkgs = true;
+              useUserPackages = true;
             };
           }
           (../hosts + "/${hostname}")
