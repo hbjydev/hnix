@@ -2,13 +2,13 @@
 { pkgs, ... }:
 
 let
-  shared-config = import ../../home { inherit inputs work; };
-  shared-packages = import ../../home/packages.nix { inherit pkgs inputs work; };
+  shared-config = import ../../../home { inherit inputs work; };
+  shared-packages = import ../../../home/packages.nix { inherit pkgs inputs work; };
 in
 {
   imports = if desktop then [
     shared-config
-    (import ../../home/modules/ghostty.nix)
+    (import ../../../home/modules/ghostty.nix)
   ] else [ shared-config ];
 
   dconf.settings =
