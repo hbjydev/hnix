@@ -11,7 +11,6 @@
     (import ../../nixos/users/hayden.nix { desktop = true; })
 
     # Services
-    ./modules/desktop.nix
     ./modules/steam.nix
   ];
 
