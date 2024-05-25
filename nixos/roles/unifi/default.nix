@@ -1,6 +1,6 @@
 { ... }:
 {
-  imports = [ ../mixins/docker.nix ];
+  imports = [ ../../mixins/docker ];
 
   virtualisation.oci-containers.containers = {
     unifi = {

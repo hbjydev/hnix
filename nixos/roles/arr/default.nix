@@ -4,9 +4,9 @@ let
 in
 {
   imports = [
-    ../mixins/nginx.nix
-    ../mixins/media.nix
-    ../mixins/nas.nix
+    ../../mixins/nginx
+    ../../mixins/media
+    ../../mixins/nas
   ];
 
   services.sabnzbd = {

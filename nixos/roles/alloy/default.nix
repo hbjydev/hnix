@@ -43,7 +43,7 @@ in
         "--server.http.listen-addr=0.0.0.0:12345"
         "--storage.path=/var/lib/alloy/data"
         "--stability.level=public-preview"
-        "/etc/alloy/config.alloy"
+        "/etc/alloy"
       ];
 
       volumes = [

@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    ../mixins/nginx.nix
+    ../../mixins/nginx
   ];
 
   sops.secrets.matrix_sliding_sync_env = {

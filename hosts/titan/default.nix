@@ -11,8 +11,7 @@
     (import ../../nixos/users/hayden.nix { desktop = true; })
 
     # Services
-    ./modules/steam.nix
-    ../../nixos/mixins/docker.nix
+    ../../nixos/mixins/docker
   ];
 
   programs._1password.enable = true;
@@ -22,7 +21,15 @@
     pkgs.twingate
     pkgs.obs-studio
     pkgs.obs-studio-plugins.wlrobs
+    pkgs.steamcmd
+    pkgs.steam-tui
   ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   networking.networkmanager.enable = true;
 }

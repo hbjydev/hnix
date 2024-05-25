@@ -4,10 +4,10 @@ let
 in
 {
   imports = [
-    ../mixins/docker.nix
-    ../mixins/media.nix
-    ../mixins/nas.nix
-    ../mixins/nginx.nix
+    ../../mixins/docker
+    ../../mixins/media
+    ../../mixins/nas
+    ../../mixins/nginx
   ];
 
   services.jellyseerr.enable = true;

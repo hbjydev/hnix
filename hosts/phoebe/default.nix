@@ -12,13 +12,13 @@
 
     # Services
     ../../nixos/roles/alloy
-    ../../nixos/roles/arr.nix
-    ../../nixos/roles/cgit.nix
-    ../../nixos/roles/home-assistant.nix
-    ../../nixos/roles/jellyfin.nix
-    ../../nixos/roles/matrix.nix
-    ../../nixos/roles/paperless.nix
-    ../../nixos/roles/unifi.nix
+    ../../nixos/roles/arr
+    ../../nixos/roles/cgit
+    ../../nixos/roles/home-assistant
+    ../../nixos/roles/jellyfin
+    ../../nixos/roles/matrix
+    ../../nixos/roles/paperless
+    ../../nixos/roles/unifi
   ];
 
   sops.secrets.matrix_sliding_sync_env.sopsFile = ./secrets/matrix.yaml;

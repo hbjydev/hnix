@@ -1,11 +1,11 @@
 { pkgs, lib, ... }:
 let
   domain = "hayden.moe";
-  gh-mirror = pkgs.callPackage ../../pkgs/gh-mirror.nix {};
+  gh-mirror = pkgs.callPackage ../../../pkgs/gh-mirror.nix {};
 in
 {
   imports = [
-    ../mixins/nginx.nix
+    ../../mixins/nginx
   ];
 
   environment.systemPackages = [ gh-mirror ];

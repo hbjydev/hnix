@@ -4,9 +4,9 @@ let
 in
 {
   imports = [
-    ../mixins/docker.nix
-    ../mixins/nas.nix
-    ../mixins/nginx.nix
+    ../../mixins/docker
+    ../../mixins/nas
+    ../../mixins/nginx
   ];
 
   services.paperless = {

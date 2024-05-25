@@ -3,7 +3,7 @@ let
   domain = "hayden.moe";
 in
 {
-  imports = [ ../mixins/nginx.nix ];
+  imports = [ ../../mixins/nginx ];
 
   systemd.services.home-assistant.serviceConfig.LimitNOFILE = 4096;
   services.home-assistant = {
