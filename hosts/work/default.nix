@@ -2,5 +2,6 @@
 {
   imports = [
     home-manager.darwinModules.home-manager
+    ../../darwin
   ];
 }
