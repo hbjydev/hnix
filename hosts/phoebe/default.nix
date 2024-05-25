@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
 
     # Users
-    (import ../../nixos/users/hayden.nix { desktop = false; })
+    ../../users/hayden
 
     # Services
     ../../nixos/roles/alloy
