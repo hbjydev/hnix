@@ -12,12 +12,13 @@
 
     # Services
     ./modules/alloy
-    ./modules/cgit.nix
     ./modules/cloudflared.nix
     ./modules/home-assistant.nix
-    ./modules/matrix.nix
     ./modules/paperless.nix
     ./modules/unifi.nix
+
+    ../../nixos/roles/cgit.nix
+    ../../nixos/roles/matrix.nix
 
     # Media
     ../../nixos/roles/arr.nix

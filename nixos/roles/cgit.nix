@@ -1,10 +1,11 @@
 { pkgs, lib, ... }:
 let
-  gh-mirror = pkgs.callPackage ../../../pkgs/gh-mirror.nix {};
+  domain = "hayden.moe";
+  gh-mirror = pkgs.callPackage ../../pkgs/gh-mirror.nix {};
 in
 {
   imports = [
-    ../../../nixos/mixins/nginx.nix
+    ../mixins/nginx.nix
   ];
 
   environment.systemPackages = [ gh-mirror ];
@@ -31,7 +32,7 @@ in
 
   services.cgit.main = {
     enable = true;
-    nginx.virtualHost = "cgit.hayden.moe";
+    nginx.virtualHost = "cgit.${domain}";
     package = pkgs.cgit-pink;
     scanPath = "/var/lib/nginx/html_git";
     settings = {
@@ -42,7 +43,7 @@ in
       about-filter = "${pkgs.cgit-pink}/lib/cgit/filters/about-formatting.sh";
       source-filter = "${pkgs.cgit-pink}/lib/cgit/filters/syntax-highlighting.py";
       clone-url = (lib.concatStringsSep " " [
-        "https://cgit.hayden.moe/$CGIT_REPO_URL"
+        "https://cgit.${domain}/$CGIT_REPO_URL"
       ]);
       enable-log-filecount = 1;
       enable-log-linecount = 1;
@@ -59,7 +60,7 @@ in
       max-repo-count = 500;
       snapshots = "tar.xz";
 
-      root-title = "cgit.hayden.moe";
+      root-title = "cgit.${domain}";
       root-desc = "Hayden's local Git mirror for personal projects";
     };
   };
