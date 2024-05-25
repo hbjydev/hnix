@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ../shared/nix.nix
     ./brew.nix
     ./fonts.nix
   ];
@@ -20,7 +21,6 @@
   environment.pathsToLink = [ "/share/qemu" ];
   programs.zsh.enable = true;
   security.pam.enableSudoTouchIdAuth = true;
-  nixpkgs.config.allowUnfree = true;
   services.nix-daemon.enable = true;
   system.stateVersion = 4;
 }

@@ -1,36 +1,8 @@
-{ pkgs, lib, nixpkgs, ... }:
+{ pkgs, nixpkgs, ... }:
 {
+  imports = [ ../../shared/nix.nix ];
+
   environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
-
-  nix = {
-    package = pkgs.nixUnstable;
-    
-    channel.enable = false;
-    registry.nixpkgs.flake = nixpkgs;
-
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "auto-allocate-uids"
-        "cgroups"
-        "configurable-impure-env"
-      ];
-
-      substituters = [ "https://nix-community.cachix.org" ];
-      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
-
-      auto-optimise-store = true;
-      builders-use-substitutes = true;
-      auto-allocate-uids = true;
-      system-features = [ "uid-range" ];
-
-      nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
-      trusted-users = [ "root" "@wheel" ];
-      allowed-users = [ "root" "@wheel" ];
-      warn-dirty = false;
-    };
-  };
 
   # Allow running of AppImage files without needing appimage-run
   boot.binfmt.registrations.appimage = {
