@@ -19,7 +19,7 @@
 
   security.sudo = {
     enable = true;
-    wheelNeedsPassword = true;
+    wheelNeedsPassword = false;
     execWheelOnly = true;
     extraConfig = ''
       Defaults lecture = never
