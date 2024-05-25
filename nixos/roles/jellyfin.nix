@@ -1,12 +1,13 @@
 { ... }:
 let
-  inherit (import ../consts.nix) domain;
+  domain = "hayden.moe";
 in
 {
   imports = [
-    ../../../nixos/mixins/nginx.nix
-    ../../../nixos/mixins/media.nix
-    ../../../nixos/mixins/nas.nix
+    ../mixins/docker.nix
+    ../mixins/media.nix
+    ../mixins/nas.nix
+    ../mixins/nginx.nix
   ];
 
   services.jellyseerr.enable = true;

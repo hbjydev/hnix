@@ -46,10 +46,10 @@
     "net.ipv4.tcp_fastopen" = 3;
     # Bufferbloat mitigations + slight improvement in throughput & latency
     "net.ipv4.tcp_congestion_control" = "bbr";
-    "net.core.default_qdisc" = "cake";
+    "net.core.default_qdisc" = "fq";
   };
   boot.kernelModules = [ "tcp_bbr" ];
-  #users.users..initialPassword = "nixos";
+
   users.users.root.initialPassword = "nixos";
 
   security.acme.acceptTerms = true;

@@ -1,4 +1,4 @@
-{ desktop ? true }:
+{ desktop ? true, work ? false }:
 { inputs, pkgs, ... }:
 {
   imports = [
@@ -25,8 +25,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.hayden = import ../home-manager.nix {
-      inherit inputs desktop;
-      work = false;
+      inherit inputs desktop work;
       username = "hayden";
     };
   };

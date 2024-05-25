@@ -17,7 +17,6 @@
   };
 
   security.acme = {
-    acceptTerms = true;
     defaults.email = "acme@kuraudo.io";
   };
 }

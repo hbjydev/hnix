@@ -3,13 +3,13 @@
 {
   imports = [
     ../.  # Base config
-    ../home.nix  # Home network config
+    ../../nixos/profiles/desktop.nix  # Desktop config
 
     # Hardware config for the server
     ./hardware-configuration.nix
 
     # Users
-    (import ../users/hayden.nix { desktop = true; })
+    (import ../../nixos/users/hayden.nix { desktop = true; })
 
     # Services
     ./modules/desktop.nix
@@ -32,6 +32,4 @@
 
   networking.firewall.enable = false;
   networking.networkmanager.enable = true;
-
-  virtualisation.docker.enable = true;
 }

@@ -1,14 +1,12 @@
-{ config, lib, ... }:
-with builtins;
-with lib;
+{ ... }:
 {
   networking.extraHosts = ''
     192.168.4.1  router.home
     192.168.4.2  nas.home
   '';
 
-  i18n.defaultLocale = mkDefault "en_GB.UTF-8";
-  time.timeZone = mkDefault "Europe/London";
+  i18n.defaultLocale = "en_GB.UTF-8";
+  time.timeZone = "Europe/London";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_GB.UTF-8";
     LC_IDENTIFICATION = "en_GB.UTF-8";
