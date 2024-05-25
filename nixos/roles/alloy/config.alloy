@@ -17,6 +17,11 @@ loki.relabel "journal" {
     source_labels = ["__journal__systemd_unit"]
     target_label  = "unit"
   }
+
+  rule {
+    target_label = "instance"
+    replacement = "phoebe"
+  }
 }
 
 loki.source.journal "read"  {
@@ -44,8 +49,16 @@ prometheus.exporter.unix "host" {
   }
 }
 
+prometheus.exporter.self "alloy" {
+}
+
 prometheus.scrape "host" {
   targets    = prometheus.exporter.unix.host.targets
+  forward_to = [prometheus.relabel.instance.receiver]
+}
+
+prometheus.scrape "alloy" {
+  targets    = prometheus.exporter.self.alloy.targets
   forward_to = [prometheus.relabel.instance.receiver]
 }
 
