@@ -16,6 +16,9 @@
     commonHttpConfig = "access_log syslog:server=unix:/dev/log;";
   };
 
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 443 ]; # HTTP/3/QUIC
+
   security.acme = {
     defaults.email = "acme@kuraudo.io";
   };
