@@ -3,6 +3,8 @@ let
   gh-mirror = pkgs.callPackage ../../../pkgs/gh-mirror.nix {};
 in
 {
+  imports = [ ./nginx.nix ];
+
   environment.systemPackages = [ gh-mirror ];
 
   systemd.timers."gh-mirror" = {
