@@ -3,7 +3,9 @@ let
   gh-mirror = pkgs.callPackage ../../../pkgs/gh-mirror.nix {};
 in
 {
-  imports = [ ./nginx.nix ];
+  imports = [
+    ../../../nixos/mixins/nginx.nix
+  ];
 
   environment.systemPackages = [ gh-mirror ];
 

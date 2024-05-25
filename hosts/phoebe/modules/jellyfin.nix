@@ -3,7 +3,11 @@ let
   inherit (import ../consts.nix) domain;
 in
 {
-  imports = [ ./nginx.nix ./media.nix ./nas.nix ];
+  imports = [
+    ../../../nixos/mixins/nginx.nix
+    ../../../nixos/mixins/media.nix
+    ../../../nixos/mixins/nas.nix
+  ];
 
   services.jellyseerr.enable = true;
   services.nginx.virtualHosts."request.${domain}" = {

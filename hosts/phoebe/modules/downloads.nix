@@ -8,7 +8,10 @@ let
   );
 in
 {
-  imports = [ ./media.nix ./nas.nix ];
+  imports = [
+    ../../../nixos/mixins/media.nix
+    ../../../nixos/mixins/nas.nix
+  ];
 
   # Downloads
   services.sabnzbd = mkMediaService { };

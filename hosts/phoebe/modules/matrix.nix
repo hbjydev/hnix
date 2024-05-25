@@ -4,7 +4,9 @@ let
   inherit (import ../consts.nix) domain;
 in
 {
-  imports = [ ./nginx.nix ];
+  imports = [
+    ../../../nixos/mixins/nginx.nix
+  ];
 
   sops.secrets.matrix_sliding_sync_env = {
     sopsFile = ../secrets/matrix.yaml;

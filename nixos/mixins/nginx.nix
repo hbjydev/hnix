@@ -2,12 +2,18 @@
 {
   services.nginx = {
     enable = true;
+
     clientMaxBodySize = "10m";
 
-    recommendedTlsSettings = true;
-    recommendedOptimisation = true;
+    recommendedBrotliSettings = true;
     recommendedGzipSettings = true;
+    recommendedOptimisation = true;
     recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    recommendedZstdSettings = true;
+
+    # Log to journal instead of /var/log
+    commonHttpConfig = "access_log syslog:server=unix:/dev/log";
   };
 
   security.acme = {
