@@ -14,11 +14,11 @@
     ./modules/alloy
     ./modules/cloudflared.nix
     ./modules/home-assistant.nix
-    ./modules/paperless.nix
     ./modules/unifi.nix
 
     ../../nixos/roles/cgit.nix
     ../../nixos/roles/matrix.nix
+    ../../nixos/roles/paperless.nix
 
     # Media
     ../../nixos/roles/arr.nix

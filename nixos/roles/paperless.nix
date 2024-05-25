@@ -1,15 +1,35 @@
-{ ... }:
+{ config, ... }:
+let
+  domain = "hayden.moe";
+in
 {
+  imports = [
+    ../mixins/docker.nix
+    ../mixins/nas.nix
+    ../mixins/nginx.nix
+  ];
+
   services.paperless = {
     enable         = true;
     mediaDir       = "/storage/paperless/media";
     consumptionDir = "/storage/paperless/imports";
     dataDir        = "/storage/paperless/data";
+    port           = 58080;
 
     settings = {
       PAPERLESS_TIKA_ENABLED = "1";
       PAPERLESS_TIKA_ENDPOINT = "http://127.0.0.1:9998";
       PAPERLESS_TIKA_GOTENBURG_ENDPOINT = "http://127.0.0.1:3000";
+    };
+  };
+
+  services.nginx.virtualHosts."docs.${domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    kTLS = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${config.services.paperless.port}";
+      proxyWebsockets = true;
     };
   };
 
