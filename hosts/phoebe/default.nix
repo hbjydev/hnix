@@ -24,9 +24,6 @@
     ../../nixos/roles/jellyfin.nix
   ];
 
-  networking.firewall.enable = false;
-  networking.networkmanager.enable = true;
-
   sops.secrets.matrix_sliding_sync_env = {
     sopsFile = ./secrets/matrix.yaml;
     owner = "root";

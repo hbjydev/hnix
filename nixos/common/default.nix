@@ -4,6 +4,7 @@
     inputs.sops-nix.nixosModules.sops
 
     ./locale.nix
+    ./networking.nix
     ./nix.nix
     ./security.nix
   ];

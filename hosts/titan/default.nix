@@ -12,24 +12,17 @@
 
     # Services
     ./modules/steam.nix
+    ../../nixos/mixins/docker.nix
   ];
 
   programs._1password.enable = true;
 
-  boot.tmpOnTmpfsSize = "16G";
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot.enable = true;
-  };
-
+  services.twingate.enable = true;
   environment.systemPackages = [
     pkgs.twingate
     pkgs.obs-studio
     pkgs.obs-studio-plugins.wlrobs
   ];
 
-  services.twingate.enable = true;
-
-  networking.firewall.enable = false;
   networking.networkmanager.enable = true;
 }
