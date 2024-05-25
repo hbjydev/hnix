@@ -2,7 +2,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ../.  # Base config
     ../../nixos/profiles/desktop.nix  # Desktop config
 
     # Hardware config for the server

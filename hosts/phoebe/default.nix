@@ -2,7 +2,6 @@
 { ... }:
 {
   imports = [
-    ../.  # Base config
     ../../nixos/profiles/server.nix  # Server config
 
     # Hardware config for the server

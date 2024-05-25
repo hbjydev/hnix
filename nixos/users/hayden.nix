@@ -24,7 +24,7 @@
     ];
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.hayden = import ../home-manager.nix {
+    users.hayden = import ../mixins/home-manager.nix {
       inherit inputs desktop work;
       username = "hayden";
     };
