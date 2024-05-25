@@ -5,9 +5,9 @@ in
 {
   imports = [ ./media.nix ./nas.nix ];
 
-  services.jellyseer.enable = true;
+  services.jellyseerr.enable = true;
   services.nginx.virtualHosts."request.${domain}" = {
-    useACMEHost = "request.${domain}";
+    enableACME = true;
     forceSSL = true;
     kTLS = true;
     locations."/" = {
@@ -25,7 +25,7 @@ in
   systemd.services.jellyfin.after = [ "storage.mount" ];
 
   services.nginx.virtualHosts."media.${domain}" = {
-    useACMEHost = "media.${domain}";
+    enableACME = true;
     forceSSL = true;
     kTLS = true;
     locations."/" = {
@@ -47,7 +47,7 @@ in
   };
 
   services.nginx.virtualHosts."invites.${domain}" = {
-    useACMEHost = "invites.${domain}";
+    enableACME = true;
     forceSSL = true;
     kTLS = true;
     locations."/" = {
