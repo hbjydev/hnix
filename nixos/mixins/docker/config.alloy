@@ -1,5 +1,5 @@
 prometheus.exporter.cadvisor "docker" {
-  docker_host = "unix:///var/run/docker.sock"
+  docker_host = "unix:///rootfs/var/run/docker.sock"
   docker_only = true
   storage_duration = "5m"
 }

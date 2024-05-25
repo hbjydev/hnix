@@ -4,6 +4,8 @@ let
   alloyGid = alloyUid;
 in
 {
+  imports = [ ../../mixins/docker ];
+
   sops.secrets.gc_token = {
     owner = "alloy";
     restartUnits = [ "docker-alloy.service" ];
