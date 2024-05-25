@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [ ../mixins/docker.nix ];
 
@@ -20,6 +20,21 @@
       volumes = [
         "/local/unifi:/unifi"
       ];
+    };
+  };
+
+  systemd = {
+    timers.unifi-backup = {
+      wantedBy = [ "timers.target" ];
+      partOf = [ "unifi-backup.service" ];
+      timerConfig.OnCalendar = "weekly";
+    };
+
+    services.unifi-backup = {
+      serviceConfig.Type = "oneshot";
+      script = ''
+        cp /local/unifi/data/backup/autobackup/*.unf /storage/unifi/backup/
+      '';
     };
   };
 
