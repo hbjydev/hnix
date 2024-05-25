@@ -2,14 +2,6 @@
 {
   imports = [ ../common ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 15;
-    };
-  };
-
   documentation.enable = false;
   documentation.info.enable = false;
   documentation.man.enable = false;

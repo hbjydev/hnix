@@ -3,6 +3,7 @@
   imports = [
     inputs.sops-nix.nixosModules.sops
 
+    ./boot-efi.nix
     ./locale.nix
     ./networking.nix
     ./nix.nix
