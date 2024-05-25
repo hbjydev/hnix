@@ -30,6 +30,12 @@ in
     };
   };
 
+  services.nginx.virtualHosts."cgit.${domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    kTLS = true;
+  };
+
   services.cgit.main = {
     enable = true;
     nginx.virtualHost = "cgit.${domain}";
