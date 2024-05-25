@@ -3,10 +3,32 @@
 let
   inherit (inputs.nixpkgs) lib;
 
-  genConfiguration = hostname: { address, hostPlatform, type, ... }:
+  specialArgs = addr: type: work: username: {
+    hostAddress = addr;
+    hostType = type;
+    inherit work username;
+    inherit (inputs)
+      sops-nix
+      ghostty-hm
+      ghostty
+      home-manager
+      nixpkgs
+      hvim
+      build-configs
+      deploy-rs;
+  };
+
+  genConfiguration = hostname: { address, hostPlatform, type, work, username, ... }:
     withSystem hostPlatform ({ ... }:
       lib.nixosSystem {
         modules = [
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
+              extraSpecialArgs = specialArgs address type work username;
+            };
+          }
           (../hosts + "/${hostname}")
           {
             nixpkgs.pkgs = import inputs.nixpkgs {
@@ -16,19 +38,7 @@ let
           }
         ];
 
-        specialArgs = {
-          hostAddress = address;
-          hostType = type;
-          inherit (inputs)
-            sops-nix
-            ghostty-hm
-            ghostty
-            home-manager
-            nixpkgs
-            hvim
-            build-configs
-            deploy-rs;
-        };
+        specialArgs = specialArgs address type work username;
       });
 in
 lib.mapAttrs

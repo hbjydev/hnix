@@ -1,11 +1,9 @@
-{ work, config, pkgs, ... }:
-let
-  inherit (pkgs) stdenv;
-in
+{ hostType, work, config, ... }:
 {
-  sops.secrets.ssh_config_work = {
-    path = "${config.home.homeDirectory}/.ssh/config.d/work";
-  };
+  sops.secrets.ssh_config_work =
+    if work then {
+      path = "${config.home.homeDirectory}/.ssh/config.d/work";
+    } else { };
 
   programs.ssh = {
     enable = true;
@@ -15,12 +13,12 @@ in
     controlPath = "/tmp/ssh.%r.%n.%p";
     forwardAgent = true;
 
-    includes = ["config.d/*"];
+    includes = [ "config.d/*" ];
     matchBlocks."*" = {
       setEnv.TERM = "xterm-256color";
       extraOptions = {
         IdentityAgent = (
-          if stdenv.isDarwin
+          if hostType == "darwin"
           then "\"~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
           else "~/.1password/agent.sock"
         );

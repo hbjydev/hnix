@@ -1,13 +1,8 @@
 { ... }:
 let
-  oxocarbon = (import ../oxocarbon.nix).dark;
+  oxocarbon = (import ../theme.nix).oxocarbon.dark;
 in
 {
-  programs.go = {
-    enable = true;
-    goPath = "Development/language/go";
-  };
-
   programs.k9s = {
     enable = true;
     settings = {
@@ -110,6 +105,4 @@ in
       };
     };
   };
-
-  #home.file.".config/k9s/skin.yml".source = ../../../config/k9s/skin.yml;
 }

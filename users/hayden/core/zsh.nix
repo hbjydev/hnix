@@ -72,7 +72,7 @@
     };
 
     initExtra = ''
-      ${builtins.readFile ../../config/zsh/extraInit.zsh}
+      ${builtins.readFile ../../../config/zsh/extraInit.zsh}
     '';
   };
 }

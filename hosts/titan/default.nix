@@ -8,13 +8,15 @@
     ./hardware-configuration.nix
 
     # Users
-    (import ../../nixos/users/hayden.nix { desktop = true; })
+    ../../users/hayden
 
     # Services
     ../../nixos/mixins/docker
   ];
 
   programs._1password.enable = true;
+
+  networking.hostName = "titan";
 
   services.twingate.enable = true;
   environment.systemPackages = [

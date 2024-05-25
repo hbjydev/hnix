@@ -3,18 +3,35 @@ let
   inherit (inputs) self darwin nixpkgs;
   inherit (nixpkgs) lib;
 
-  genConfiguration = hostname: { hostPlatform, type, ... }:
+  specialArgs = type: work: username: {
+    hostType = type;
+    inherit work username;
+    inherit (inputs)
+      sops-nix
+      ghostty-hm
+      ghostty
+      home-manager
+      nixpkgs
+      hvim
+      build-configs
+      deploy-rs;
+  };
+
+  genConfiguration = hostname: { hostPlatform, type, work, username, ... }:
     withSystem hostPlatform ({ pkgs, system, ... }:
       darwin.lib.darwinSystem {
         inherit pkgs system;
         modules = [
+          inputs.home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
+              extraSpecialArgs = specialArgs type work username;
+            };
+          }
           (../hosts + "/${hostname}")
         ];
-        specialArgs = {
-          hostType = type;
-          inherit (inputs)
-            home-manager;
-        };
+        specialArgs = specialArgs type work username;
       });
 in
 lib.mapAttrs

@@ -17,18 +17,20 @@ let
     , homeDirectory ? null
     , remoteBuild ? true
     , large ? false
+    , username ? "hayden"
+    , work ? false
     }:
     if type == "nixos" then
       assert address != null && pubkey != null;
       assert (hasSuffix "linux" hostPlatform);
       {
-        inherit type hostPlatform address pubkey remoteBuild large;
+        inherit type hostPlatform address pubkey remoteBuild large username work;
       }
     else if type == "darwin" then
       assert pubkey != null;
       assert (hasSuffix "darwin" hostPlatform);
       {
-        inherit type hostPlatform pubkey large;
+        inherit type hostPlatform pubkey large username work;
       }
     else if type == "home-manager" then
       assert homeDirectory != null;

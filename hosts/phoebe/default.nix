@@ -21,5 +21,7 @@
     ../../nixos/roles/unifi
   ];
 
+  networking.hostName = "phoebe";
+
   sops.secrets.matrix_sliding_sync_env.sopsFile = ./secrets/matrix.yaml;
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   programs.gh = {
     enable = true;
@@ -16,7 +16,4 @@
       git_protocol = "https";
     };
   };
-
-  home.packages = [ pkgs.gh-dash ];
-  xdg.configFile."gh-dash/config.yml".source = ./gh-dash.yaml;
 }
