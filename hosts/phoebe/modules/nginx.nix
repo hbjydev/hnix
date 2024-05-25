@@ -9,4 +9,9 @@
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
   };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "acme@kuraudo.io";
+  };
 }

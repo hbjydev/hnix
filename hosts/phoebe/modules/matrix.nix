@@ -13,8 +13,18 @@ in
   };
 
   services.nginx.virtualHosts."matrix.${domain}" = {
+    enableACME = true;
+    forceSSL = true;
     locations."/_matrix" = {
       proxyPass = "http://localhost:6167";
+    };
+  };
+
+  services.nginx.virtualHosts."matrixsync.${domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://localhost:8009";
     };
   };
 
