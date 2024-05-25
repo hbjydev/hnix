@@ -11,23 +11,15 @@
     (import ../../nixos/users/hayden.nix { desktop = false; })
 
     # Services
-    ./modules/alloy
-    ./modules/cloudflared.nix
-    ./modules/home-assistant.nix
-    ./modules/unifi.nix
-
+    ../../nixos/roles/alloy
+    ../../nixos/roles/arr.nix
     ../../nixos/roles/cgit.nix
+    ../../nixos/roles/home-assistant.nix
+    ../../nixos/roles/jellyfin.nix
     ../../nixos/roles/matrix.nix
     ../../nixos/roles/paperless.nix
-
-    # Media
-    ../../nixos/roles/arr.nix
-    ../../nixos/roles/jellyfin.nix
+    ../../nixos/roles/unifi.nix
   ];
 
-  sops.secrets.matrix_sliding_sync_env = {
-    sopsFile = ./secrets/matrix.yaml;
-    owner = "root";
-    restartUnits = [ "matrix-sliding-sync.service" ];
-  };
+  sops.secrets.matrix_sliding_sync_env.sopsFile = ./secrets/matrix.yaml;
 }

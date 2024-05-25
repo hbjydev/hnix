@@ -4,17 +4,10 @@ let
   alloyGid = alloyUid;
 in
 {
-  sops.secrets = {
-    "gc_token" = {
-      owner = "alloy";
-      restartUnits = [ "docker-alloy.service" ];
-      sopsFile = ../../secrets/grafana-cloud.yaml;
-    };
-    "hass_token" = {
-      owner = "alloy";
-      restartUnits = [ "docker-alloy.service" ];
-      sopsFile = ../../secrets/grafana-cloud.yaml;
-    };
+  sops.secrets.gc_token = {
+    owner = "alloy";
+    restartUnits = [ "docker-alloy.service" ];
+    sopsFile = ../../../secrets/grafana-cloud.yaml;
   };
 
   users.extraUsers.alloy = {
@@ -67,7 +60,6 @@ in
 
       environmentFiles = [
         config.sops.secrets.gc_token.path
-        config.sops.secrets.hass_token.path
       ];
     };
   };

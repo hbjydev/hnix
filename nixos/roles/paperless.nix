@@ -28,7 +28,7 @@ in
     forceSSL = true;
     kTLS = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${config.services.paperless.port}";
+      proxyPass = "http://127.0.0.1:${toString config.services.paperless.port}";
       proxyWebsockets = true;
     };
   };

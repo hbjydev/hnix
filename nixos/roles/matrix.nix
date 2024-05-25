@@ -7,7 +7,12 @@ in
   imports = [
     ../mixins/nginx.nix
   ];
- 
+
+  sops.secrets.matrix_sliding_sync_env = {
+    owner = "root";
+    restartUnits = [ "matrix-sliding-sync.service" ];
+  };
+
   services.nginx.virtualHosts."matrix.${domain}" = {
     enableACME = true;
     forceSSL = true;

@@ -1,5 +1,7 @@
 { ... }:
 {
+  imports = [ ../mixins/docker.nix ];
+
   virtualisation.oci-containers.containers = {
     unifi = {
       autoStart = true;

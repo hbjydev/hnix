@@ -1,6 +1,10 @@
 { ... }:
-
+let
+  domain = "hayden.moe";
+in
 {
+  imports = [ ../mixins/nginx.nix ];
+
   systemd.services.home-assistant.serviceConfig.LimitNOFILE = 4096;
   services.home-assistant = {
     enable = true;
@@ -37,22 +41,8 @@
         time_zone = "Europe/London";
         temperature_unit = "C";
 
-        external_url = "https://home.hayden.moe";
+        external_url = "https://hass.${domain}";
       };
-
-      prometheus = { namespace = "hy_hass"; };
-
-      #waste_collection_schedule = {
-      #  sources = [ { name = "sheffield_gov_uk"; } ];
-      #};
-
-      #sensor = [
-      #  {
-      #    platform = "waste_collection_schedule";
-      #    source_index = 0;
-      #    name = "Sheffield Waste Collection";
-      #  }
-      #];
 
       frontend = {
         themes = "!include_dir_merge_named themes";
@@ -65,5 +55,11 @@
     };
   };
 
-
+  services.nginx.virtualHosts."hass.${domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://localhost:8123";
+    };
+  };
 }
