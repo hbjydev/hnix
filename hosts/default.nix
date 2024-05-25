@@ -1,8 +1,10 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
+
+    ../nixos/mixins/nix.nix
   ] ++ (lib.my.mapModulesRec' (toString ../modules) import);
 
   programs._1password.enable = true;
