@@ -5,6 +5,7 @@
 
     ./locale.nix
     ./nix.nix
+    ./security.nix
   ];
 
   programs.zsh.enable = true;
