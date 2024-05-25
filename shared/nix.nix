@@ -1,7 +1,5 @@
 { hostType, lib, pkgs, nixpkgs, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
-
   nix = {
     package = pkgs.nixVersions.latest;
 

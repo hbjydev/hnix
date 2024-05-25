@@ -27,9 +27,17 @@ let
             home-manager = {
               sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
               extraSpecialArgs = specialArgs type work username;
+              useGlobalPkgs = true;
+              useUserPackages = true;
             };
           }
           (../hosts + "/${hostname}")
+          {
+            nixpkgs.pkgs = import inputs.nixpkgs {
+              system = hostPlatform;
+              config.allowUnfree = true;
+            };
+          }
         ];
         specialArgs = specialArgs type work username;
       });

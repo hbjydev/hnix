@@ -21,5 +21,5 @@
 
   home.file.".background-img".source = ../../../img/lain.jpg;
 
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.11";
 }
