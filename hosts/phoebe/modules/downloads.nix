@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 let
   mkMediaService = (attrs:
     {
@@ -8,31 +8,7 @@ let
   );
 in
 {
-  fileSystems."/storage" =
-    {
-      device = "192.168.1.2:/volume1/media";
-      fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" ];
-    };
-
-  fileSystems."/downloads" =
-    {
-      device = "192.168.1.2:/volume1/downloads";
-      fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" ];
-    };
-
-  # Shared group (and user for Docker) to deal with permissions
-  users.extraUsers.media = {
-    isNormalUser = true;
-    home = "/dev/null";
-    uid = 1234;
-    description = "Media user";
-    createHome = false;
-    shell = "/sbin/nologin";
-  };
-
-  users.groups.media = { };
+  imports = [ ./media.nix ./nas.nix ];
 
   # Downloads
   services.sabnzbd = mkMediaService { };
@@ -45,10 +21,6 @@ in
   services.sonarr = mkMediaService { };
   services.lidarr = mkMediaService { };
   services.readarr = mkMediaService { };
-
-  services.jellyseerr.enable = true;
-  services.jellyfin = mkMediaService { };
-  systemd.services.jellyfin.after = [ "storage.mount" ];
 
   services.calibre-server = mkMediaService {
     port = 8181;
@@ -66,15 +38,6 @@ in
   };
 
   virtualisation.oci-containers.containers = {
-    wizarr = {
-      autoStart = true;
-      image = "ghcr.io/wizarrrr/wizarr:3.5.1";
-      ports = [ "5690:5690" ];
-      volumes = [
-        "/storage/wizarr:/data/database"
-      ];
-    };
-
     homarr = {
       autoStart = true;
       image = "ghcr.io/ajnart/homarr:0.14.2";

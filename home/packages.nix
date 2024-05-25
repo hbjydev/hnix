@@ -4,6 +4,7 @@
   (pkgs.callPackage ../pkgs/bins {})
 
   pkgs._1password
+  pkgs.act
   pkgs.awscli2
   pkgs.bun
   pkgs.cachix

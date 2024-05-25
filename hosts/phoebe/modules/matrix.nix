@@ -1,5 +1,8 @@
 # Configures a Conduit homeserver for use on Matrix.
 { config, ... }:
+let
+  inherit (import ../consts.nix) domain;
+in
 {
   imports = [ ./nginx.nix ];
 
@@ -9,7 +12,7 @@
     restartUnits = [ "matrix-sliding-sync.service" ];
   };
 
-  services.nginx.virtualHosts."matrix.hayden.moe" = {
+  services.nginx.virtualHosts."matrix.${domain}" = {
     locations."/_matrix" = {
       proxyPass = "http://localhost:6167";
     };
@@ -19,7 +22,7 @@
     enable = true;
     settings = {
       global = {
-        server_name = "hayden.moe";
+        server_name = domain;
         database_backend = "rocksdb";
         trusted_servers = [ "matrix.org" "nixos.org" "libera.chat" ];
       };
@@ -30,7 +33,7 @@
     enable = true;
     environmentFile = config.sops.secrets.matrix_sliding_sync_env.path;
     settings = {
-      SYNCV3_SERVER = "https://matrix.hayden.moe";
+      SYNCV3_SERVER = "https://matrix.${domain}";
       SYNCV3_DB = "postgresql://slidingsync@127.0.0.1/slidingsync?sslmode=disable";
       SYNCV3_BINDADDR = "0.0.0.0:8009";
     };

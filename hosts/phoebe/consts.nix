@@ -1,0 +1,3 @@
+{
+  domain = "hayden.moe";
+}
