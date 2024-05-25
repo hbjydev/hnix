@@ -1,7 +1,7 @@
-{ inputs, pkgs, ... }:
+{ deploy-rs, hvim, build-configs, pkgs, ... }:
 {
   home.packages = [
-    (pkgs.callPackage ../pkgs/bins {})
+    (pkgs.callPackage ../../../pkgs/bins {})
 
     pkgs._1password
     pkgs.act
@@ -30,8 +30,8 @@
     pkgs.viddy
     pkgs.weechat
 
-    inputs.deploy-rs.packages.${pkgs.system}.default
-    inputs.hvim.packages.${pkgs.system}.default
-    inputs.build-configs.packages.${pkgs.system}.default
+    deploy-rs.packages.${pkgs.system}.default
+    hvim.packages.${pkgs.system}.default
+    build-configs.packages.${pkgs.system}.default
   ];
 }
