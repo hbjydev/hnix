@@ -15,6 +15,8 @@
     ./modules/steam.nix
   ];
 
+  programs._1password.enable = true;
+
   boot.tmpOnTmpfsSize = "16G";
   boot.loader = {
     efi.canTouchEfiVariables = true;
