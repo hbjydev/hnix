@@ -9,17 +9,19 @@
     environmentFiles = [ config.sops.secrets.gc_token.path ];
     extraArgs = "--stability.level public-preview";
     configPath = "/etc/alloy";
+    group = "root";
+    user = "root";
   };
 
   sops.secrets.gc_token = {
-    owner = "alloy";
-    restartUnits = [ "docker-alloy.service" ];
+    owner = config.services.alloy.user;
+    restartUnits = [ "alloy.service" ];
     sopsFile = ../../../secrets/grafana-cloud.yaml;
   };
 
   environment.etc."alloy/config.alloy" = {
     source = ./config.alloy;
     mode = "0440";
-    user = "alloy";
+    user = config.services.alloy.user;
   };
 }

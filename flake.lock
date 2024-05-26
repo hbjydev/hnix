@@ -676,11 +676,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1716749484,
-        "narHash": "sha256-NKXIfS8ix5dEAiJCn/NTJX1FAHPUFuwFOanHelgudq0=",
+        "lastModified": 1716750670,
+        "narHash": "sha256-+SUec/ApJm5bUhvLaBINid9cl3i6puFUGTLNqI3Ud+Y=",
         "owner": "ALT-F4-LLC",
         "repo": "pkgs.nix",
-        "rev": "dfb4cb2b10a4151bfc0fd8844a9b9fb0857c0500",
+        "rev": "543fc189f16f1cfcfaa647dd6b570155b88642f7",
         "type": "github"
       },
       "original": {
