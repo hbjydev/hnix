@@ -1,0 +1,8 @@
+prometheus.scrape "nginx" {
+  targets    = [
+    {__address__ = "127.0.0.1:9113", job = "nginx"},
+  ]
+  forward_to = [prometheus.relabel.instance.receiver]
+}
+
+// vim:ft=hcl
