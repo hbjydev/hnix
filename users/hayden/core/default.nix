@@ -19,7 +19,5 @@
     PATH = "$PATH:$GOPATH/bin";
   };
 
-  home.file.".background-img".source = ../../../img/lain.jpg;
-
   home.stateVersion = "24.11";
 }

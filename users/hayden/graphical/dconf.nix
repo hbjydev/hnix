@@ -1,5 +1,7 @@
-{ hostType, ... }:
-if hostType == "nixos" then {
+{ hostType, lib, ... }:
+{
+  home.file.".background-img".source = ../../../img/bocchi.jpg;
+} // lib.attrsets.optionalAttrs (hostType == "nixos") {
   dconf.settings = {
     "org/gnome/desktop/background" = {
       "picture-uri" = "/home/hayden/.background-img";
@@ -32,4 +34,3 @@ if hostType == "nixos" then {
     };
   };
 }
-else { }
