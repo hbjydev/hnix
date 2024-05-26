@@ -1,6 +1,7 @@
 prometheus.exporter.cadvisor "docker" {
-  docker_only      = true
-  storage_duration = "5m"
+  store_container_labels = false
+  docker_only            = true
+  storage_duration       = "5m"
 }
 
 prometheus.scrape "docker" {
