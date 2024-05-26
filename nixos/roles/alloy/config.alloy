@@ -40,12 +40,12 @@ prometheus.relabel "instance" {
 
 prometheus.exporter.unix "host" { }
 
-prometheus.exporter.self "alloy" { }
-
 prometheus.scrape "host" {
   targets    = prometheus.exporter.unix.host.targets
   forward_to = [prometheus.relabel.instance.receiver]
 }
+
+prometheus.exporter.self "alloy" { }
 
 prometheus.scrape "alloy" {
   targets    = prometheus.exporter.self.alloy.targets

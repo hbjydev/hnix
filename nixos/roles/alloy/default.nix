@@ -7,6 +7,7 @@
     package = pkgs-nix.packages.${pkgs.system}.alloy;
     openFirewall = true;
     environmentFiles = [ config.sops.secrets.gc_token.path ];
+    extraArgs = "--stability.level public-preview";
   };
 
   sops.secrets.gc_token = {
