@@ -8,6 +8,7 @@
     openFirewall = true;
     environmentFiles = [ config.sops.secrets.gc_token.path ];
     extraArgs = "--stability.level public-preview";
+    configPath = "/etc/alloy";
   };
 
   sops.secrets.gc_token = {
