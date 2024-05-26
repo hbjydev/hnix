@@ -38,19 +38,9 @@ prometheus.relabel "instance" {
   }
 }
 
-prometheus.exporter.unix "host" {
-  procfs_path = "/host/proc"
-  sysfs_path = "/host/sys"
-  rootfs_path = "/rootfs"
-  udev_data_path = "/host/run/udev/data"
+prometheus.exporter.unix "host" { }
 
-  filesystem {
-    mount_points_exclude = "^/(sys|proc|dev|host|etc)($$|/)"
-  }
-}
-
-prometheus.exporter.self "alloy" {
-}
+prometheus.exporter.self "alloy" { }
 
 prometheus.scrape "host" {
   targets    = prometheus.exporter.unix.host.targets

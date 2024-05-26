@@ -19,10 +19,12 @@
       substituters = [
         "https://nix-community.cachix.org"
         "https://ghostty.cachix.org"
+        "https://altf4llc-os.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+        "altf4llc-os.cachix.org-1:9mjdTiW005IKsaVtapDSvkbskvoQ7t4/Q5S3FsQJ/5A="
       ];
       cores = 0;
       max-jobs = "auto";

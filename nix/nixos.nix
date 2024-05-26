@@ -8,6 +8,7 @@ let
     hostType = type;
     inherit work username;
     inherit (inputs)
+      pkgs-nix
       sops-nix
       ghostty-hm
       ghostty

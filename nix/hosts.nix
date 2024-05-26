@@ -45,6 +45,7 @@ in
     address = "192.168.1.3";
     hostPlatform = "x86_64-linux";
     pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKeD80MhQQE4ZjSMsLq0hgDRWq/AuGYoqFJiBl8cGZZ";
+    remoteBuild = false;
   };
 
   titan = mkHost {
