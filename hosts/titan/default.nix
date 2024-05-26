@@ -14,6 +14,9 @@
     ../../nixos/mixins/docker
   ];
 
+  boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = "16G";
+
   programs._1password.enable = true;
 
   networking.hostName = "titan";
