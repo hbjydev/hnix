@@ -10,7 +10,8 @@ in
     mongodbPackage = pkgs.mongodb;
   };
 
-  networking.firewall.allowedTCPPorts = [ 8443 ];
+  networking.firewall.allowedTCPPorts = [ 8443 51893 ];
+  networking.firewall.allowedUDPPorts = [ 514 ];
 
   # Configure a syslog server for devices to log to
   environment.etc = lib.mkIf alloyEnabled {
@@ -19,6 +20,15 @@ in
       mode = "0440";
       user = config.services.alloy.user;
     };
+  };
+
+  services.syslog-ng = lib.mkIf alloyEnabled {
+    enable = true;
+    extraConfig = ''
+      source udp { syslog(ip(0.0.0.0) port(514) transport("udp")); };
+      destination syslog_in { file("/var/log/syslog-in"); };
+      log { source(udp); destination(syslog_in); };
+    '';
   };
 
   systemd = {

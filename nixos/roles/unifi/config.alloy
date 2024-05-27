@@ -1,16 +1,38 @@
-loki.source.syslog "syslog" {
-  listener {
-    address = "127.0.0.1:51893"
-    labels = { component = "loki.source.syslog", protocol = "tcp" }
-  }
-
-  listener {
-    address = "127.0.0.1:51898"
-    labels = { component = "loki.source.syslog", protocol = "udp" }
-  }
-
-  relabel_rules = loki.relabel.journal.rules
+loki.relabel "syslog" {
   forward_to = [gcloud.stack.default.logs]
+
+  rule {
+    target_label = "instance"
+    replacement = "phoebe"
+  }
+}
+
+loki.process "syslog" {
+  stage.regex {
+    expression = `(?P<ts>[A-Z][a-z][a-z]\s{1,2}\d{1,2}\s\d{2}[:]\d{2}[:]\d{2})\s(?P<host>[\w][\w\d\.@-]*)\s(?P<log>.*)$`
+  }
+
+  stage.labels {
+    values = { hostname = "host" }
+  }
+
+  stage.timestamp {
+    source = "ts"
+    format = "Jan _2 15:04:05"
+  }
+
+  stage.output {
+    source = "log"
+  }
+
+  forward_to = [loki.relabel.syslog.receiver]
+}
+
+loki.source.file "syslog" {
+  targets = [
+    { __path__ = "/var/log/syslog-in", job = "syslog" },
+  ]
+  forward_to = [loki.process.syslog.receiver]
 }
 
 // vim:ft=hcl
