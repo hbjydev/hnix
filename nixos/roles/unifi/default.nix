@@ -3,6 +3,14 @@ let
   alloyEnabled = builtins.hasAttr "alloy" config.services && config.services.alloy.enable;
 in
 {
+  sops.secrets = lib.mkIf alloyEnabled {
+    unifi_passwd = {
+      sopsFile = ../../../secrets/unifi.yaml;
+      owner = "unpoller-exporter";
+      restartUnits = [ "prometheus-unpoller-exporter.service" ];
+    };
+  };
+
   services.unifi = {
     enable = true;
     openFirewall = true;
@@ -29,6 +37,18 @@ in
       destination syslog_in { file("/var/log/syslog-in"); };
       log { source(udp); destination(syslog_in); };
     '';
+  };
+
+  services.prometheus.exporters.unpoller = lib.mkIf alloyEnabled {
+    enable = true;
+    controllers = [
+      {
+        user = "unifipoller";
+        pass = config.sops.secrets.unifi_passwd.path;
+        url = "https://127.0.0.1:8443";
+        verify_ssl = false;
+      }
+    ];
   };
 
   systemd = {

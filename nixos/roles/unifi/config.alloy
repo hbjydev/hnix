@@ -35,4 +35,11 @@ loki.source.file "syslog" {
   forward_to = [loki.process.syslog.receiver]
 }
 
+prometheus.scrape "unifi" {
+  targets    = [
+    {__address__ = "127.0.0.1:9130", job = "unifi"},
+  ]
+  forward_to = [prometheus.relabel.instance.receiver]
+}
+
 // vim:ft=hcl
