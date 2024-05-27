@@ -1,0 +1,16 @@
+loki.source.syslog "syslog" {
+  listener {
+    address = "127.0.0.1:51893"
+    labels = { component = "loki.source.syslog", protocol = "tcp" }
+  }
+
+  listener {
+    address = "127.0.0.1:51898"
+    labels = { component = "loki.source.syslog", protocol = "udp" }
+  }
+
+  relabel_rules = loki.relabel.journal.rules
+  forward_to = [gcloud.stack.default.logs]
+}
+
+// vim:ft=hcl

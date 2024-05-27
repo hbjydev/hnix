@@ -1,25 +1,23 @@
-{ ... }:
+{ config, lib, pkgs, ... }:
+let
+  alloyEnabled = builtins.hasAttr "alloy" config.services && config.services.alloy.enable;
+in
 {
-  imports = [ ../../mixins/docker ];
+  services.unifi = {
+    enable = true;
+    openFirewall = true;
+    unifiPackage = pkgs.unifi8;
+    mongodbPackage = pkgs.mongodb;
+  };
 
-  virtualisation.oci-containers.containers = {
-    unifi = {
-      autoStart = true;
-      image = "jacobalberty/unifi:v8.1.113";
-      user = "root";
-      ports = [
-        "8080:8080"
-        "8443:8443"
-        "3478:3478/udp"
-        "8843:8843"
-        "8880:8880"
-      ];
-      environment = {
-        "TZ" = "Europe/London";
-      };
-      volumes = [
-        "/local/unifi:/unifi"
-      ];
+  networking.firewall.allowedTCPPorts = [ 8443 ];
+
+  # Configure a syslog server for devices to log to
+  environment.etc = lib.mkIf alloyEnabled {
+    "alloy/unifi.alloy" = {
+      source = ./config.alloy;
+      mode = "0440";
+      user = config.services.alloy.user;
     };
   };
 
@@ -33,11 +31,8 @@
     services.unifi-backup = {
       serviceConfig.Type = "oneshot";
       script = ''
-        cp /local/unifi/data/backup/autobackup/*.unf /storage/unifi/backup/
+        cp /var/lib/unifi/data/backup/autobackup/*.unf /storage/unifi/backup/
       '';
     };
   };
-
-  networking.firewall.allowedTCPPorts = [ 8080 8443 8843 8880 ];
-  networking.firewall.allowedUDPPorts = [ 3478 ];
 }
