@@ -1,7 +1,7 @@
 { username, pkgs, ... }:
 {
   home-manager.users.${username} = {
-    imports = [];
+    imports = [ ./graphical ];
   };
 
   users.users.${username} = {

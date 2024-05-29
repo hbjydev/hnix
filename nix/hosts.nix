@@ -61,5 +61,7 @@ in
     address = "127.0.0.1";
     hostPlatform = "aarch64-darwin";
     pubkey = "";
+    username = "haydenyoung";
+    work = true;
   };
 }
