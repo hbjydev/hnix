@@ -1,4 +1,4 @@
-{ hostType, lib, pkgs, nixpkgs, ... }:
+{ hostType, lib, pkgs, nixpkgs, flake-parts, ... }:
 {
   nix = {
     package = pkgs.nixVersions.latest;
@@ -6,6 +6,7 @@
     registry = {
       nixpkgs.flake = nixpkgs;
       nx.flake = nixpkgs;
+      flake-parts.flake = flake-parts;
     };
 
     settings = {
