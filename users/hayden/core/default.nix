@@ -5,7 +5,6 @@
     ./git.nix
     ./nix.nix
     ./packages.nix
-    ./pyenv.nix
     ./sops.nix
     ./ssh.nix
     ./zsh.nix
