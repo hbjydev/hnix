@@ -1,4 +1,4 @@
-{ deploy-rs, hvim, build-configs, pkgs, ... }:
+{ attic, deploy-rs, hvim, build-configs, pkgs, ... }:
 {
   home.packages = [
     (pkgs.callPackage ../../../pkgs/bins {})
@@ -30,6 +30,7 @@
     pkgs.viddy
     pkgs.weechat
 
+    attic.packages.${pkgs.system}.attic
     deploy-rs.packages.${pkgs.system}.default
     hvim.packages.${pkgs.system}.default
     build-configs.packages.${pkgs.system}.default
