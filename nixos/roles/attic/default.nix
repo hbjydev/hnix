@@ -38,5 +38,8 @@ in
     locations."/" = {
       proxyPass = "http://localhost:8899";
     };
+    extraConfig = ''
+      client_max_body_size 4G;
+    '';
   }; 
 }
