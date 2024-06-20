@@ -15,7 +15,8 @@ let
       hvim
       build-configs
       deploy-rs
-      flake-parts;
+      flake-parts
+      attic;
   };
 
   genConfiguration = hostname: { hostPlatform, type, work, username, ... }:

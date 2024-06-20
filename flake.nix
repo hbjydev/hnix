@@ -51,6 +51,8 @@
 
     pkgs-nix.url = "github:ALT-F4-LLC/pkgs.nix?ref=alloy-pkg";
     pkgs-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    attic.url = "github:zhaofengli/attic";
   };
 
   outputs = inputs@{ flake-parts, ... }:
