@@ -27,6 +27,10 @@
 
   sops.secrets.matrix_sliding_sync_env.sopsFile = ./secrets/matrix.yaml;
 
+  sops.secrets.restic_env.sopsFile = ./secrets/restic.yaml;
+  sops.secrets.restic_repo.sopsFile = ./secrets/restic.yaml;
+  sops.secrets.restic_password.sopsFile = ./secrets/restic.yaml;
+
   services.nginx.virtualHosts."imgs.hayden.moe" = {
     enableACME = true;
     forceSSL = true;
