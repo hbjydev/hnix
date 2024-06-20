@@ -15,7 +15,7 @@
       allowed-users = [ "@wheel" ];
       build-users-group = "nixbld";
       builders-use-substitutes = true;
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [ "root" "@wheel" "@staff" ];
       sandbox = hostType == "nixos";
       substituters = [
         "https://nix-community.cachix.org"
