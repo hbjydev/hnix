@@ -10,7 +10,7 @@ creation_rules:
           - *adm_hayden
           - *dev_nixnuc
           - *dev_workmac
-  - path_regex: secrets/nixnuc/[^/]+\.(yaml|json|env|ini)$
+  - path_regex: hosts/phoebe/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
           - *adm_hayden

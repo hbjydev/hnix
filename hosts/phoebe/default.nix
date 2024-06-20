@@ -19,6 +19,7 @@
     ../../nixos/roles/jellyfin
     ../../nixos/roles/matrix
     ../../nixos/roles/paperless
+    ../../nixos/roles/restic
     ../../nixos/roles/unifi
   ];
 
