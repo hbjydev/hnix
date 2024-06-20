@@ -10,7 +10,7 @@
 
   services.alloy = {
     enable = true;
-    extraArgs = ["--stability.level=public-preview"];
+    extraFlags = ["--stability.level=public-preview"];
   };
 
   systemd.services.alloy.serviceConfig.EnvironmentFile = [ config.sops.secrets.gc_token.path ];
