@@ -5,6 +5,10 @@ import.git "gcloud" {
   pull_frequency = "15m"
 }
 
+local.file "hostname" {
+  filename = "/etc/hostname"
+}
+
 gcloud.stack "default" {
   stack_name = "kuraudo"
   token = env("GCLOUD_TOKEN")
@@ -20,7 +24,7 @@ loki.relabel "journal" {
 
   rule {
     target_label = "instance"
-    replacement = "phoebe"
+    replacement = local.file.hostname.content
   }
 }
 
@@ -34,7 +38,7 @@ prometheus.relabel "instance" {
   forward_to = [gcloud.stack.default.metrics]
   rule {
     target_label = "instance"
-    replacement = "phoebe"
+    replacement = local.file.hostname.content
   }
 }
 
