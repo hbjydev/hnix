@@ -40,7 +40,7 @@
 
     hvim = {
       url = "github:hbjydev/hvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";

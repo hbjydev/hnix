@@ -550,9 +550,7 @@
     "hvim": {
       "inputs": {
         "flake-parts": "flake-parts_3",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim"
       },
       "locked": {
@@ -745,6 +743,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1718710757,
+        "narHash": "sha256-zzHTI7iQByeuGDto16eRwPflCf3xfVOJJSB0/cnEd2s=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "56fc115880db6498245adecda277ccdb33025bc2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1718530797,
         "narHash": "sha256-pup6cYwtgvzDpvpSCFh1TEUjw2zkNpk8iolbKnyFmmU=",
         "owner": "nixos",
@@ -820,7 +834,7 @@
         "ghostty-hm": "ghostty-hm",
         "home-manager": "home-manager",
         "hvim": "hvim",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "pkgs-nix": "pkgs-nix",
         "sops-nix": "sops-nix"
       }
