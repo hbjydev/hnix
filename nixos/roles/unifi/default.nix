@@ -23,11 +23,7 @@ in
 
   # Configure a syslog server for devices to log to
   environment.etc = lib.mkIf alloyEnabled {
-    "alloy/unifi.alloy" = {
-      source = ./config.alloy;
-      mode = "0440";
-      user = config.services.alloy.user;
-    };
+    "alloy/unifi.alloy".source = ./config.alloy;
   };
 
   services.syslog-ng = lib.mkIf alloyEnabled {

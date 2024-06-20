@@ -26,11 +26,7 @@ in
   };
 
   environment.etc = lib.mkIf alloyEnabled {
-    "alloy/nginx.alloy" = {
-      source = ./config.alloy;
-      mode = "0440";
-      user = config.services.alloy.user;
-    };
+    "alloy/nginx.alloy".source = ./config.alloy;
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];

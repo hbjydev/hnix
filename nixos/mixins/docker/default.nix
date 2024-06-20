@@ -8,15 +8,11 @@ in
     oci-containers.backend = "docker";
   };
 
-  users.users = lib.mkIf (alloyEnabled && config.services.alloy.user == "alloy") {
-    alloy.extraGroups = [ "docker" ];
+  systemd.services = lib.mkIf alloyEnabled {
+    alloy.serviceConfig.SupplementaryGroups = [ "docker" ];
   };
 
   environment.etc = lib.mkIf alloyEnabled {
-    "alloy/docker.alloy" = {
-      source = ./config.alloy;
-      mode = "0440";
-      user = config.services.alloy.user;
-    };
+    "alloy/docker.alloy".source = ./config.alloy;
   };
 }
