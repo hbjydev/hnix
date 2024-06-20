@@ -1,7 +1,6 @@
 { config, ... }:
 {
   sops.secrets.gc_token = {
-    owner = config.services.alloy.user;
     restartUnits = [ "alloy.service" ];
     sopsFile = ../../../secrets/grafana-cloud.yaml;
   };
