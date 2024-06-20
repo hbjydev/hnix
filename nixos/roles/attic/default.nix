@@ -1,4 +1,4 @@
-{ attic, ... }:
+{ attic, config, ... }:
 let
   domain = "cache.hayden.moe";
   url = "https://cache.hayden.moe/";
@@ -9,7 +9,7 @@ in
   services.atticd = {
     enable = true;
 
-    credentialsFile = "/etc/atticd.env";
+    credentialsFile = config.sops.secrets.atticd_env.path;
 
     settings = {
       listen = "127.0.0.1:8899";
