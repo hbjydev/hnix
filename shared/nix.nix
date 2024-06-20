@@ -18,6 +18,7 @@
       trusted-users = [ "root" "@wheel" ] ++ (lib.optionals (hostType == "darwin") [ "haydenyoung" ]);
       sandbox = hostType == "nixos";
       substituters = [
+        "https://cache.hayden.moe/hayden"
         "https://nix-community.cachix.org"
         "https://ghostty.cachix.org"
         "https://altf4llc-os.cachix.org"
