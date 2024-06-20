@@ -12,6 +12,7 @@
 
     # Services
     ../../nixos/roles/alloy
+    ../../nixos/roles/attic
     ../../nixos/roles/arr
     ../../nixos/roles/cgit
     ../../nixos/roles/home-assistant
