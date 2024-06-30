@@ -51,7 +51,7 @@ jobs:
         uses: cachix/cachix-action@v15
         with:
           name: nix-community
-          extraPullNames: numtide
+          extraPullNames: numtide,ghostty
 
       - name: Validate flakes
         run: nix flake check
