@@ -28,6 +28,11 @@ jobs:
           remove-haskell: true
           remove-codeql: true
 
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
       - uses: actions/checkout@v4
         name: Checkout
 
