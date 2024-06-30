@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - config/**
-      - flake.nix
-      - flake.lock
+    paths-ignore:
+      - .github/**
+      - .gitignore
+      - README.md
+      - .envrc
 
 jobs:
   cache:
