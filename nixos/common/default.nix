@@ -7,6 +7,7 @@
     ./locale.nix
     ./networking.nix
     ./nix.nix
+    ./plymouth.nix
     ./security.nix
   ];
 
