@@ -57,4 +57,4 @@ jobs:
         run: nix flake check
 
       - name: Build neovim with defaults
-        run: nix build .#nixosConfigurations.${{ inputs.configuration }}.config.system.build.toplevel --print-build-logs
+        run: nix build .#nixosConfigurations.${{ matrix.configuration }}.config.system.build.toplevel --print-build-logs
