@@ -38,10 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hvim = {
-      url = "github:hbjydev/hvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    hvim.url = "github:hbjydev/hvim";
 
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
     ghostty-hm.url = "github:clo4/ghostty-hm-module";
