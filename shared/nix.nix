@@ -24,6 +24,7 @@
         "https://altf4llc-os.cachix.org"
       ];
       trusted-public-keys = [
+        "hayden:11XFX2/dPhIIdk2tXAcX63EgFDSNyHfISMozZ9iw7M8="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
         "altf4llc-os.cachix.org-1:9mjdTiW005IKsaVtapDSvkbskvoQ7t4/Q5S3FsQJ/5A="
