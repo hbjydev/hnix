@@ -28,6 +28,7 @@
     pkgs.obs-studio-plugins.wlrobs
     pkgs.steamcmd
     pkgs.steam-tui
+    pkgs.wally-cli
   ];
 
   programs.steam = {
@@ -37,4 +38,6 @@
   };
 
   networking.networkmanager.enable = true;
+
+  hardware.keyboard.zsa.enable = true;
 }
