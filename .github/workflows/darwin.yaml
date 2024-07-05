@@ -1,0 +1,59 @@
+---
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .github/**
+      - .gitignore
+      - README.md
+      - .envrc
+
+jobs:
+  cache:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        configuration:
+          - work
+    steps:
+      - uses: easimon/maximize-build-space@v10
+        name: Maximize build space
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+          remove-codeql: true
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - uses: actions/checkout@v4
+        name: Checkout
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Setup my cache
+        uses: ryanccn/attic-action@v0.2.1
+        with:
+          endpoint: https://cache.hayden.moe/
+          cache: hayden
+          token: ${{ secrets.ATTIC_TOKEN }}
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: nix-community
+          extraPullNames: numtide,ghostty
+
+      - name: Validate flakes
+        run: nix flake check
+
+      - name: Build neovim with defaults
+        run: nix build .#darwinConfigurations.${{ matrix.configuration }}.config.system.build.toplevel --print-build-logs
