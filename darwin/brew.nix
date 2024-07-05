@@ -38,6 +38,7 @@
       "discord"
       "element"
       "httpie"
+      "keymapp"
       "notion"
       "orbstack"
       "raycast"
