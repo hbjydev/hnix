@@ -47,4 +47,6 @@ jobs:
         run: nix flake check
 
       - name: Build neovim with defaults
-        run: nix build .#darwinConfigurations.${{ matrix.configuration }}.config.system.build.toplevel --print-build-logs
+        env:
+          NIXPKGS_ALLOW_UNFREE: '1'
+        run: nix build .#darwinConfigurations.${{ matrix.configuration }}.config.system.build.toplevel --print-build-logs --accept-flake-config --impure
