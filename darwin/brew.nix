@@ -31,7 +31,7 @@
       upgrade = true;
     };
 
-    brews = [ "git" "mas" ];
+    brews = [ "git" "mas" "nginx" "mysql-client" ];
 
     casks = [
       "arc"
