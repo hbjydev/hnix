@@ -19,6 +19,9 @@
     ];
     variables = {
       SHELL = lib.getExe pkgs.zsh;
+      LDFLAGS = "-L/opt/homebrew/opt/mysql-client@8.0/lib";
+      CPPFLAGS = "-L/opt/homebrew/opt/mysql-client@8.0/include";
+      PKG_CONFIG_PATH = "/opt/homebrew/opt/mysql-client@8.0/lib/pkgconfig";
     };
   };
 
@@ -31,7 +34,9 @@
       upgrade = true;
     };
 
-    brews = [ "git" "mas" "nginx" "mysql-client" ];
+    taps = [ "homebrew/services" ];
+
+    brews = [ "git" "mas" "nginx" "mysql-client@8.0" "pkg-config" ];
 
     casks = [
       "arc"
