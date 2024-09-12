@@ -40,4 +40,11 @@
   networking.networkmanager.enable = true;
 
   hardware.keyboard.zsa.enable = true;
+
+  services.dnsmasq = {
+    enable = true;
+    extraConfig = ''
+      address=/.lcl/127.0.0.1
+    '';
+  };
 }
