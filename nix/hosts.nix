@@ -56,6 +56,7 @@ in
     pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFS3HBLH48BD7LXlGxoJFuHvzKJz8+gDY7glQPbMDmH8";
     remoteBuild = false;
     homeDirectory = "/home/hayden";
+    desktop = true;
   };
 
   work = mkHost {
