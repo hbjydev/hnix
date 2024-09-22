@@ -35,7 +35,7 @@ let
     else if type == "home-manager" then
       assert homeDirectory != null;
       {
-        inherit type hostPlatform homeDirectory large;
+        inherit type hostPlatform homeDirectory large work username address pubkey;
       }
     else throw "unknown host type '${type}'";
 in
@@ -49,11 +49,12 @@ in
   };
 
   titan = mkHost {
-    type = "nixos";
+    type = "home-manager";
     address = "192.168.4.31";
     hostPlatform = "x86_64-linux";
-    pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEYBow7fJbllBhI09yM/W1k5TyfqsR/rg9ddVAWubri";
+    pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFS3HBLH48BD7LXlGxoJFuHvzKJz8+gDY7glQPbMDmH8";
     remoteBuild = false;
+    homeDirectory = "/home/hayden";
   };
 
   work = mkHost {
