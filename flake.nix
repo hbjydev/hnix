@@ -43,6 +43,9 @@
     hvim.url = "github:hbjydev/hvim";
 
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
+    ghostty.inputs.nixpkgs-stable.follows = "nixpkgs";
+    ghostty.inputs.nixpkgs-unstable.follows = "nixpkgs";
+
     ghostty-hm.url = "github:clo4/ghostty-hm-module";
 
     build-configs.url = "github:ALT-F4-LLC/build-configs";
