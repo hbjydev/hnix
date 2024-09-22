@@ -17,7 +17,6 @@ jobs:
       matrix:
         configuration:
           - phoebe
-          - titan
     steps:
       - uses: easimon/maximize-build-space@v10
         name: Maximize build space
