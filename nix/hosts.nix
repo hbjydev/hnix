@@ -19,6 +19,7 @@ let
     , large ? false
     , username ? "hayden"
     , work ? false
+    , desktop ? false
     }:
     if type == "nixos" then
       assert address != null && pubkey != null;
@@ -35,7 +36,7 @@ let
     else if type == "home-manager" then
       assert homeDirectory != null;
       {
-        inherit type hostPlatform homeDirectory large work username address pubkey;
+        inherit type hostPlatform homeDirectory large work username address pubkey desktop;
       }
     else throw "unknown host type '${type}'";
 in

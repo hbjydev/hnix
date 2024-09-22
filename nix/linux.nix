@@ -3,10 +3,10 @@
 let
   inherit (inputs.nixpkgs) lib;
 
-  specialArgs = addr: type: work: username: {
+  specialArgs = addr: type: work: username: desktop: {
     hostAddress = addr;
     hostType = type;
-    inherit work username;
+    inherit work username desktop;
     inherit (inputs)
       pkgs-nix
       sops-nix
@@ -21,7 +21,7 @@ let
       attic;
   };
 
-  genConfiguration = hostname: { address, hostPlatform, homeDirectory, type, work, username, ... }:
+  genConfiguration = hostname: { address, hostPlatform, homeDirectory, type, work, username, desktop, ... }:
     withSystem hostPlatform ({ ... }:
       inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs {
@@ -36,7 +36,7 @@ let
           (../hosts + "/${hostname}")
         ];
 
-        extraSpecialArgs = specialArgs address type work username;
+        extraSpecialArgs = specialArgs address type work username desktop;
       });
 in
 lib.mapAttrs

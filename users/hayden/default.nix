@@ -18,7 +18,7 @@ if hostType == "nixos" || hostType == "darwin" then {
     );
   };
 } else if hostType == "home-manager" then {
-    imports = [ ./core ./dev ];
+    imports = [ ./core ./dev ./linux.nix ];
     home.username = username;
 }
 else throw "Unknown hostType '${hostType}'"

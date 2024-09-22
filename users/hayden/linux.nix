@@ -1,6 +1,4 @@
-{ ... }:
+{ desktop, lib, ... }:
 {
-  # ...
-
-  home.stateVersion = "24.05";
+  imports = lib.optionals desktop [ ./graphical ];
 }
