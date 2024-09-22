@@ -1,7 +1,7 @@
 { ... }:
 {
   programs.go = {
-    enable = true;
+    enable = false;
     goPath = "Development/language/go";
   };
 }
