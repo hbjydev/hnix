@@ -73,6 +73,7 @@
 
     initExtra = ''
       eval "$(k9s completion zsh)"
+      export PATH="$PATH:$HOME/.local/bin"
     '';
   };
 }
