@@ -36,7 +36,18 @@
 
     taps = [ "homebrew/services" ];
 
-    brews = [ "git" "mas" "nginx" "mysql-client@8.0" "pkg-config" ];
+    brews = [
+      "git"
+      "mas"
+      "mysql-client@8.0"
+      "nginx"
+      "openjdk"
+      "opentofu"
+      "pkg-config"
+      "terraform-docs"
+      "trivy"
+      "uv"
+    ];
 
     casks = [
       "arc"
