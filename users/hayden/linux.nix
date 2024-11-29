@@ -2,6 +2,6 @@
 {
   imports = lib.optionals desktop [ ./graphical ];
 
-  news.display = false;
+  news.display = "silent";
   programs.home-manager.enable = true;
 }
