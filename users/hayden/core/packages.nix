@@ -19,6 +19,7 @@
     pkgs.k9s
     pkgs.kind
     pkgs.kubectl
+    pkgs.kubernetes-helm
     pkgs.mods
     pkgs.moreutils
     pkgs.nmap

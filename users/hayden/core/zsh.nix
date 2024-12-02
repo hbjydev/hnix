@@ -73,6 +73,19 @@
 
     initExtra = ''
       eval "$(k9s completion zsh)"
+      export PATH="$PATH:$HOME/.local/bin"
+      if [[ -d "$HOME/.cargo" ]]; then
+        . "$HOME/.cargo/env"
+      fi
+      if [[ -d "$HOME/.volta" ]]; then
+        export PATH="$PATH:$HOME/.volta/bin"
+      fi
+      if [[ -d "$HOME/.fly" ]]; then
+        export PATH="$PATH:$HOME/.fly/bin"
+      fi
+      if [[ -d "$HOME/.deno" ]]; then
+        export PATH="$PATH:$HOME/.deno/bin"
+      fi
     '';
   };
 }
