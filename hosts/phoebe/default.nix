@@ -12,7 +12,6 @@
 
     # Services
     ../../nixos/roles/alloy
-    ../../nixos/roles/attic
     ../../nixos/roles/arr
     ../../nixos/roles/home-assistant
     ../../nixos/roles/jellyfin
@@ -28,7 +27,7 @@
 
   sops.secrets.matrix_sliding_sync_env.sopsFile = ./secrets/matrix.yaml;
 
-  sops.secrets.atticd_env.sopsFile = ./secrets/atticd.yaml;
+  # sops.secrets.atticd_env.sopsFile = ./secrets/atticd.yaml;
 
   sops.secrets.restic_env.sopsFile = ./secrets/restic.yaml;
   sops.secrets.restic_repo.sopsFile = ./secrets/restic.yaml;
