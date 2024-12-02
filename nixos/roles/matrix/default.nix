@@ -59,4 +59,6 @@ in
       ensureDBOwnership = true;
     }];
   };
+
+  services.restic.backups.daily.paths = [ "/var/lib/postgresql" ];
 }

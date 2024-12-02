@@ -70,4 +70,6 @@ in
       root-desc = "Hayden's local Git mirror for personal projects";
     };
   };
+
+  services.restic.backups.daily.paths = [ "/var/lib/nginx/html_git" ];
 }

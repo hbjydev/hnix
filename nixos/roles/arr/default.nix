@@ -1,6 +1,7 @@
-{ ... }:
+{ config, ... }:
 let
   domain = "hayden.moe";
+  secret = name: config.sops.secrets."restic_${name}".path;
 in
 {
   imports = [
@@ -105,4 +106,16 @@ in
       proxyWebsockets = true;
     };
   };
+
+  services.restic.backups.daily.paths = [
+    "/var/lib/bazarr"
+    "/var/lib/jellyfin"
+    "/var/lib/private/jellyseerr"
+    "/var/lib/lidarr"
+    "/var/lib/private/prowlarr"
+    "/var/lib/radarr"
+    "/var/lib/readarr"
+    "/var/lib/sabnzbd"
+    "/var/lib/sonarr"
+  ];
 }

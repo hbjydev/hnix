@@ -14,4 +14,6 @@ in
     culture = "en_GB";
     calendar.firstDayOfWeek = 1;
   };
+
+  services.restic.backups.daily.paths = [ "/var/lib/grocy" ];
 }

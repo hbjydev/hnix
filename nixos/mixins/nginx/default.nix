@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   alloyEnabled = builtins.hasAttr "alloy" config.services && config.services.alloy.enable;
+  secret = name: config.sops.secrets."restic_${name}".path;
 in
 {
   services.nginx = {
@@ -35,4 +36,6 @@ in
   security.acme = {
     defaults.email = "acme@kuraudo.io";
   };
+
+  services.restic.backups.daily.paths = [ "/var/lib/acme" ];
 }

@@ -62,4 +62,6 @@ in
       proxyPass = "http://localhost:8123";
     };
   };
+
+  services.restic.backups.daily.paths = [ "/var/lib/hass" ];
 }

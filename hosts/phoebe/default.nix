@@ -14,12 +14,8 @@
     ../../nixos/roles/alloy
     ../../nixos/roles/attic
     ../../nixos/roles/arr
-    ../../nixos/roles/cgit
-    ../../nixos/roles/grocy
     ../../nixos/roles/home-assistant
     ../../nixos/roles/jellyfin
-    ../../nixos/roles/lmpserver
-    ../../nixos/roles/matrix
     ../../nixos/roles/paperless
     ../../nixos/roles/restic
     ../../nixos/roles/unifi
