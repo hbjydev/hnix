@@ -3,7 +3,7 @@
   home.packages = [
     (pkgs.callPackage ../../../pkgs/bins {})
 
-    pkgs._1password
+    pkgs._1password-cli
     pkgs.act
     pkgs.awscli2
     pkgs.bun

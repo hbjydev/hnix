@@ -9,8 +9,6 @@
 
   fonts.fontconfig.enable = false;
 
-  sound.enable = false;
-
   time.timeZone = "UTC";
 
   users.mutableUsers = false;
