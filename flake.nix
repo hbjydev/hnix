@@ -78,6 +78,7 @@
             devShells.default = pkgs.mkShell {
               buildInputs = [ just ssh-to-age ];
             };
+            packages.atp-pds = pkgs.callPackage ./pkgs/atp-pds/default.nix {};
           };
       });
 }

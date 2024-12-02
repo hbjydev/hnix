@@ -15,8 +15,10 @@
     ../../nixos/roles/attic
     ../../nixos/roles/arr
     ../../nixos/roles/cgit
+    ../../nixos/roles/grocy
     ../../nixos/roles/home-assistant
     ../../nixos/roles/jellyfin
+    ../../nixos/roles/lmpserver
     ../../nixos/roles/matrix
     ../../nixos/roles/paperless
     ../../nixos/roles/restic
@@ -24,6 +26,9 @@
   ];
 
   networking.hostName = "phoebe";
+
+  networking.firewall.allowedUDPPorts = [ 2402 2403 2404 2405 2406 9987 ];
+  networking.firewall.allowedTCPPorts = [ 10011 30033 ];
 
   sops.secrets.matrix_sliding_sync_env.sopsFile = ./secrets/matrix.yaml;
 

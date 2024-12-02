@@ -30,11 +30,27 @@ in
         "/var/lib/sabnzbd"
         "/var/lib/sonarr"
         "/var/lib/unifi"
+        "/local/stasiserver/configs"
+        "/local/stasiserver/missions"
       ];
       pruneOpts = [
         "--keep-daily 7"
         "--keep-weekly 5"
         "--keep-monthly 12"
+      ];
+    };
+
+    hourly = {
+      initialize = true;
+      environmentFile = secret "env";
+      repositoryFile = secret "repo";
+      passwordFile = secret "password";
+      paths = [
+        "/local/stasiserver/configs"
+        "/local/stasiserver/missions"
+      ];
+      pruneOpts = [
+        "--keep-hourly 6"
       ];
     };
   };

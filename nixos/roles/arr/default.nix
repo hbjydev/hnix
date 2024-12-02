@@ -9,6 +9,8 @@ in
     ../../mixins/nas
   ];
 
+  # services.aria2.enable = true;
+
   services.sabnzbd = {
     enable = true;
     group = "media";
@@ -18,7 +20,7 @@ in
     forceSSL = true;
     kTLS = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:8080";
+      proxyPass = "http://127.0.0.1:8180";
       proxyWebsockets = true;
     };
   };
